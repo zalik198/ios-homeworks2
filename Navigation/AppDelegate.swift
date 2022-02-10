@@ -11,9 +11,9 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-
-
-
+    
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -31,11 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), selectedImage: nil)
         
         tabBarController.viewControllers = [feedNavigationController, profileNavigationController]
-                
+        
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         return true
     }
-
+    
 }
 

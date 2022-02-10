@@ -24,9 +24,9 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationController?.addChild(postViewController)
-
+        
         let firstButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 60))
         firstButton.center = self.view.center
         firstButton.backgroundColor = .orange
@@ -36,10 +36,10 @@ class FeedViewController: UIViewController {
         self.view.addSubview(firstButton)
     }
     
-
-  @objc func showNews() {
-      postViewController.title = post.title
-      self.navigationController?.pushViewController(postViewController, animated: true)
+    
+    @objc func showNews() {
+        postViewController.title = post.title
+        self.navigationController?.pushViewController(postViewController, animated: true)
     }
     
 }

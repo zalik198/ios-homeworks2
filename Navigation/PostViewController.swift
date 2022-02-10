@@ -24,11 +24,11 @@ class PostViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        
         view.backgroundColor = .systemMint
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(addTapped))
         
@@ -36,8 +36,8 @@ class PostViewController: UIViewController {
     
     @objc func addTapped() {
         present(infoViewController, animated: true, completion: nil)
-
+        
     }
- 
-
+    
+    
 }
