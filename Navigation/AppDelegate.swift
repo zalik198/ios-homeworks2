@@ -20,19 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         self.window?.rootViewController = tabBarController
         
-        let navigationControllerNewsline = UINavigationController()
-        navigationControllerNewsline.tabBarItem = UITabBarItem(title: "Newsline", image: UIImage(named: "news"), selectedImage: nil)
-        let navigationControllerProfile = UINavigationController()
-        navigationControllerProfile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), selectedImage: nil)
-
+        let feedViewController = FeedViewController()
+        feedViewController.view.backgroundColor = .white
+        let feedNavigationController = UINavigationController(rootViewController: feedViewController)
+        feedNavigationController.tabBarItem = UITabBarItem(title: "Newsline", image: UIImage(named: "news"), selectedImage: nil)
         
-        tabBarController.viewControllers = [navigationControllerNewsline, navigationControllerProfile]
+        let profileViewController = ProfileViewController()
+        profileViewController.view.backgroundColor = .white
+        let profileNavigationController = UINavigationController(rootViewController: profileViewController)
+        profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), selectedImage: nil)
         
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .white
-        
-        navigationControllerNewsline.setViewControllers([viewController], animated: true)
-        
+        tabBarController.viewControllers = [feedNavigationController, profileNavigationController]
+                
+        self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         return true
     }
