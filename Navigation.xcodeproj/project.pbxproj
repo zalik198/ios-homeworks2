@@ -43,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		627DC94F27BEE6D200A290F1 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				62F2215627B490B400544807 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		62F2213427B4811D00544807 = {
 			isa = PBXGroup;
 			children = (
@@ -65,7 +73,7 @@
 				62F2214027B4811D00544807 /* AppDelegate.swift */,
 				62F2214227B4811D00544807 /* SceneDelegate.swift */,
 				62F2215427B490A500544807 /* FeedViewController.swift */,
-				62F2215627B490B400544807 /* ProfileViewController.swift */,
+				627DC94F27BEE6D200A290F1 /* Profile */,
 				62F2215827B4950D00544807 /* PostViewController.swift */,
 				62F2215A27B49D9200544807 /* InfoViewController.swift */,
 				62F2214427B4811D00544807 /* ViewController.swift */,

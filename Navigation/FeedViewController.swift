@@ -36,7 +36,6 @@ class FeedViewController: UIViewController {
         self.view.addSubview(firstButton)
     }
     
-    
     @objc func showNews() {
         postViewController.title = post.title
         self.navigationController?.pushViewController(postViewController, animated: true)

@@ -37,9 +37,6 @@ class InfoViewController: UIViewController {
             print("Нет, мне еще нет 18 лет!")
         }))
         self.present(alert, animated: true, completion: nil)
-        
     }
-    
-    
     
 }
