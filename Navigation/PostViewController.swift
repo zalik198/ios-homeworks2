@@ -27,7 +27,7 @@ class PostViewController: UIViewController {
         override func viewDidLoad() {
         super.viewDidLoad()
         
-                view.backgroundColor = .systemMint
+        view.backgroundColor = .systemMint
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(addTapped))
         
     }

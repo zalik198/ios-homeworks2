@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         feedNavigationController.tabBarItem = UITabBarItem(title: "Newsline", image: UIImage(named: "news"), selectedImage: nil)
         
         let profileViewController = ProfileViewController()
-        profileViewController.view.backgroundColor = .white
         let profileNavigationController = UINavigationController(rootViewController: profileViewController)
         profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), selectedImage: nil)
         
