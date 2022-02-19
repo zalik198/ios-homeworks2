@@ -53,6 +53,7 @@ class ProfileHeaderView: UIView {
         showStatus.setTitle("Show status", for: .normal)
         showStatus.setTitleColor(UIColor.white, for: .normal)
         self.addSubview(showStatus)
+        self.showStatus.addTarget(self, action: #selector(buttonShow), for: .touchUpInside)
         
         status.translatesAutoresizingMaskIntoConstraints = false
         status.text = "Рога и копыта!"
@@ -95,6 +96,10 @@ class ProfileHeaderView: UIView {
     }
     
   
+    @objc func buttonShow() {
+        let text = status.text
+        print("\(text ?? "text not found")")
+    }
   
     
     
