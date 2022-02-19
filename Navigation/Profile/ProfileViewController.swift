@@ -9,8 +9,6 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let profileHeaderView = ProfileHeaderView()
@@ -19,17 +17,9 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = .lightGray
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(profileHeaderView)
-
-        
-
     }
     
     override func viewWillLayoutSubviews() {
         self.view.subviews.first?.frame = self.view.frame
-        
     }
-    
-
-    
-
 }

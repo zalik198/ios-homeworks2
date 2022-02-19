@@ -21,7 +21,6 @@ class InfoViewController: UIViewController {
         secondButton.setTitleColor(.black, for: .normal)
         secondButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
         self.view.addSubview(secondButton)
-        
     }
     
     @objc func showAlert() {
@@ -38,5 +37,4 @@ class InfoViewController: UIViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
-    
 }
