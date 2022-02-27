@@ -73,38 +73,46 @@ class ProfileHeaderView: UIView {
         statusTextField.backgroundColor = .white
         statusTextField.addTarget(self, action: #selector(setStatus), for: .editingChanged)
         self.addSubview(statusTextField)
+        
+        initialLayout()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func initialLayout() {
         
-        NSLayoutConstraint.activate([ self.leftAnchor.constraint(equalTo: superview!.leftAnchor),
-                                      self.rightAnchor.constraint(equalTo: superview!.rightAnchor),
-                                      self.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor),
-                                      self.heightAnchor.constraint(equalToConstant: 200),
-                                      
-                                      imageView.widthAnchor.constraint(equalToConstant: 100),
-                                      imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-                                      imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-                                      imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-                                      
-                                      userName.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 20),
-                                      userName.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
-                                      userName.rightAnchor.constraint(greaterThanOrEqualTo: self.rightAnchor, constant:  -16),
-                                      
-                                      showStatus.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-                                      showStatus.rightAnchor.constraint(greaterThanOrEqualTo: self.rightAnchor, constant: -16),
-                                      showStatus.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 26),
-                                      showStatus.heightAnchor.constraint(equalToConstant: 50),
-                                      
-                                      status.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 20),
-                                      status.rightAnchor.constraint(greaterThanOrEqualTo: self.rightAnchor, constant: -16),
-                                      status.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -5),
-                                      
-                                      statusTextField.bottomAnchor.constraint(equalTo: showStatus.topAnchor, constant: -10),
-                                      statusTextField.heightAnchor.constraint(equalToConstant: 40),
-                                      statusTextField.rightAnchor.constraint(greaterThanOrEqualTo: self.rightAnchor, constant: -16),
-                                      statusTextField.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 20)])
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
+        guard let superView = superview else { return }
+        
+        [
+            self.leadingAnchor.constraint(equalTo: superView.leadingAnchor),
+            self.trailingAnchor.constraint(equalTo: superView.trailingAnchor),
+            self.topAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.topAnchor),
+            self.heightAnchor.constraint(equalToConstant: 220),
+    
+            imageView.widthAnchor.constraint(equalToConstant: 100),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            
+            userName.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
+            userName.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
+            userName.trailingAnchor.constraint(greaterThanOrEqualTo: self.trailingAnchor, constant:  -16),
+            
+            status.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
+            status.trailingAnchor.constraint(greaterThanOrEqualTo: self.trailingAnchor, constant: -16),
+            status.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -5),
+            
+            showStatus.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            showStatus.trailingAnchor.constraint(greaterThanOrEqualTo: self.trailingAnchor, constant: -16),
+            showStatus.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
+            showStatus.heightAnchor.constraint(equalToConstant: 50),
+            
+            statusTextField.bottomAnchor.constraint(equalTo: showStatus.topAnchor, constant: -10),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
+            statusTextField.trailingAnchor.constraint(greaterThanOrEqualTo: self.trailingAnchor, constant: -16),
+            statusTextField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20)
+        ]
+            .forEach { $0.isActive = true }
     }
     
     @objc func setStatus(_ textField: UITextField) {
