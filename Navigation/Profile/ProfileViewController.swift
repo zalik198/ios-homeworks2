@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController {
         title = "Новый заголовок"
         let profileHeaderView = ProfileHeaderView()
         view.addSubview(profileHeaderView)
-        profileHeaderView.initialViews()
+        profileHeaderView.initialSubviews()
         
         self.view.backgroundColor = .lightGray
         
@@ -33,6 +33,8 @@ class ProfileViewController: UIViewController {
         newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         newButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
+        
+        
     }
     
     @objc func setTitle() {
@@ -42,5 +44,7 @@ class ProfileViewController: UIViewController {
             title = "Лед тронулся, господа!"
         }
     }
+    
+  
     
 }
