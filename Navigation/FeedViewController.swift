@@ -27,13 +27,36 @@ class FeedViewController: UIViewController {
         
         self.navigationController?.addChild(postViewController)
         
-        let firstButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 60))
-        firstButton.center = self.view.center
-        firstButton.backgroundColor = .orange
-        firstButton.setTitle("Новость", for: .normal)
+        let firstButton = UIButton()
+        firstButton.backgroundColor = .blue
+        firstButton.layer.cornerRadius = 25
+        firstButton.setTitle("Первая кнопка", for: .normal)
         firstButton.setTitleColor(.black, for: .normal)
         firstButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
-        self.view.addSubview(firstButton)
+        
+        let secondButton = UIButton()
+        secondButton.backgroundColor = .red
+        secondButton.layer.cornerRadius = 25
+        secondButton.setTitle("Вторая кнопка", for: .normal)
+        secondButton.setTitleColor(.black, for: .normal)
+        secondButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
+        
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.addArrangedSubview(firstButton)
+        stackView.addArrangedSubview(secondButton)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(stackView)
+        
+        let horizontalConstraint = stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        let verticalConstraint = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        let widthConstraint = stackView.widthAnchor.constraint(equalToConstant: 150)
+        let heightConstraint = stackView.heightAnchor.constraint(equalToConstant: 150)
+        
+        NSLayoutConstraint.activate([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
     }
     
     @objc func showNews() {

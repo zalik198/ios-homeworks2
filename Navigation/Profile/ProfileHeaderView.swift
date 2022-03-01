@@ -73,9 +73,6 @@ class ProfileHeaderView: UIView {
         return statusTextField
     }()
     
-    
-    
-    
     func initialSubviews() {
         self.addSubview(fullImageView)
         self.addSubview(fullUserName)
@@ -85,7 +82,7 @@ class ProfileHeaderView: UIView {
         
         initialLayout()
     }
-
+    
     private func initialLayout() {
         
         self.translatesAutoresizingMaskIntoConstraints = false

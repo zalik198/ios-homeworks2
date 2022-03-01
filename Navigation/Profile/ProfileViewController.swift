@@ -32,9 +32,6 @@ class ProfileViewController: UIViewController {
         newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         newButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        
-        
     }
     
     @objc func setTitle() {
@@ -44,7 +41,4 @@ class ProfileViewController: UIViewController {
             title = "Лед тронулся, господа!"
         }
     }
-    
-  
-    
 }
