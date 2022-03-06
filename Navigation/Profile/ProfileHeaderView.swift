@@ -126,11 +126,8 @@ class ProfileHeaderView: UIView {
             statusText = text
         }
     }
-    
     @objc func buttonShow() {
         let newText = statusText
         fullStatus.text = newText
     }
 }
-
-

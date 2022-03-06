@@ -10,7 +10,6 @@ import UIKit
 class FeedViewController: UIViewController {
     
     var post = Post(title: "Newsline")
-    
     let postViewController: PostViewController
     
     init() {
@@ -24,31 +23,44 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationController?.addChild(postViewController)
         
-        let firstButton = UIButton()
-        firstButton.backgroundColor = .blue
-        firstButton.layer.cornerRadius = 25
-        firstButton.setTitle("Первая кнопка", for: .normal)
-        firstButton.setTitleColor(.black, for: .normal)
-        firstButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
+        let firstButton: UIButton = {
+            let myFirstButton = UIButton()
+            myFirstButton.backgroundColor = .darkGray
+            myFirstButton.layer.cornerRadius = 15
+            myFirstButton.layer.borderWidth = 3
+            myFirstButton.layer.borderColor = UIColor.white.cgColor
+            myFirstButton.setTitle("Первая кнопка", for: .normal)
+            myFirstButton.setTitleColor(.black, for: .normal)
+            myFirstButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
+            return myFirstButton
+        }()
         
-        let secondButton = UIButton()
-        secondButton.backgroundColor = .red
-        secondButton.layer.cornerRadius = 25
-        secondButton.setTitle("Вторая кнопка", for: .normal)
-        secondButton.setTitleColor(.black, for: .normal)
-        secondButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
+        let secondButton: UIButton = {
+            let mySecondButton = UIButton()
+            mySecondButton.backgroundColor = .white
+            mySecondButton.layer.borderWidth = 3
+            mySecondButton.layer.borderColor = UIColor.darkGray.cgColor
+            mySecondButton.layer.cornerRadius = 15
+            mySecondButton.setTitle("Вторая кнопка", for: .normal)
+            mySecondButton.setTitleColor(.black, for: .normal)
+            mySecondButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
+            return mySecondButton
+        }()
         
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
-        stackView.addArrangedSubview(firstButton)
-        stackView.addArrangedSubview(secondButton)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let stackView: UIStackView = {
+            let myStackView = UIStackView()
+            myStackView.axis = .vertical
+            myStackView.spacing = 10
+            myStackView.distribution = .fillEqually
+            myStackView.alignment = .fill
+            myStackView.addArrangedSubview(firstButton)
+            myStackView.addArrangedSubview(secondButton)
+            myStackView.translatesAutoresizingMaskIntoConstraints = false
+            return myStackView
+        }()
+        
         self.view.addSubview(stackView)
         
         let horizontalConstraint = stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
