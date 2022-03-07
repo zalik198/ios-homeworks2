@@ -36,7 +36,7 @@ class ProfileViewController: UIViewController {
         newButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
-    
+    //MARK: Initial title
     @objc func setTitle() {
         if title == "Новый заголовок"{
             title = "Лед тронулся, господа!"

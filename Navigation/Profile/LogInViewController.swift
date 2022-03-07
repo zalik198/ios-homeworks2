@@ -9,8 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    let profileVC = ProfileViewController()
-    
+    //MARK: create view objects
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
@@ -82,12 +81,12 @@ class LogInViewController: UIViewController {
     var logInButton: UIButton = {
         let logInButton = UIButton()
         
+        //setting alpha logInButton
         if let pixelImage = UIImage(named: "blue_pixel") {
             logInButton.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 1), for: .normal)
             logInButton.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .selected)
             logInButton.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .highlighted)
             logInButton.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .disabled)
-            
         }
         
         logInButton.toAutoLayout()
@@ -101,29 +100,32 @@ class LogInViewController: UIViewController {
         return logInButton
     }()
     
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //кнопка возврата от profileVC
         navigationController?.navigationBar.isHidden = true
         
+        //settings view
         self.view.backgroundColor = .white
         self.view.addSubview(scrollView)
         
-        contentView.addSubviews(logoImageView, stackView, logInButton)
-        
+        //contentView add scrollView
         scrollView.addSubview(contentView)
         scrollView.contentSize = CGSize(width: view.frame.width, height: max(view.frame.width, view.frame.height))
         
+        //subviews add in contentView
+        contentView.addSubviews(logoImageView, stackView, logInButton)
+        
+        //add textField in stackView
         stackView.addArrangedSubview(userNameTextField)
         stackView.addArrangedSubview(passwordTextField)
         
+        //MARK: Keyboard close in tap view
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tapGesture)
         
-        
+        //MARK: Initial constraints
         NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                                      scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
                                      scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -152,16 +154,53 @@ class LogInViewController: UIViewController {
                                      logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
                                      logInButton.heightAnchor.constraint(equalToConstant: 50)
                                     ])
-        
     }
     
+    //MARK: view up (keyboard) and settings scrollView
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerKeyboardNotifications()
+    }
+    
+    func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(notification:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(notification:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardInfo = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue
+        let keyboardSize = keyboardInfo.cgRectValue.size
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        scrollView.contentInset = .zero
+        scrollView.scrollIndicatorInsets = .zero
+    }
+    
+    //MARK: Navigation segue
     @objc func goToProfileVC() {
-        navigationController?.pushViewController(profileVC, animated: true)
+        navigationController?.pushViewController(ProfileViewController(), animated: true)
     }
-    
-    
 }
 
+
+//MARK: Extension for UIImageView
 extension UIImage {
     func imageWithAlpha(alpha: CGFloat) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
