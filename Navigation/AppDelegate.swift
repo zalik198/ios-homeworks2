@@ -25,12 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let logInViewController = LogInViewController()
         let logInNavigationController = UINavigationController(rootViewController: logInViewController)
-        logInNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), selectedImage: nil)
+        logInNavigationController.tabBarItem = UITabBarItem(title: "Login", image: UIImage(named: "profile"), selectedImage: nil)
         
         tabBarController.viewControllers = [feedNavigationController, logInNavigationController]
         tabBarController.tabBar.isHidden = false
         tabBarController.tabBar.backgroundColor = .white
         
+        logInNavigationController.navigationBar.isHidden = true
+
         let appearance = UINavigationBarAppearance()
         UINavigationBar.appearance().barTintColor = .white
         UINavigationBar.appearance().standardAppearance = appearance
@@ -39,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         return true
+        
     }
 }
 

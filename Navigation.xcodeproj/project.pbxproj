@@ -18,6 +18,7 @@
 		62F2215927B4950D00544807 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2215827B4950D00544807 /* PostViewController.swift */; };
 		62F2215B27B49D9200544807 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2215A27B49D9200544807 /* InfoViewController.swift */; };
 		62FC4E3D27D552DE00414B82 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC4E3C27D552DE00414B82 /* LogInViewController.swift */; };
+		62FC4E3F27D5E8EE00414B82 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC4E3E27D5E8EE00414B82 /* Support.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		62F2215827B4950D00544807 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		62F2215A27B49D9200544807 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		62FC4E3C27D552DE00414B82 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		62FC4E3E27D5E8EE00414B82 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				62F2214027B4811D00544807 /* AppDelegate.swift */,
 				62F2214227B4811D00544807 /* SceneDelegate.swift */,
 				62F2215427B490A500544807 /* FeedViewController.swift */,
+				62FC4E3E27D5E8EE00414B82 /* Support.swift */,
 				627DC94F27BEE6D200A290F1 /* Profile */,
 				62F2215827B4950D00544807 /* PostViewController.swift */,
 				62F2215A27B49D9200544807 /* InfoViewController.swift */,
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62F2215927B4950D00544807 /* PostViewController.swift in Sources */,
+				62FC4E3F27D5E8EE00414B82 /* Support.swift in Sources */,
 				62F2214527B4811D00544807 /* ViewController.swift in Sources */,
 				62FC4E3D27D552DE00414B82 /* LogInViewController.swift in Sources */,
 				62F2214127B4811D00544807 /* AppDelegate.swift in Sources */,

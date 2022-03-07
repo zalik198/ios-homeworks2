@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController {
         
         self.view.backgroundColor = .lightGray
         
-        newButton.translatesAutoresizingMaskIntoConstraints = false
+        newButton.toAutoLayout()
         newButton.layer.cornerRadius = 5
         newButton.backgroundColor = .systemBlue
         newButton.setTitle("Установить заголовок", for: .normal)
