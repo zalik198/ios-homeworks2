@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.isHidden = false
+        
         title = "Новый заголовок"
         let profileHeaderView = ProfileHeaderView()
         view.addSubview(profileHeaderView)
@@ -33,6 +35,7 @@ class ProfileViewController: UIViewController {
         newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         newButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
+    
     
     @objc func setTitle() {
         if title == "Новый заголовок"{
