@@ -80,10 +80,10 @@
 			children = (
 				62F2214027B4811D00544807 /* AppDelegate.swift */,
 				62F2214227B4811D00544807 /* SceneDelegate.swift */,
-				62F2215427B490A500544807 /* FeedViewController.swift */,
-				62FC4E3E27D5E8EE00414B82 /* Support.swift */,
+				62FC4E4027D6935500414B82 /* Support Files */,
 				627DC94F27BEE6D200A290F1 /* Profile */,
 				62F2215827B4950D00544807 /* PostViewController.swift */,
+				62F2215427B490A500544807 /* FeedViewController.swift */,
 				62F2215A27B49D9200544807 /* InfoViewController.swift */,
 				62F2214427B4811D00544807 /* ViewController.swift */,
 				62F2214927B4812100544807 /* Assets.xcassets */,
@@ -91,6 +91,14 @@
 				62F2214E27B4812100544807 /* Info.plist */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		62FC4E4027D6935500414B82 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				62FC4E3E27D5E8EE00414B82 /* Support.swift */,
+			);
+			path = "Support Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

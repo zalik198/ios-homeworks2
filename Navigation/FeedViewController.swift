@@ -9,11 +9,11 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    var post = Post(title: "Newsline")
-    let postViewController: PostViewController
+    var post = MyPost(title: "Newsline")
+    let myPostViewController: MyPostViewController
     
     init() {
-        postViewController = PostViewController()
+        myPostViewController = MyPostViewController()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -23,7 +23,7 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.addChild(postViewController)
+        self.navigationController?.addChild(myPostViewController)
         
         let firstButton: UIButton = {
             let firstButton = UIButton()
@@ -72,7 +72,7 @@ class FeedViewController: UIViewController {
     }
     
     @objc func showNews() {
-        postViewController.title = post.title
-        self.navigationController?.pushViewController(postViewController, animated: true)
+        myPostViewController.title = post.title
+        self.navigationController?.pushViewController(myPostViewController, animated: true)
     }
 }

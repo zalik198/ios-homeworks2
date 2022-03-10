@@ -7,11 +7,11 @@
 
 import UIKit
 
-struct Post {
+struct MyPost {
     var title: String
 }
 
-class PostViewController: UIViewController {
+class MyPostViewController: UIViewController {
     
     var infoViewController: InfoViewController
     

@@ -9,39 +9,53 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    let newButton = UIButton()
+    let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.toAutoLayout()
+        //tableView.refreshControl = UIRefreshControl()
+        tableView.isScrollEnabled = true
+        //tableView.separatorInset = .zero
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 220
+        //tableView.rowHeight = UITableView.automaticDimension
+        
+        
+        return tableView
+    }()
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.navigationBar.isHidden = false
-        
-        title = "Новый заголовок"
-        let profileHeaderView = ProfileHeaderView()
-        view.addSubview(profileHeaderView)
-        profileHeaderView.initialSubviews()
-        
         self.view.backgroundColor = .lightGray
         
-        newButton.toAutoLayout()
-        newButton.layer.cornerRadius = 5
-        newButton.backgroundColor = .systemBlue
-        newButton.setTitle("Установить заголовок", for: .normal)
-        newButton.addTarget(self, action: #selector(setTitle), for: .touchUpInside)
-        self.view.addSubview(newButton)
         
-        newButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        newButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        
+        
+        
+        //MARK: Initial constraints
+        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                                     tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                                     tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                                     tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+                                    ])
+        
+    
     }
     
-    //MARK: Initial title
-    @objc func setTitle() {
-        if title == "Новый заголовок"{
-            title = "Лед тронулся, господа!"
-        } else {
-            title = "Лед тронулся, господа!"
-        }
+
+}
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return postArray.count
+        
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     return UITableViewCell()
+    }
+    
+    
 }
