@@ -11,6 +11,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private var statusText = ""
     
+    //MARK: Initial views
     let imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "ostap"))
         imageView.toAutoLayout()
@@ -85,6 +86,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Initial constraints
     private func initialLayout() {
         toAutoLayout()
         
@@ -115,6 +117,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             .forEach { $0.isActive = true }
     }
     
+    //MARK: buttons tapped
     @objc func setStatus(_ textField: UITextField) {
         if let text = textField.text {
             statusText = text

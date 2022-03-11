@@ -9,6 +9,9 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    var posts = postArray
+    
+    //MARK: Initial tableView
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.toAutoLayout()
@@ -25,6 +28,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
+        
                         
         view.backgroundColor = .white
         view.addSubviews(tableView)
@@ -41,9 +45,9 @@ class ProfileViewController: UIViewController {
                                      tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
                                     ])
     }
-    
 }
 
+//MARK: Initial TableView Deegate and DataSource
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
@@ -51,7 +55,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: "postTableViewCell", for: indexPath) as! PostTableViewCell
-
+        cell.myCells(post: posts[indexPath.row])
         return cell
     }
     
