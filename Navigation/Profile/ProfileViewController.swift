@@ -12,27 +12,27 @@ class ProfileViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.toAutoLayout()
-        //tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl = UIRefreshControl()
         tableView.isScrollEnabled = true
-        //tableView.separatorInset = .zero
+        tableView.separatorInset = .zero
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 220
-        //tableView.rowHeight = UITableView.automaticDimension
-        
+        tableView.rowHeight = UITableView.automaticDimension
         
         return tableView
     }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
-        self.view.backgroundColor = .lightGray
+                        
+        view.backgroundColor = .white
+        view.addSubviews(tableView)
         
-        
-        
-        
-        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "profile")
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postTableViewCell")
         
         //MARK: Initial constraints
         NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -40,22 +40,36 @@ class ProfileViewController: UIViewController {
                                      tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
                                      tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
                                     ])
-        
-    
     }
     
-
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     return UITableViewCell()
+        let cell =  tableView.dequeueReusableCell(withIdentifier: "postTableViewCell", for: indexPath) as! PostTableViewCell
+
+        return cell
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "profile") as! ProfileHeaderView
+            return view
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 220
+    }
+
 }
