@@ -37,6 +37,7 @@ class ProfileViewController: UIViewController {
         tableView.delegate = self
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "profile")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postTableViewCell")
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photosTableViewCell")
         
         //MARK: Initial constraints
         NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -50,17 +51,25 @@ class ProfileViewController: UIViewController {
 //MARK: Initial TableView Deegate and DataSource
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        }
         return postArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: "postTableViewCell", for: indexPath) as! PostTableViewCell
-        cell.myCells(post: posts[indexPath.row])
+        if indexPath.section == 1 {
+            let cell =  tableView.dequeueReusableCell(withIdentifier: "postTableViewCell", for: indexPath) as! PostTableViewCell
+            cell.myCells(post: posts[indexPath.row])
+            return cell
+        }
+       
+        let cell = tableView.dequeueReusableCell(withIdentifier: "photosTableViewCell", for: indexPath) as! PhotosTableViewCell
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -73,7 +82,16 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 1 {            
+            return 0
+        }
         return 220
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            navigationController?.pushViewController(PhotosViewController(), animated: true)
+        }
+    }
+    
 }
