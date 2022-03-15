@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6274DC9827E0E63900FD7A2F /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6274DC9727E0E63900FD7A2F /* PhotosViewController.swift */; };
 		627DC95127BEE9BC00A290F1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */; };
 		62F2214127B4811D00544807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2214027B4811D00544807 /* AppDelegate.swift */; };
 		62F2214327B4811D00544807 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2214227B4811D00544807 /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6274DC9727E0E63900FD7A2F /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		62F2213D27B4811D00544807 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F2214027B4811D00544807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				62F2214027B4811D00544807 /* AppDelegate.swift */,
 				62F2214227B4811D00544807 /* SceneDelegate.swift */,
 				62F2215427B490A500544807 /* FeedViewController.swift */,
+				6274DC9727E0E63900FD7A2F /* PhotosViewController.swift */,
 				627DC94F27BEE6D200A290F1 /* Profile */,
 				62F2215827B4950D00544807 /* PostViewController.swift */,
 				62F2215A27B49D9200544807 /* InfoViewController.swift */,
@@ -157,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6274DC9827E0E63900FD7A2F /* PhotosViewController.swift in Sources */,
 				62F2215927B4950D00544807 /* PostViewController.swift in Sources */,
 				62F2214527B4811D00544807 /* ViewController.swift in Sources */,
 				62F2214127B4811D00544807 /* AppDelegate.swift in Sources */,
