@@ -23,7 +23,6 @@ class PhotosTableViewCell: UITableViewCell {
         let nextButtonImage = UIImageView()
         nextButtonImage.toAutoLayout()
         nextButtonImage.image = UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        
         return nextButtonImage
     }()
     
@@ -34,16 +33,12 @@ class PhotosTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.alignment = .leading
         stackView.distribution = .fillEqually
-        
-       return stackView
+        return stackView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         contentView.addSubviews(title, nextButtonImage, stackView)
-        
-        
         
         //MARK: add photos in stackView
         for i in 0...3 {
@@ -67,22 +62,14 @@ class PhotosTableViewCell: UITableViewCell {
                                      stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
                                      stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
                                      stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 12),
-                                     
-                            
                                     ])
         //MARK: setup height photos in stackView
         stackView.arrangedSubviews.forEach(
-                  {
-                      [$0.widthAnchor.constraint(greaterThanOrEqualToConstant: (stackView.frame.width - 16) / 4),
-                       $0.heightAnchor.constraint(equalTo: $0.widthAnchor)].forEach({$0.isActive = true})
-
-                  })
-        
+            {
+                [$0.widthAnchor.constraint(greaterThanOrEqualToConstant: (stackView.frame.width - 16) / 4),
+                 $0.heightAnchor.constraint(equalTo: $0.widthAnchor)].forEach({$0.isActive = true})
+            })
     }
-    
-    
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -92,14 +79,12 @@ class PhotosTableViewCell: UITableViewCell {
         super.prepareForReuse()
     }
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
-
+    
 }

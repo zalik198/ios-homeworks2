@@ -44,7 +44,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         showStatus.setTitle("Show status", for: .normal)
         showStatus.setTitleColor(UIColor.white, for: .normal)
         showStatus.addTarget(self, action: #selector(buttonShow), for: .touchUpInside)
-        
         return showStatus
     }()
     
@@ -56,7 +55,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
         status.isUserInteractionEnabled = true
-        
         return status
     }()
     
@@ -70,11 +68,10 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         statusTextField.textColor = .black
         statusTextField.backgroundColor = .white
         statusTextField.addTarget(self, action: #selector(setStatus), for: .editingChanged)
-        
         return statusTextField
     }()
     
-
+    
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)

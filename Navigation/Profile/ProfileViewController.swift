@@ -21,7 +21,6 @@ class ProfileViewController: UIViewController {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 220
         tableView.rowHeight = UITableView.automaticDimension
-        
         return tableView
     }()
     
@@ -29,7 +28,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
         
-                        
+        
         view.backgroundColor = .white
         view.addSubviews(tableView)
         
@@ -46,6 +45,11 @@ class ProfileViewController: UIViewController {
                                      tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
                                     ])
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
 }
 
 //MARK: Initial TableView Deegate and DataSource
@@ -63,7 +67,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.myCells(post: posts[indexPath.row])
             return cell
         }
-       
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "photosTableViewCell", for: indexPath) as! PhotosTableViewCell
         return cell
     }
@@ -82,7 +86,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1 {            
+        if section == 1 {
             return 0
         }
         return 220

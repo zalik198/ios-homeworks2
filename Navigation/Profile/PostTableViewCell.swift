@@ -100,7 +100,7 @@ class PostTableViewCell: UITableViewCell {
         ]
             .forEach { $0.isActive = true }
     }
- 
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
