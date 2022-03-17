@@ -33,6 +33,12 @@ class PhotosViewController: UIViewController {
         view.addSubviews(collectionView)
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: "photosCollectionViewCell")
         
+        initialLayout()
+       
+    }
+    
+    //MARK: Initial constraints
+    func initialLayout() {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

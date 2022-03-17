@@ -76,29 +76,28 @@ class PostTableViewCell: UITableViewCell {
     //MARK: Initial constraints
     func initialLayout() {
         toAutoLayout()
-        [authorCell.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-         authorCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-         authorCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-         authorCell.heightAnchor.constraint(equalToConstant: 28),
-         
-         imageCell.topAnchor.constraint(equalTo: authorCell.bottomAnchor),
-         imageCell.heightAnchor.constraint(equalTo: contentView.widthAnchor),
-         imageCell.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-         
-         descriptionCell.topAnchor.constraint(equalTo: imageCell.bottomAnchor),
-         descriptionCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-         descriptionCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-         descriptionCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
-         
-         likesCell.topAnchor.constraint(equalTo: descriptionCell.bottomAnchor, constant: 16),
-         likesCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-         likesCell.heightAnchor.constraint(equalToConstant: 20),
-         
-         viewsCell.topAnchor.constraint(equalTo: descriptionCell.bottomAnchor, constant: 16),
-         viewsCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-         viewsCell.heightAnchor.constraint(equalToConstant: 20)
-        ]
-            .forEach { $0.isActive = true }
+        NSLayoutConstraint.activate([authorCell.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+                                     authorCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                     authorCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                     authorCell.heightAnchor.constraint(equalToConstant: 28),
+                                     
+                                     imageCell.topAnchor.constraint(equalTo: authorCell.bottomAnchor),
+                                     imageCell.heightAnchor.constraint(equalTo: contentView.widthAnchor),
+                                     imageCell.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+                                     
+                                     descriptionCell.topAnchor.constraint(equalTo: imageCell.bottomAnchor),
+                                     descriptionCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                     descriptionCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                     descriptionCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
+                                     
+                                     likesCell.topAnchor.constraint(equalTo: descriptionCell.bottomAnchor, constant: 16),
+                                     likesCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                     likesCell.heightAnchor.constraint(equalToConstant: 20),
+                                     
+                                     viewsCell.topAnchor.constraint(equalTo: descriptionCell.bottomAnchor, constant: 16),
+                                     viewsCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                     viewsCell.heightAnchor.constraint(equalToConstant: 20)
+                                    ])
     }
     
     override func awakeFromNib() {

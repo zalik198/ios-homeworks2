@@ -19,6 +19,11 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         contentView.addSubview(photo)
         
+        initialLayout()
+     
+    }
+    
+    func initialLayout() {
         NSLayoutConstraint.activate([
             photo.topAnchor.constraint(equalTo: contentView.topAnchor),
             photo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

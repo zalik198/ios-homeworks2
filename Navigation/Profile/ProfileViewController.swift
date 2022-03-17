@@ -38,7 +38,12 @@ class ProfileViewController: UIViewController {
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postTableViewCell")
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photosTableViewCell")
         
-        //MARK: Initial constraints
+        initialLayout()
+    }
+    
+    //MARK: Initial constraints
+    
+    func initialLayout() {
         NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                                      tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
                                      tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),

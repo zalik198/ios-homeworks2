@@ -86,8 +86,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     //MARK: Initial constraints
     private func initialLayout() {
         toAutoLayout()
-        
-        [
+        NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -110,8 +109,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -16),
             statusTextField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20)
-        ]
-            .forEach { $0.isActive = true }
+        ])     
     }
     
     //MARK: buttons tapped

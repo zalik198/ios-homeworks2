@@ -15,6 +15,7 @@ class LogInViewController: UIViewController {
         scrollView.backgroundColor = .white
         scrollView.isScrollEnabled = true
         scrollView.toAutoLayout()
+        
         return scrollView
     }()
     
@@ -107,8 +108,8 @@ class LogInViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         
         //settings view
-        self.view.backgroundColor = .white
-        self.view.addSubview(scrollView)
+        view.backgroundColor = .white
+        view.addSubview(scrollView)
         
         //contentView add scrollView
         scrollView.addSubview(contentView)
@@ -125,35 +126,42 @@ class LogInViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         
-        //MARK: Initial constraints
-        NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                                     scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                                     scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-                                     scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                                     
-                                     contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                                     contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                                     contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                                     contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                                     contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-                                     contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-                                     contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-                                     
-                                     logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
-                                     logoImageView.widthAnchor.constraint(equalToConstant: 100),
-                                     logoImageView.heightAnchor.constraint(equalToConstant: 100),
-                                     logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-                                     
-                                     stackView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
-                                     stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                                     stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                                     stackView.heightAnchor.constraint(equalToConstant: 100),
-                                     
-                                     logInButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
-                                     logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                                     logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                                     logInButton.heightAnchor.constraint(equalToConstant: 50)
-                                    ])
+        initialLayout()
+    }
+    
+    
+
+    //MARK: Initial constraints
+    
+    func initialLayout() {
+    NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                                 scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                                 scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                                 scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                                 
+                                 contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                                 contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                                 contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                                 contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                                 contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+                                 contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                                 contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+                                 
+                                 logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
+                                 logoImageView.widthAnchor.constraint(equalToConstant: 100),
+                                 logoImageView.heightAnchor.constraint(equalToConstant: 100),
+                                 logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                                 
+                                 stackView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
+                                 stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                 stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                 stackView.heightAnchor.constraint(equalToConstant: 100),
+                                 
+                                 logInButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
+                                 logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                 logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                 logInButton.heightAnchor.constraint(equalToConstant: 50)
+                                ])
     }
     
     //MARK: view up (keyboard) and settings scrollView
@@ -187,7 +195,7 @@ class LogInViewController: UIViewController {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardInfo = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue
         let keyboardSize = keyboardInfo.cgRectValue.size
-        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 50, right: 0)
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
     }
@@ -199,7 +207,10 @@ class LogInViewController: UIViewController {
     
     //MARK: Navigation segue
     @objc func goToProfileVC() {
-        navigationController?.pushViewController(ProfileViewController(), animated: true)
+        if userNameTextField.text != "" {
+            navigationController?.pushViewController(ProfileViewController(), animated: true)
+        }
+
     }
 }
 
