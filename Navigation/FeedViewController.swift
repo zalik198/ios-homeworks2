@@ -9,11 +9,11 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    var post = Post(title: "Newsline")
-    let postViewController: PostViewController
+    var post = MyPost(title: "Newsline")
+    let myPostViewController: MyPostViewController
     
     init() {
-        postViewController = PostViewController()
+        myPostViewController = MyPostViewController()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -23,42 +23,42 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.addChild(postViewController)
+        self.navigationController?.addChild(myPostViewController)
         
         let firstButton: UIButton = {
-            let myFirstButton = UIButton()
-            myFirstButton.backgroundColor = .darkGray
-            myFirstButton.layer.cornerRadius = 15
-            myFirstButton.layer.borderWidth = 3
-            myFirstButton.layer.borderColor = UIColor.white.cgColor
-            myFirstButton.setTitle("Первая кнопка", for: .normal)
-            myFirstButton.setTitleColor(.black, for: .normal)
-            myFirstButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
-            return myFirstButton
+            let firstButton = UIButton()
+            firstButton.backgroundColor = .darkGray
+            firstButton.layer.cornerRadius = 15
+            firstButton.layer.borderWidth = 3
+            firstButton.layer.borderColor = UIColor.white.cgColor
+            firstButton.setTitle("Первая кнопка", for: .normal)
+            firstButton.setTitleColor(.black, for: .normal)
+            firstButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
+            return firstButton
         }()
         
         let secondButton: UIButton = {
-            let mySecondButton = UIButton()
-            mySecondButton.backgroundColor = .white
-            mySecondButton.layer.borderWidth = 3
-            mySecondButton.layer.borderColor = UIColor.darkGray.cgColor
-            mySecondButton.layer.cornerRadius = 15
-            mySecondButton.setTitle("Вторая кнопка", for: .normal)
-            mySecondButton.setTitleColor(.black, for: .normal)
-            mySecondButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
-            return mySecondButton
+            let secondButton = UIButton()
+            secondButton.backgroundColor = .white
+            secondButton.layer.borderWidth = 3
+            secondButton.layer.borderColor = UIColor.darkGray.cgColor
+            secondButton.layer.cornerRadius = 15
+            secondButton.setTitle("Вторая кнопка", for: .normal)
+            secondButton.setTitleColor(.black, for: .normal)
+            secondButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
+            return secondButton
         }()
         
         let stackView: UIStackView = {
-            let myStackView = UIStackView()
-            myStackView.axis = .vertical
-            myStackView.spacing = 10
-            myStackView.distribution = .fillEqually
-            myStackView.alignment = .fill
-            myStackView.addArrangedSubview(firstButton)
-            myStackView.addArrangedSubview(secondButton)
-            myStackView.translatesAutoresizingMaskIntoConstraints = false
-            return myStackView
+            let stackView = UIStackView()
+            stackView.axis = .vertical
+            stackView.spacing = 10
+            stackView.distribution = .fillEqually
+            stackView.alignment = .fill
+            stackView.addArrangedSubview(firstButton)
+            stackView.addArrangedSubview(secondButton)
+            stackView.toAutoLayout()
+            return stackView
         }()
         
         self.view.addSubview(stackView)
@@ -72,7 +72,7 @@ class FeedViewController: UIViewController {
     }
     
     @objc func showNews() {
-        postViewController.title = post.title
-        self.navigationController?.pushViewController(postViewController, animated: true)
+        myPostViewController.title = post.title
+        self.navigationController?.pushViewController(myPostViewController, animated: true)
     }
 }
