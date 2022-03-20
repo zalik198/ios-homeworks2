@@ -85,12 +85,9 @@
 			children = (
 				62F2214027B4811D00544807 /* AppDelegate.swift */,
 				62F2214227B4811D00544807 /* SceneDelegate.swift */,
-<<<<<<< HEAD
 				62F2215427B490A500544807 /* FeedViewController.swift */,
 				6274DC9727E0E63900FD7A2F /* PhotosViewController.swift */,
-=======
 				62FC4E4027D6935500414B82 /* Support Files */,
->>>>>>> homework2-3
 				627DC94F27BEE6D200A290F1 /* Profile */,
 				62F2215827B4950D00544807 /* PostViewController.swift */,
 				62F2215427B490A500544807 /* FeedViewController.swift */,
@@ -181,11 +178,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
 				6274DC9827E0E63900FD7A2F /* PhotosViewController.swift in Sources */,
-=======
 				62FC4E4227DBC04700414B82 /* PostTableViewCell.swift in Sources */,
->>>>>>> homework2-3
 				62F2215927B4950D00544807 /* PostViewController.swift in Sources */,
 				62FC4E3F27D5E8EE00414B82 /* Support.swift in Sources */,
 				62F2214527B4811D00544807 /* ViewController.swift in Sources */,
