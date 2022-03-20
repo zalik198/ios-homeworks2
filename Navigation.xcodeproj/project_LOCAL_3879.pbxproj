@@ -7,13 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< HEAD
 		6274DC9827E0E63900FD7A2F /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6274DC9727E0E63900FD7A2F /* PhotosViewController.swift */; };
-=======
-		6237D01527E0EEB20072B09F /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237D01427E0EEB20072B09F /* PhotosViewController.swift */; };
-		6237D01727E110E90072B09F /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237D01627E110E90072B09F /* PhotosTableViewCell.swift */; };
-		6237D01927E156C60072B09F /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237D01827E156C60072B09F /* PhotosCollectionViewCell.swift */; };
->>>>>>> homework2-5
 		627DC95127BEE9BC00A290F1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */; };
 		62F2214127B4811D00544807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2214027B4811D00544807 /* AppDelegate.swift */; };
 		62F2214327B4811D00544807 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2214227B4811D00544807 /* SceneDelegate.swift */; };
@@ -30,13 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
 		6274DC9727E0E63900FD7A2F /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
-=======
-		6237D01427E0EEB20072B09F /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
-		6237D01627E110E90072B09F /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
-		6237D01827E156C60072B09F /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
->>>>>>> homework2-5
 		627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		62F2213D27B4811D00544807 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F2214027B4811D00544807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,9 +60,6 @@
 				62F2215627B490B400544807 /* ProfileViewController.swift */,
 				62FC4E4127DBC04700414B82 /* PostTableViewCell.swift */,
 				62FC4E3C27D552DE00414B82 /* LogInViewController.swift */,
-				6237D01427E0EEB20072B09F /* PhotosViewController.swift */,
-				6237D01827E156C60072B09F /* PhotosCollectionViewCell.swift */,
-				6237D01627E110E90072B09F /* PhotosTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -200,11 +185,7 @@
 				6274DC9827E0E63900FD7A2F /* PhotosViewController.swift in Sources */,
 =======
 				62FC4E4227DBC04700414B82 /* PostTableViewCell.swift in Sources */,
-<<<<<<< HEAD
 >>>>>>> homework2-3
-=======
-				6237D01927E156C60072B09F /* PhotosCollectionViewCell.swift in Sources */,
->>>>>>> homework2-5
 				62F2215927B4950D00544807 /* PostViewController.swift in Sources */,
 				62FC4E3F27D5E8EE00414B82 /* Support.swift in Sources */,
 				62F2214527B4811D00544807 /* ViewController.swift in Sources */,
@@ -213,8 +194,6 @@
 				62F2215B27B49D9200544807 /* InfoViewController.swift in Sources */,
 				62F2215727B490B400544807 /* ProfileViewController.swift in Sources */,
 				627DC95127BEE9BC00A290F1 /* ProfileHeaderView.swift in Sources */,
-				6237D01727E110E90072B09F /* PhotosTableViewCell.swift in Sources */,
-				6237D01527E0EEB20072B09F /* PhotosViewController.swift in Sources */,
 				62F2215527B490A500544807 /* FeedViewController.swift in Sources */,
 				62F2214327B4811D00544807 /* SceneDelegate.swift in Sources */,
 			);

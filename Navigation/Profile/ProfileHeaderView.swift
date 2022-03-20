@@ -44,7 +44,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         showStatus.setTitle("Show status", for: .normal)
         showStatus.setTitleColor(UIColor.white, for: .normal)
         showStatus.addTarget(self, action: #selector(buttonShow), for: .touchUpInside)
-        
         return showStatus
     }()
     
@@ -56,7 +55,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
         status.isUserInteractionEnabled = true
-        
         return status
     }()
     
@@ -70,11 +68,10 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         statusTextField.textColor = .black
         statusTextField.backgroundColor = .white
         statusTextField.addTarget(self, action: #selector(setStatus), for: .editingChanged)
-        
         return statusTextField
     }()
     
-
+    
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -89,8 +86,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     //MARK: Initial constraints
     private func initialLayout() {
         toAutoLayout()
-        
-        [
+        NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -113,8 +109,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -16),
             statusTextField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20)
-        ]
-            .forEach { $0.isActive = true }
+        ])     
     }
     
     //MARK: buttons tapped

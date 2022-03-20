@@ -22,6 +22,8 @@ let postArray = [Post(author: "Золотой теленок", description: "Ф�
                  Post(author: "Приключения электроника", description: "Фильм", image: "electronik", likes: 3456, views: 10554)
 ]
 
+let photosArray = ["3+2", "brilliant", "buratino", "gentlman", "golubi", "ironia", "ivanVasilievich", "kin-dza", "mestoVstrechi", "moskva", "operationY", "roman", "samogon", "skazka", "solnce", "sportloto", "stariki", "svadba", "troeVLodke", "vokzal"]
+
 
 
 public extension UIView {
