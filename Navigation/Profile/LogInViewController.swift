@@ -129,8 +129,6 @@ class LogInViewController: UIViewController {
         initialLayout()
     }
     
-    
-
     //MARK: Initial constraints
     
     func initialLayout() {
