@@ -14,6 +14,7 @@ class LogInViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         scrollView.isScrollEnabled = true
+        
         scrollView.toAutoLayout()
         
         return scrollView
@@ -112,7 +113,7 @@ class LogInViewController: UIViewController {
         view.addSubview(scrollView)
         
         //contentView add scrollView
-        scrollView.addSubview(contentView)
+        scrollView.addSubviews(contentView)
         scrollView.contentSize = CGSize(width: view.frame.width, height: max(view.frame.width, view.frame.height))
         
         //subviews add in contentView
@@ -135,7 +136,7 @@ class LogInViewController: UIViewController {
     NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                                  scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
                                  scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-                                 scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                                 scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 150),
                                  
                                  contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
                                  contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -193,7 +194,7 @@ class LogInViewController: UIViewController {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardInfo = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue
         let keyboardSize = keyboardInfo.cgRectValue.size
-        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 50, right: 0)
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 150, right: 0)
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
     }
