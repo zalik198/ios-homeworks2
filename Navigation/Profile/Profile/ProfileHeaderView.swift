@@ -10,7 +10,6 @@ import UIKit
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private var statusText = ""
-    var profileVC = ProfileViewController()
     
     //MARK: Initial views
     lazy var imageView: UIImageView = {
@@ -26,17 +25,28 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return imageView
     }()
     
-    let closeImageButton: UIButton = {
-       let closeImageButton = UIButton()
+    lazy var closeImageButton: UIButton = {
+        let closeImageButton = UIButton()
         closeImageButton.toAutoLayout()
         closeImageButton.isHidden = true
         closeImageButton.imageView?.contentMode = .scaleAspectFit
         closeImageButton.setImage(UIImage(systemName: "xmark"), for: .normal)
         closeImageButton.backgroundColor = .gray
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapCloseImage))
+        closeImageButton.addGestureRecognizer(tap)
+        closeImageButton.isUserInteractionEnabled = true
         closeImageButton.tintColor = .black
-
-        
         return closeImageButton
+    }()
+    
+    let alphaView: UIView = {
+        let alphaView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        alphaView.toAutoLayout()
+        alphaView.isUserInteractionEnabled = true
+        alphaView.backgroundColor = .systemGray
+        alphaView.isHidden = true
+        alphaView.alpha = 0
+        return alphaView
     }()
     
     let userName: UILabel = {
@@ -88,11 +98,11 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return statusTextField
     }()
     
-    
+    var defaultPlaceImage: CGPoint?
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        contentView.addSubviews(imageView, userName, showStatus, status, statusTextField, closeImageButton)
+        contentView.addSubviews(userName, showStatus, status, statusTextField, alphaView, imageView, closeImageButton)
         initialLayout()
     }
     
@@ -131,10 +141,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             closeImageButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             closeImageButton.heightAnchor.constraint(equalToConstant: 25),
             closeImageButton.widthAnchor.constraint(equalToConstant: 25)
-            
-
-
-        ])     
+        ])
     }
     
     //MARK: buttons tapped
@@ -143,6 +150,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             statusText = text
         }
     }
+    
     @objc func buttonShow() {
         let newText = statusText
         status.text = newText
@@ -150,28 +158,41 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     //MARK: TapGestureInImage
     @objc func tapInImage() {
-        
         UIView.animate(withDuration: 0.5, animations: {
-            //self.imageView.layoutIfNeeded()
+            self.defaultPlaceImage = self.imageView.center
             self.imageView.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
             self.imageView.transform = CGAffineTransform(scaleX: self.contentView.frame.width / self.imageView.frame.width,
-                                                        y: self.contentView.frame.width / self.imageView.frame.width)
-
+                                                         y: self.contentView.frame.width / self.imageView.frame.width)
             self.imageView.isUserInteractionEnabled = false
             self.imageView.layer.borderWidth = 0
             self.imageView.layer.cornerRadius = 0
             //self.showStatus.alpha = 0
-
-            
+            self.alphaView.isHidden = false
+            self.alphaView.alpha = 0.5
         }) { _ in
             UIView.animate(withDuration: 0.3) {
                 self.closeImageButton.isHidden = false
                 self.closeImageButton.alpha = 1
-
             }
         }
-   
-        
     }
     
+    @objc func tapCloseImage() {
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.closeImageButton.isHidden = true
+            self.closeImageButton.alpha = 0
+        }) { _ in
+            UIView.animate(withDuration: 0.5) {
+                self.imageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.imageView.layer.borderWidth = 3
+                self.imageView.layer.cornerRadius = 50
+                self.imageView.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
+                self.imageView.clipsToBounds = true
+                self.imageView.center = self.defaultPlaceImage ?? CGPoint(x: 1, y: 1)
+                self.alphaView.isHidden = true
+                self.alphaView.alpha = 0
+            }
+        }
+    }
 }
