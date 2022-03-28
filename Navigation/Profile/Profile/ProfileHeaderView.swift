@@ -12,13 +12,16 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private var statusText = ""
     
     //MARK: Initial views
-    let imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "ostap"))
         imageView.toAutoLayout()
         imageView.layer.borderWidth = 3
         imageView.layer.cornerRadius = 50
         imageView.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
         imageView.clipsToBounds = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapInImage))
+        imageView.addGestureRecognizer(tap)
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -122,4 +125,11 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         let newText = statusText
         status.text = newText
     }
+    
+    //MARK: TapGestureInImage
+    @objc func tapInImage() {
+      
+        
+    }
+    
 }

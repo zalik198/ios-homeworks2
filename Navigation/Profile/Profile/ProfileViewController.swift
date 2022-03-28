@@ -24,10 +24,10 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
-        
         
         view.backgroundColor = .white
         view.addSubviews(tableView)
@@ -37,6 +37,10 @@ class ProfileViewController: UIViewController {
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "profile")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postTableViewCell")
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photosTableViewCell")
+        
+  
+        
+        
         
         initialLayout()
     }
@@ -51,11 +55,15 @@ class ProfileViewController: UIViewController {
                                     ])
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
     }
     
+    
 }
+
+
 
 //MARK: Initial TableView Deegate and DataSource
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
