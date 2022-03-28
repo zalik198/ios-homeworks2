@@ -10,6 +10,7 @@ import UIKit
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private var statusText = ""
+    var profileVC = ProfileViewController()
     
     //MARK: Initial views
     lazy var imageView: UIImageView = {
@@ -23,6 +24,19 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
         return imageView
+    }()
+    
+    let closeImageButton: UIButton = {
+       let closeImageButton = UIButton()
+        closeImageButton.toAutoLayout()
+        closeImageButton.isHidden = true
+        closeImageButton.imageView?.contentMode = .scaleAspectFit
+        closeImageButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        closeImageButton.backgroundColor = .gray
+        closeImageButton.tintColor = .black
+
+        
+        return closeImageButton
     }()
     
     let userName: UILabel = {
@@ -78,7 +92,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        contentView.addSubviews(imageView, userName, showStatus, status, statusTextField)
+        contentView.addSubviews(imageView, userName, showStatus, status, statusTextField, closeImageButton)
         initialLayout()
     }
     
@@ -111,7 +125,15 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             statusTextField.bottomAnchor.constraint(equalTo: showStatus.topAnchor, constant: -10),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -16),
-            statusTextField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20)
+            statusTextField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
+            
+            closeImageButton.topAnchor.constraint(equalTo: contentView.topAnchor),
+            closeImageButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            closeImageButton.heightAnchor.constraint(equalToConstant: 25),
+            closeImageButton.widthAnchor.constraint(equalToConstant: 25)
+            
+
+
         ])     
     }
     
@@ -128,7 +150,27 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     //MARK: TapGestureInImage
     @objc func tapInImage() {
-      
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            //self.imageView.layoutIfNeeded()
+            self.imageView.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+            self.imageView.transform = CGAffineTransform(scaleX: self.contentView.frame.width / self.imageView.frame.width,
+                                                        y: self.contentView.frame.width / self.imageView.frame.width)
+
+            self.imageView.isUserInteractionEnabled = false
+            self.imageView.layer.borderWidth = 0
+            self.imageView.layer.cornerRadius = 0
+            //self.showStatus.alpha = 0
+
+            
+        }) { _ in
+            UIView.animate(withDuration: 0.3) {
+                self.closeImageButton.isHidden = false
+                self.closeImageButton.alpha = 1
+
+            }
+        }
+   
         
     }
     
