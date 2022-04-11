@@ -57,32 +57,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		626C3ABB27EF33550032C262 /* Profile */ = {
+		627DC94F27BEE6D200A290F1 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */,
 				62F2215627B490B400544807 /* ProfileViewController.swift */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		626C3ABC27EF33680032C262 /* Photos */ = {
-			isa = PBXGroup;
-			children = (
-				6237D01427E0EEB20072B09F /* PhotosViewController.swift */,
-				6237D01627E110E90072B09F /* PhotosTableViewCell.swift */,
-				6237D01827E156C60072B09F /* PhotosCollectionViewCell.swift */,
-			);
-			path = Photos;
-			sourceTree = "<group>";
-		};
-		627DC94F27BEE6D200A290F1 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				626C3ABB27EF33550032C262 /* Profile */,
-				626C3ABC27EF33680032C262 /* Photos */,
 				62FC4E4127DBC04700414B82 /* PostTableViewCell.swift */,
 				62FC4E3C27D552DE00414B82 /* LogInViewController.swift */,
+				6237D01427E0EEB20072B09F /* PhotosViewController.swift */,
+				6237D01827E156C60072B09F /* PhotosCollectionViewCell.swift */,
+				6237D01627E110E90072B09F /* PhotosTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
