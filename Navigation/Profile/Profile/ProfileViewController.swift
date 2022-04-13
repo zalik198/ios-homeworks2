@@ -28,8 +28,15 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
-        
         view.backgroundColor = .white
+
+        
+        #if DEBUG
+        tableView.backgroundColor = .orange
+        #elseif release
+        tableView.backgroundColor = .white
+        #endif
+        
         view.addSubviews(tableView)
         
         tableView.dataSource = self
