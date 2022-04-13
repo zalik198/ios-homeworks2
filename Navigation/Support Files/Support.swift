@@ -6,15 +6,7 @@
 //
 
 import UIKit
-
-struct Post {
-    var author: String
-    var description: String
-    var image: String
-    var likes: Int
-    var views: Int
-    
-}
+import StorageService
 
 let postArray = [Post(author: "Золотой теленок", description: "Фильм", image: "ostap", likes: 1211, views: 2354),
                  Post(author: "12 Стульев", description: "Фильм", image: "12chairs", likes: 125, views: 314),
