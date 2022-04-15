@@ -20,6 +20,7 @@ public struct Post {
         self.image = image
         self.likes = likes
         self.views = views
+        
     }
     
 }
