@@ -15,7 +15,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     //MARK: Initial views
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "ostap"))
-        imageView.toAutoLayout()
+
         imageView.layer.borderWidth = 3
         imageView.layer.cornerRadius = 50
         imageView.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
@@ -28,7 +28,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var closeImageButton: UIButton = {
         let closeImageButton = UIButton()
-        closeImageButton.toAutoLayout()
+        //closeImageButton.toAutoLayout()
         closeImageButton.isHidden = true
         closeImageButton.imageView?.contentMode = .scaleAspectFit
         closeImageButton.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -52,7 +52,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     let userName: UILabel = {
         let userName = UILabel()
-        userName.toAutoLayout()
         userName.text = "Остап Ибрагимович"
         userName.textAlignment = .left
         userName.textColor = .black
@@ -62,7 +61,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     let showStatus: UIButton = {
         let showStatus = UIButton()
-        showStatus.toAutoLayout()
         showStatus.layer.cornerRadius = 4
         showStatus.layer.shadowOffset = CGSize(width: 4, height: 4)
         showStatus.layer.shadowRadius = 4
@@ -77,7 +75,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     let status: UILabel = {
         let status = UILabel()
-        status.toAutoLayout()
         status.text = "Рога и копыта!"
         status.textAlignment = .natural
         status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -88,7 +85,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     let statusTextField: UITextField = {
         let statusTextField = UITextField()
-        statusTextField.toAutoLayout()
         statusTextField.layer.cornerRadius = 12
         statusTextField.layer.borderWidth = 1
         statusTextField.layer.borderColor = UIColor.black.cgColor
@@ -113,36 +109,37 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     //MARK: Initial constraints
     private func initialLayout() {
-        toAutoLayout()
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 100),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            
-            userName.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
-            userName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
-            userName.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant:  -16),
-            
-            status.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
-            status.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -16),
-            status.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -5),
-            
-            showStatus.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            showStatus.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -16),
-            showStatus.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
-            showStatus.heightAnchor.constraint(equalToConstant: 50),
-            
-            statusTextField.bottomAnchor.constraint(equalTo: showStatus.topAnchor, constant: -10),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40),
-            statusTextField.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -16),
-            statusTextField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
-            
-            closeImageButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-            closeImageButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            closeImageButton.heightAnchor.constraint(equalToConstant: 25),
-            closeImageButton.widthAnchor.constraint(equalToConstant: 25)
-        ])
+        imageView.snp.makeConstraints({ make in
+            make.top.leading.equalTo(16)
+            make.width.height.equalTo(100)
+        })
+        userName.snp.makeConstraints { make in
+            make.leading.equalTo(imageView.snp.trailing).inset(-20)
+            make.top.equalTo(27)
+            make.trailing.equalTo(-16)
+        }
+        status.snp.makeConstraints { make in
+            make.leading.equalTo(imageView.snp.trailing).offset(20)
+            make.trailing.equalTo(-16)
+            make.bottom.equalTo(statusTextField.snp.top).inset(-5)
+        }
+        showStatus.snp.makeConstraints { make in
+            make.leading.equalTo(20)
+            make.trailing.equalTo(-16)
+            make.top.equalTo(imageView.snp.bottom).offset(16)
+            make.height.equalTo(50)
+        }
+        statusTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(showStatus.snp.top).offset(-10)
+            make.height.equalTo(40)
+            make.trailing.equalTo(-16)
+            make.leading.equalTo(imageView.snp.trailing).offset(20)
+        }
+        closeImageButton.snp.makeConstraints { make in
+            make.top.trailing.equalTo(0)
+            make.height.width.equalTo(25)
+        }
+        
     }
     
     //MARK: buttons tapped
