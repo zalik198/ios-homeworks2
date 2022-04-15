@@ -29,7 +29,6 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
         view.backgroundColor = .white
-
         
         #if DEBUG
         tableView.backgroundColor = .orange
