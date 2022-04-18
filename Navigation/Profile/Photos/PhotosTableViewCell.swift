@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import iOSIntPackage
+
 
 class PhotosTableViewCell: UITableViewCell {
+    
+    let imageProc = ImageProcessor()
     
     //MARK: Initial views
     let title: UILabel = {
@@ -41,12 +45,18 @@ class PhotosTableViewCell: UITableViewCell {
         contentView.addSubviews(title, nextButtonImage, stackView)
         
         //MARK: add photos in stackView
+        let filterArray = [ColorFilter.tonal, ColorFilter.colorInvert, ColorFilter.posterize, ColorFilter.sepia(intensity: 3)]
+        
         for i in 0...3 {
-            let myPhotos = UIImageView(image: UIImage(named: photosArray[i]))
+            imageProc.processImage(sourceImage: UIImage(named: photosArray[i])!, filter: filterArray[i]) { image in
+            let myPhotos = UIImageView(image: image)
             myPhotos.toAutoLayout()
             myPhotos.layer.cornerRadius = 6
             myPhotos.clipsToBounds = true
             stackView.addArrangedSubview(myPhotos)
+            }
+            
+                                       
         }
         
         //MARK: Initial constraints

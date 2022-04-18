@@ -9,13 +9,13 @@ import UIKit
 import SnapKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
+
     
     private var statusText = ""
     
     //MARK: Initial views
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "ostap"))
-
         imageView.layer.borderWidth = 3
         imageView.layer.cornerRadius = 50
         imageView.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
@@ -28,7 +28,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var closeImageButton: UIButton = {
         let closeImageButton = UIButton()
-        //closeImageButton.toAutoLayout()
         closeImageButton.isHidden = true
         closeImageButton.imageView?.contentMode = .scaleAspectFit
         closeImageButton.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -103,6 +102,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         initialLayout()
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -139,7 +139,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             make.top.trailing.equalTo(0)
             make.height.width.equalTo(25)
         }
-        
     }
     
     //MARK: buttons tapped
@@ -176,7 +175,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }
     
     @objc func tapCloseImage() {
-        
         UIView.animate(withDuration: 0.3, animations: {
             self.closeImageButton.isHidden = true
             self.closeImageButton.alpha = 0
