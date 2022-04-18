@@ -11,8 +11,6 @@ import StorageService
 class ProfileViewController: UIViewController {
     
     var posts = postArray
-    var imageProc = ImageProcessor()
-
     
     //MARK: Initial tableView
     let tableView: UITableView = {
