@@ -107,6 +107,11 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func setupUser(user: User) {
+        userName.text = user.name
+        imageView.image = user.avatar
+        status.text = user.status
+    }
     //MARK: Initial constraints
     private func initialLayout() {
         imageView.snp.makeConstraints({ make in

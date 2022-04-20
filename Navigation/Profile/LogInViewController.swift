@@ -126,6 +126,7 @@ class LogInViewController: UIViewController {
         //MARK: Keyboard close in tap view
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
+
         
         initialLayout()
     }
@@ -203,11 +204,15 @@ class LogInViewController: UIViewController {
         scrollView.contentInset = .zero
         scrollView.scrollIndicatorInsets = .zero
     }
-    
+
     //MARK: Navigation segue
     @objc func goToProfileVC() {
+        
+        var userData: UserService
+        userData = CurrentUserService()
+
         if userNameTextField.text != "" {
-            navigationController?.pushViewController(ProfileViewController(), animated: true)
+            navigationController?.pushViewController(ProfileViewController(userData: userData, userName: userNameTextField.text ?? "Unknowed name"), animated: true)
         }
 
     }

@@ -12,6 +12,19 @@ class ProfileViewController: UIViewController {
     
     var posts = postArray
     
+    let userData: UserService
+    let userName: String
+    
+    init(userData: UserService, userName: String) {
+        self.userData = userData
+        self.userName = userName
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     //MARK: Initial tableView
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -31,11 +44,11 @@ class ProfileViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         view.backgroundColor = .white
         
-        #if DEBUG
+#if DEBUG
         tableView.backgroundColor = .orange
-        #elseif release
+#elseif release
         tableView.backgroundColor = .white
-        #endif
+#endif
         
         view.addSubviews(tableView)
         
@@ -48,7 +61,7 @@ class ProfileViewController: UIViewController {
         initialLayout()
         
         
-
+        
     }
     
     //MARK: Initial constraints
@@ -93,6 +106,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "profile") as! ProfileHeaderView
+            if let user = userData.userSetup(userName) {
+                view.setupUser(user: user)
+            }
             return view
         } else {
             return nil
