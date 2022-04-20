@@ -25,16 +25,26 @@ class User {
 }
 
 class CurrentUserService: UserService {
-   private let user: User? = nil
+    let currentUser: User? = nil
     
     func userSetup(_ name: String) -> User? {
-        if let nameUser = user {
-            if name == nameUser.name {
-                return user
+        if let myNameUser = currentUser {
+            if name == myNameUser.name {
+                return currentUser
             }
         }
         return nil
     }
+}
+
+class TestUserService: UserService {
+    let testUser = User(name: "Шура", avatar: UIImage(named: "Шура"), status: "Балаганов")
     
+    func userSetup(_ name: String) -> User? {
+        if name == testUser.name {
+            return nil
+        }
+        return testUser
+    }
     
 }

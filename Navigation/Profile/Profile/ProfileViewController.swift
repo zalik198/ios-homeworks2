@@ -11,9 +11,8 @@ import StorageService
 class ProfileViewController: UIViewController {
     
     var posts = postArray
-    
-    let userData: UserService
-    let userName: String
+    private let userData: UserService
+    private let userName: String
     
     init(userData: UserService, userName: String) {
         self.userData = userData
@@ -38,14 +37,13 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
         view.backgroundColor = .white
         
 #if DEBUG
-        tableView.backgroundColor = .orange
+        tableView.backgroundColor = .lightGray
 #elseif release
         tableView.backgroundColor = .white
 #endif
@@ -59,8 +57,6 @@ class ProfileViewController: UIViewController {
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photosTableViewCell")
         
         initialLayout()
-        
-        
         
     }
     
@@ -107,7 +103,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "profile") as! ProfileHeaderView
             if let user = userData.userSetup(userName) {
-                view.setupUser(user: user)
+                view.setupUserData(user: user)
             }
             return view
         } else {
