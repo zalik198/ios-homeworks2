@@ -7,6 +7,8 @@
 
 import UIKit
 import StorageService
+import iOSIntPackage
+
 
 class PostTableViewCell: UITableViewCell {
     
@@ -53,12 +55,18 @@ class PostTableViewCell: UITableViewCell {
         return viewsCell
     }()
     
+    let imageProc = ImageProcessor()
+
+    let filterArray = [ColorFilter.tonal, ColorFilter.colorInvert, ColorFilter.posterize, ColorFilter.sepia(intensity: 3), ColorFilter.fade, ColorFilter.crystallize(radius: 5), ColorFilter.noir]
+    
     //MARK: Initial cells
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubviews(authorCell, descriptionCell, imageCell, likesCell, viewsCell)
         initialLayout()
+    
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -67,11 +75,22 @@ class PostTableViewCell: UITableViewCell {
     //MARK: Приравние структурных ячеек к созданным ячейкам
     
     public func myCells(post: Post) {
+            imageCell.image = UIImage(named: post.image)
+            guard let image = imageCell.image else { return }
+            imageProc.processImage(sourceImage: image, filter: getRandomFilter(set: filterArray)) { filteredImage in
+                imageCell.image = filteredImage
+            }
+        // случайный фильтр из масива
+        func getRandomFilter (set: [ColorFilter]) -> ColorFilter {
+            let randomFilterNumber = Int.random(in: 0..<set.count)
+            return set[randomFilterNumber]
+        }
         authorCell.text = post.author
-        imageCell.image = UIImage(named: post.image)
         descriptionCell.text = post.description
         likesCell.text = "Likes: \(post.likes)"
         viewsCell.text = "Views: \(post.views)"
+        
+
     }
     
     //MARK: Initial constraints
