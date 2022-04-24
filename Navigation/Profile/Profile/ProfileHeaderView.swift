@@ -72,6 +72,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return showStatus
     }()
     
+    
     let status: UILabel = {
         let status = UILabel()
         status.text = "Рога и копыта!"
