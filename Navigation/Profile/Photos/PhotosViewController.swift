@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
     
@@ -25,6 +26,8 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
     
+    let filterArray = [ColorFilter.tonal, ColorFilter.colorInvert, ColorFilter.posterize, ColorFilter.sepia(intensity: 3)]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,8 +36,7 @@ class PhotosViewController: UIViewController {
         view.addSubviews(collectionView)
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: "photosCollectionViewCell")
         
-        initialLayout()
-       
+        initialLayout()       
     }
     
     //MARK: Initial constraints
@@ -46,6 +48,7 @@ class PhotosViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
     
     //MARK: Показ tabBar при открытии нового экрана и выключение tabBar при уходе с него
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +68,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photosArray.count
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photosCollectionViewCell", for: indexPath) as! PhotosCollectionViewCell

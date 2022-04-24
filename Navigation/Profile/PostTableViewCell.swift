@@ -8,6 +8,8 @@
 import UIKit
 import StorageService
 
+
+
 class PostTableViewCell: UITableViewCell {
     
     //MARK: create labels
@@ -53,12 +55,15 @@ class PostTableViewCell: UITableViewCell {
         return viewsCell
     }()
     
+    
     //MARK: Initial cells
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubviews(authorCell, descriptionCell, imageCell, likesCell, viewsCell)
         initialLayout()
+    
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

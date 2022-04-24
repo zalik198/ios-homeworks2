@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 class ProfileViewController: UIViewController {
     
@@ -44,13 +45,10 @@ class ProfileViewController: UIViewController {
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postTableViewCell")
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photosTableViewCell")
         
-        
-        
-  
-        
-        
-        
         initialLayout()
+        
+        
+
     }
     
     //MARK: Initial constraints
@@ -63,15 +61,11 @@ class ProfileViewController: UIViewController {
                                     ])
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
     }
     
-    
 }
-
-
 
 //MARK: Initial TableView Deegate and DataSource
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
@@ -88,7 +82,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.myCells(post: posts[indexPath.row])
             return cell
         }
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "photosTableViewCell", for: indexPath) as! PhotosTableViewCell
         return cell
     }
