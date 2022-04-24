@@ -71,7 +71,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return showStatus
     }()
     
-    lazy var status: UILabel = {
+    lazy var status: UILabel = {    
         let status = UILabel()
         status.text = "Рога и копыта!"
         status.textAlignment = .natural
