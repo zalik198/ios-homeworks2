@@ -10,30 +10,28 @@ import UIKit
 class LogInViewController: UIViewController {
     
     //MARK: create view objects
-    let scrollView: UIScrollView = {
+    lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         scrollView.isScrollEnabled = true
-        
         scrollView.toAutoLayout()
-        
         return scrollView
     }()
     
-    let contentView: UIView = {
+    lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
         contentView.toAutoLayout()
         return contentView
     }()
     
-    let logoImageView: UIImageView = {
+    lazy var logoImageView: UIImageView = {
         let logoImageView = UIImageView(image: UIImage(named: "logo"))
         logoImageView.toAutoLayout()
         return logoImageView
     }()
     
-    let userNameTextField: UITextField = {
+    lazy var userNameTextField: UITextField = {
         let userNameTextField = UITextField()
         userNameTextField.toAutoLayout()
         userNameTextField.textColor = .black
@@ -49,7 +47,7 @@ class LogInViewController: UIViewController {
         return userNameTextField
     }()
     
-    let passwordTextField: UITextField = {
+    lazy var passwordTextField: UITextField = {
         let passwordTextField = UITextField()
         passwordTextField.toAutoLayout()
         passwordTextField.textColor = .black
@@ -66,7 +64,7 @@ class LogInViewController: UIViewController {
         return passwordTextField
     }()
     
-    let stackView: UIStackView = {
+    lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.toAutoLayout()
         stackView.layer.borderColor = UIColor.lightGray.cgColor
@@ -80,7 +78,7 @@ class LogInViewController: UIViewController {
         return stackView
     }()
     
-    var logInButton: UIButton = {
+    lazy var logInButton: UIButton = {
         let logInButton = UIButton()
         
         //setting alpha logInButton
@@ -128,39 +126,52 @@ class LogInViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         
         initialLayout()
+        
     }
     
     //MARK: Initial constraints
     
     func initialLayout() {
-    NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                                 scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                                 scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-                                 scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 150),
-                                 
-                                 contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                                 contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                                 contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                                 contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                                 contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-                                 contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-                                 contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-                                 
-                                 logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
-                                 logoImageView.widthAnchor.constraint(equalToConstant: 100),
-                                 logoImageView.heightAnchor.constraint(equalToConstant: 100),
-                                 logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-                                 
-                                 stackView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
-                                 stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                                 stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                                 stackView.heightAnchor.constraint(equalToConstant: 100),
-                                 
-                                 logInButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
-                                 logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                                 logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                                 logInButton.heightAnchor.constraint(equalToConstant: 50)
-                                ])
+        NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                                     scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                                     scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                                     scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 150),
+                                     
+                                     contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                                     contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                                     contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                                     contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                                     contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+                                     contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                                     contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+                                     
+                                     logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
+                                     logoImageView.widthAnchor.constraint(equalToConstant: 100),
+                                     logoImageView.heightAnchor.constraint(equalToConstant: 100),
+                                     logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                                     
+                                     stackView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
+                                     stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                     stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                     stackView.heightAnchor.constraint(equalToConstant: 100),
+                                     
+                                     logInButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
+                                     logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                     logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                     logInButton.heightAnchor.constraint(equalToConstant: 50)
+                                    ])
+    }
+    
+    //MARK: Navigation segue
+    @objc func goToProfileVC() {
+        var userData: UserService
+        userData = CurrentUserService()
+        
+#if DEBUG
+        userData = TestUserService()
+#endif
+        
+        navigationController?.pushViewController(ProfileViewController(userData: userData, userName: userNameTextField.text ?? "Unknowed name"), animated: true)
     }
     
     //MARK: view up (keyboard) and settings scrollView
@@ -202,14 +213,6 @@ class LogInViewController: UIViewController {
     @objc func keyboardWillHide(notification: NSNotification) {
         scrollView.contentInset = .zero
         scrollView.scrollIndicatorInsets = .zero
-    }
-    
-    //MARK: Navigation segue
-    @objc func goToProfileVC() {
-        if userNameTextField.text != "" {
-            navigationController?.pushViewController(ProfileViewController(), animated: true)
-        }
-
     }
 }
 

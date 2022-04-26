@@ -11,6 +11,18 @@ import StorageService
 class ProfileViewController: UIViewController {
     
     var posts = postArray
+    private let userData: UserService
+    private let userName: String
+    
+    init(userData: UserService, userName: String) {
+        self.userData = userData
+        self.userName = userName
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: Initial tableView
     let tableView: UITableView = {
@@ -25,17 +37,16 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
         view.backgroundColor = .white
         
-        #if DEBUG
-        tableView.backgroundColor = .orange
-        #elseif release
+#if DEBUG
+        tableView.backgroundColor = .lightGray
+#elseif release
         tableView.backgroundColor = .white
-        #endif
+#endif
         
         view.addSubviews(tableView)
         
@@ -47,8 +58,6 @@ class ProfileViewController: UIViewController {
         
         initialLayout()
         
-        
-
     }
     
     //MARK: Initial constraints
@@ -93,6 +102,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "profile") as! ProfileHeaderView
+            if let user = userData.userSetup(userName) {
+                view.setupUserData(user: user)
+            }
             return view
         } else {
             return nil
