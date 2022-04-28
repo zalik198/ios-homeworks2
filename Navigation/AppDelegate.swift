@@ -13,6 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        //Фабрика
+        let myInspector = Factory.shared.myFactory()
+
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let tabBarController = UITabBarController()
@@ -26,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let logInViewController = LogInViewController()
         let logInNavigationController = UINavigationController(rootViewController: logInViewController)
         logInNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), selectedImage: nil)
+        
+        logInViewController.delegate = myInspector
         
         tabBarController.viewControllers = [feedNavigationController, logInNavigationController]
         tabBarController.tabBar.isHidden = false

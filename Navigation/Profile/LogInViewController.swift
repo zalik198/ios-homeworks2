@@ -7,7 +7,14 @@
 
 import UIKit
 
-class LogInViewController: UIViewController {
+
+
+
+class LogInViewController: UIViewController, UITextFieldDelegate {
+    
+    
+    var delegate: LoginViewControllerDelegate?
+    
     
     //MARK: create view objects
     lazy var scrollView: UIScrollView = {
@@ -41,6 +48,7 @@ class LogInViewController: UIViewController {
         userNameTextField.keyboardType = .emailAddress
         userNameTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: userNameTextField.frame.height))
         userNameTextField.leftViewMode = .always
+        userNameTextField.returnKeyType = .done
         userNameTextField.autocapitalizationType = .none
         userNameTextField.layer.borderColor = UIColor.lightGray.cgColor
         
@@ -58,6 +66,7 @@ class LogInViewController: UIViewController {
         passwordTextField.leftViewMode = .always
         passwordTextField.autocapitalizationType = .none
         passwordTextField.layer.borderWidth = 0.5
+        passwordTextField.returnKeyType = .done
         passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
         passwordTextField.isSecureTextEntry = true
         
@@ -127,6 +136,10 @@ class LogInViewController: UIViewController {
         
         initialLayout()
         
+        userNameTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        
     }
     
     //MARK: Initial constraints
@@ -163,15 +176,27 @@ class LogInViewController: UIViewController {
     }
     
     //MARK: Navigation segue
-    @objc func goToProfileVC() {
+    @objc private func goToProfileVC() {
         var userData: UserService
         userData = CurrentUserService()
         
 #if DEBUG
         userData = TestUserService()
 #endif
+        let profileVC = ProfileViewController(userData: userData, userName: userNameTextField.text!)
         
-        navigationController?.pushViewController(ProfileViewController(userData: userData, userName: userNameTextField.text ?? "Unknowed name"), animated: true)
+
+        if delegate?.checker(logTF: userNameTextField.text!, passTF: passwordTextField.text!) == true {
+            navigationController?.pushViewController(profileVC, animated: true)
+
+            //navigationController?.setViewControllers([profileVC], animated: true)
+        } else {
+            print("error")
+            print("\(userNameTextField.text!), \(passwordTextField.text!)")
+        }
+        
+
+
     }
     
     //MARK: view up (keyboard) and settings scrollView
@@ -213,6 +238,11 @@ class LogInViewController: UIViewController {
     @objc func keyboardWillHide(notification: NSNotification) {
         scrollView.contentInset = .zero
         scrollView.scrollIndicatorInsets = .zero
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
