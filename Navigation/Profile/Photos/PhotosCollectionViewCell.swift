@@ -13,7 +13,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     
     let imageProc = ImageProcessor()
-
+    
     let filterArray = [ColorFilter.tonal, ColorFilter.colorInvert, ColorFilter.posterize, ColorFilter.sepia(intensity: 3), ColorFilter.fade, ColorFilter.crystallize(radius: 5), ColorFilter.noir]
     
     let photo: UIImageView = {
@@ -26,7 +26,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         contentView.addSubview(photo)
         initialLayout()
-     
+        
     }
     
     func initialLayout() {
@@ -41,15 +41,15 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    func initialImages(_ name: String) {
-        photo.image = UIImage(named: name)
-        guard let image = photo.image else { return }
-        imageProc.processImage(sourceImage: image, filter: getRandomFilter(set: filterArray)) { filteredImage in
-            photo.image = filteredImage
-        }
+    
+    func initialImages(_ image: UIImage) {
+        //        photo.image = UIImage(named: name)
+        //        guard let image = photo.image else { return }
+        //        imageProc.processImage(sourceImage: image, filter: getRandomFilter(set: filterArray)) { filteredImage in
+        self.photo.image = image
+        
     }
-
+    
     // случайный фильтр из масива
     func getRandomFilter (set: [ColorFilter]) -> ColorFilter {
         let randomFilterNumber = Int.random(in: 0..<set.count)

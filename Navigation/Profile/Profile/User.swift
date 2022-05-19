@@ -50,30 +50,8 @@ class TestUserService: UserService {
 }
 
 
-class Checker {
 
-    static let shared = Checker()
-    
-    private init() {}
-    
-    private let login = "admin"
-    private let pswd = "admin"
-    
-    func checkLogPass(log: String, pass: String) -> Bool {
-        guard log == login && pass == pswd else { return false }
-         return true
-    }
-}
 
-protocol LoginViewControllerDelegate {
-    func checker(logTF: String, passTF: String) -> Bool
-}
 
-class LoginInspector: LoginViewControllerDelegate {
-    func checker(logTF: String, passTF: String) -> Bool {
-        return Checker.shared.checkLogPass(log: logTF, pass: passTF)
-    }
-    
-}
-    
-    
+
+

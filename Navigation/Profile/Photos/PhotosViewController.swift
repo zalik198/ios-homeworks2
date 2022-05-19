@@ -10,6 +10,9 @@ import iOSIntPackage
 
 class PhotosViewController: UIViewController {
     
+    private let facade = ImagePublisherFacade()
+    private var newPhotoArray = [UIImage]()
+    
     lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
@@ -28,6 +31,8 @@ class PhotosViewController: UIViewController {
     
     let filterArray = [ColorFilter.tonal, ColorFilter.colorInvert, ColorFilter.posterize, ColorFilter.sepia(intensity: 3)]
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,7 +41,15 @@ class PhotosViewController: UIViewController {
         view.addSubviews(collectionView)
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: "photosCollectionViewCell")
         
-        initialLayout()       
+        facade.subscribe(self)
+        facade.addImagesWithTimer(time: 0.5, repeat: 25, userImages: photosArray)
+        
+        initialLayout()
+    }
+    
+    deinit {
+        facade.rechargeImageLibrary()
+        facade.removeSubscription(for: self)
     }
     
     //MARK: Initial constraints
@@ -64,15 +77,19 @@ class PhotosViewController: UIViewController {
     }
 }
 
-extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photosArray.count
+extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        newPhotoArray = images
+        collectionView.reloadData()
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return newPhotoArray.count
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photosCollectionViewCell", for: indexPath) as! PhotosCollectionViewCell
-        cell.initialImages(photosArray[indexPath.item])
+        cell.initialImages(newPhotoArray[indexPath.item])
         return cell
     }
     
