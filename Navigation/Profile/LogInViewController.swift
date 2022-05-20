@@ -178,18 +178,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 #endif
         let profileVC = ProfileViewController(userData: userData, userName: userNameTextField.text!)
         
-
+        
         if delegate?.checker(logTF: userNameTextField.text!, passTF: passwordTextField.text!) == true {
             navigationController?.pushViewController(profileVC, animated: true)
-
+            
             //navigationController?.setViewControllers([profileVC], animated: true)
         } else {
             print("error")
             print("\(userNameTextField.text!), \(passwordTextField.text!)")
         }
         
-
-
+        
+        
     }
     
     //MARK: view up (keyboard) and settings scrollView
