@@ -21,33 +21,34 @@ class FeedViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private lazy var firstButton: CustomButton = {
+        let firstButton = CustomButton(title: "Первая кнопка",
+                                       titleColor: .white,
+                                       backColor: .darkGray)
+        firstButton.layer.cornerRadius = 15
+        firstButton.layer.borderWidth = 3
+        firstButton.layer.borderColor = UIColor.white.cgColor
+        firstButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
+        return firstButton
+    }()
+    
+    private lazy var secondButton: CustomButton = {
+        let secondButton = CustomButton(title: "Вторая кнопка",
+                                        titleColor: .black,
+                                        backColor: .white)
+        secondButton.layer.borderWidth = 3
+        secondButton.layer.borderColor = UIColor.darkGray.cgColor
+        secondButton.layer.cornerRadius = 15
+        secondButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
+        return secondButton
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.addChild(myPostViewController)
         
-        let firstButton: UIButton = {
-            let firstButton = UIButton()
-            firstButton.backgroundColor = .darkGray
-            firstButton.layer.cornerRadius = 15
-            firstButton.layer.borderWidth = 3
-            firstButton.layer.borderColor = UIColor.white.cgColor
-            firstButton.setTitle("Первая кнопка", for: .normal)
-            firstButton.setTitleColor(.black, for: .normal)
-            firstButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
-            return firstButton
-        }()
         
-        let secondButton: UIButton = {
-            let secondButton = UIButton()
-            secondButton.backgroundColor = .white
-            secondButton.layer.borderWidth = 3
-            secondButton.layer.borderColor = UIColor.darkGray.cgColor
-            secondButton.layer.cornerRadius = 15
-            secondButton.setTitle("Вторая кнопка", for: .normal)
-            secondButton.setTitleColor(.black, for: .normal)
-            secondButton.addTarget(self, action: #selector(showNews), for: .touchUpInside)
-            return secondButton
-        }()
         
         let stackView: UIStackView = {
             let stackView = UIStackView()

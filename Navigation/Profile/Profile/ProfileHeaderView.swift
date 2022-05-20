@@ -25,12 +25,13 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return imageView
     }()
     
-    lazy var closeImageButton: UIButton = {
-        let closeImageButton = UIButton()
+    lazy var closeImageButton: CustomButton = {
+        let closeImageButton = CustomButton(title: "",
+                                            titleColor: .white,
+                                            backColor: .gray)
         closeImageButton.isHidden = true
         closeImageButton.imageView?.contentMode = .scaleAspectFit
         closeImageButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-        closeImageButton.backgroundColor = .gray
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapCloseImage))
         closeImageButton.addGestureRecognizer(tap)
         closeImageButton.isUserInteractionEnabled = true
@@ -57,16 +58,16 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return userName
     }()
     
-    let showStatus: UIButton = {
-        let showStatus = UIButton()
-        showStatus.layer.cornerRadius = 4
+    private lazy var showStatus: CustomButton = {
+        let showStatus = CustomButton(title: "Show status",
+                                      titleColor: .white,
+                                      backColor: .white)
         showStatus.layer.shadowOffset = CGSize(width: 4, height: 4)
         showStatus.layer.shadowRadius = 4
         showStatus.layer.shadowColor = UIColor.black.cgColor
         showStatus.layer.shadowOpacity = 0.7
         showStatus.layer.backgroundColor = UIColor.systemBlue.cgColor
-        showStatus.setTitle("Show status", for: .normal)
-        showStatus.setTitleColor(UIColor.white, for: .normal)
+    
         showStatus.addTarget(self, action: #selector(buttonShow), for: .touchUpInside)
         return showStatus
     }()

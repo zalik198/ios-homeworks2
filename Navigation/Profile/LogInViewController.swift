@@ -7,14 +7,9 @@
 
 import UIKit
 
-
-
-
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
-    
     var delegate: LoginViewControllerDelegate?
-    
     
     //MARK: create view objects
     lazy var scrollView: UIScrollView = {
@@ -87,9 +82,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return stackView
     }()
     
-    lazy var logInButton: UIButton = {
-        let logInButton = UIButton()
-        
+    private lazy var logInButton: CustomButton = {
+        let logInButton = CustomButton(title: "Log In",
+                                       titleColor: .white,
+                                       backColor: .white)
         //setting alpha logInButton
         if let pixelImage = UIImage(named: "blue_pixel") {
             logInButton.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 1), for: .normal)
@@ -97,11 +93,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             logInButton.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .highlighted)
             logInButton.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .disabled)
         }
-        
         logInButton.toAutoLayout()
-        logInButton.setTitle("Log In", for: .normal)
         logInButton.imageView?.contentMode = .scaleAspectFill
-        logInButton.titleLabel?.textColor = .white
         logInButton.clipsToBounds = true
         logInButton.layer.cornerRadius = 10
         logInButton.addTarget(self, action: #selector(goToProfileVC), for: .touchUpInside)
