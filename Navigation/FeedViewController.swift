@@ -83,14 +83,14 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var newLabel: UILabel = {
-       let newLabel = UILabel()
+        let newLabel = UILabel()
         newLabel.backgroundColor = .white
         newLabel.textAlignment = .center
         
         return newLabel
     }()
     
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -107,7 +107,7 @@ class FeedViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(redLabel), name: NSNotification.Name.red, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(greenLabel), name: NSNotification.Name.green, object: nil)
-
+        
     }
     
     private func initialLayout() {
@@ -139,19 +139,19 @@ class FeedViewController: UIViewController {
     }
     
     @objc func redLabel() {
-        newLabel.text = "RED"
+        newLabel.text = "НЕВЕРНО"
         newLabel.textColor = .red
     }
     
     @objc func greenLabel() {
-        newLabel.text = "GREEN"
+        newLabel.text = "ВЕРНО"
         newLabel.textColor = .green
     }
     
     private func newButtonAction() {
-        
         model.check(word: newTextField.text!)
     }
+    
     @objc func showNews() {
         myPostViewController.title = post.title
         self.navigationController?.pushViewController(myPostViewController, animated: true)
