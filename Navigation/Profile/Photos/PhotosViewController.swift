@@ -47,10 +47,6 @@ class PhotosViewController: UIViewController {
         initialLayout()
     }
     
-    deinit {
-        facade.rechargeImageLibrary()
-        facade.removeSubscription(for: self)
-    }
     
     //MARK: Initial constraints
     func initialLayout() {
@@ -70,10 +66,13 @@ class PhotosViewController: UIViewController {
         print("tabBar появился")
     }
     
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         print("tabBar исчез")
+        facade.rechargeImageLibrary()
+        facade.removeSubscription(for: self)
     }
 }
 
