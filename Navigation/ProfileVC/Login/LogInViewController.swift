@@ -170,24 +170,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Navigation segue
     @objc private func goToProfileVC() {
-        var userData: UserService
-        userData = CurrentUserService()
-        
-#if DEBUG
-        userData = TestUserService()
-#endif
-        let profileVC = ProfileViewController(userData: userData, userName: userNameTextField.text!)
-        
-        
-        if delegate?.checker(logTF: userNameTextField.text!, passTF: passwordTextField.text!) == true {
-            navigationController?.pushViewController(profileVC, animated: true)
-            
-            //navigationController?.setViewControllers([profileVC], animated: true)
-        } else {
-            print("error")
-            print("\(userNameTextField.text!), \(passwordTextField.text!)")
-        }
-        
+//        var userData: UserService
+//        userData = CurrentUserService()
+//        
+//#if DEBUG
+//        userData = TestUserService()
+//#endif
+//        let profileVC = ProfileViewController(userData: userData, userName: userNameTextField.text!)
+//        
+//        
+//        if delegate?.checker(logTF: userNameTextField.text!, passTF: passwordTextField.text!) == true {
+//            navigationController?.pushViewController(profileVC, animated: true)
+//            
+//            //navigationController?.setViewControllers([profileVC], animated: true)
+//        } else {
+//            print("error")
+//            print("\(userNameTextField.text!), \(passwordTextField.text!)")
+//        }
+//        
         
         
     }

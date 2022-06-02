@@ -16,16 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Фабрика
         let myInspector = Factory.shared.myFactory()
-
+        
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let tabBarController = UITabBarController()
-        self.window?.rootViewController = tabBarController
-        
-        let feedViewController = FeedViewController()
-        feedViewController.view.backgroundColor = .lightGray
-        let feedNavigationController = UINavigationController(rootViewController: feedViewController)
-        feedNavigationController.tabBarItem = UITabBarItem(title: "Newsline", image: UIImage(named: "news"), selectedImage: nil)
         
         let logInViewController = LogInViewController()
         let logInNavigationController = UINavigationController(rootViewController: logInViewController)
@@ -33,18 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         logInViewController.delegate = myInspector
         
-        tabBarController.viewControllers = [feedNavigationController, logInNavigationController]
-        tabBarController.tabBar.isHidden = false
-        tabBarController.tabBar.backgroundColor = .white
+        let mainCoordinator = RootCoordinator()
+        window?.rootViewController = mainCoordinator.startApplication()
+        window?.makeKeyAndVisible()
         
-        let appearance = UINavigationBarAppearance()
-        UINavigationBar.appearance().barTintColor = .white
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        
-        self.window?.rootViewController = tabBarController
-        self.window?.makeKeyAndVisible()
         return true
+        
         
     }
 }

@@ -10,13 +10,18 @@ import StorageService
 
 class ProfileViewController: UIViewController {
     
-    var posts = postArray
+    private var viewModel: ProfileViewModel?
+    private weak var coordinator: ProfileCoordinator?
+    
+    var posts = ProfileViewModel().postArray
     private let userData: UserService
     private let userName: String
     
-    init(userData: UserService, userName: String) {
+    init(userData: UserService, userName: String, viewModel: ProfileViewModel, coordinator: ProfileCoordinator) {
         self.userData = userData
         self.userName = userName
+        self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -82,7 +87,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         }
-        return postArray.count
+        return ProfileViewModel().postArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

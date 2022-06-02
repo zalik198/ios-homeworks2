@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import UIKit
+
+final class RootCoordinator {
+    func startApplication() -> UIViewController {
+        return MainTabBarViewController()
+    }
+}
+
