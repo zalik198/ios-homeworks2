@@ -10,15 +10,16 @@ import SnapKit
 
 class FeedViewController: UIViewController {
     
-    private var model = Model()
-    
+    private var viewModel: FeedViewModel?
+    private weak var coordinator: FeedCoordinator?
+        
     var post = MyPost(title: "Newsline")
-    let myPostViewController: MyPostViewController
     
-    init() {
-        myPostViewController = MyPostViewController()
-        super.init(nibName: nil, bundle: nil)
-    }
+    init (model: FeedViewModel, coordinator: FeedCoordinator) {
+           self.viewModel = model
+           self.coordinator = coordinator
+           super.init(nibName: nil, bundle: nil)
+       }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -93,21 +94,17 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationController?.addChild(myPostViewController)
-        
+                
         self.view.addSubviews(stackView, newButton, newTextField, newLabel)
         initialLayout()
         
         newButton.tapAction = {  [weak self ] in
             guard let self = self else { return }
             self.newButtonAction()
-            
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(redLabel), name: NSNotification.Name.red, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(greenLabel), name: NSNotification.Name.green, object: nil)
-        
     }
     
     private func initialLayout() {
@@ -149,11 +146,12 @@ class FeedViewController: UIViewController {
     }
     
     private func newButtonAction() {
-        model.check(word: newTextField.text!)
+        viewModel!.check(word: newTextField.text!)
     }
     
     @objc func showNews() {
-        myPostViewController.title = post.title
-        self.navigationController?.pushViewController(myPostViewController, animated: true)
+        let coordinator = MyPostCoordinator()
+            coordinator.showDetail(navigation: navigationController, coordinator: coordinator)
+
     }
 }

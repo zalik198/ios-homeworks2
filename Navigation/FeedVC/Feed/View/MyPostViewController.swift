@@ -7,18 +7,16 @@
 
 import UIKit
 
-struct MyPost {
-    var title: String
-}
-
 class MyPostViewController: UIViewController {
     
-    var infoViewController: InfoViewController
-    
-    init() {
-        infoViewController = InfoViewController()
-        super.init(nibName: nil, bundle: nil)
-    }
+    private var viewModel: MyPostViewModel?
+    private weak var coordinator: MyPostCoordinator?
+        
+    init (viewModel: MyPostViewModel, coordinator: MyPostCoordinator) {
+         self.viewModel = viewModel
+         self.coordinator = coordinator
+         super.init(nibName: nil, bundle: nil)
+     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -33,6 +31,7 @@ class MyPostViewController: UIViewController {
     }
     
     @objc func addTapped() {
-        present(infoViewController, animated: true, completion: nil)
+        let coordinator = InfoCoordinator()
+            coordinator.showDetail(navigation: navigationController, coordinator: coordinator)
     }
 }

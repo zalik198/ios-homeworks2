@@ -1,17 +1,16 @@
 //
-//  Model.swift
+//  FeedViewModel.swift
 //  Navigation
 //
-//  Created by Shom on 20.05.2022.
+//  Created by Shom on 02.06.2022.
 //
 
 import Foundation
 
-final class Model {
+
+final class FeedViewModel {
     
     private var password = "admin"
-    
-    
     func check(word: String) {
         guard word != "" else { return }
         
