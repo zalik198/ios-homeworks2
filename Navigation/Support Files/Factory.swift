@@ -26,7 +26,7 @@ final class MyFactory {
     
     enum State {
         case feed
-        case profile
+        case login
     }
     
     let navigationController: UINavigationController
@@ -57,15 +57,12 @@ final class MyFactory {
                 selectedImage: UIImage(systemName: "list.bullet.circle.fill")
             )
             
-        case .profile:
-            let coordinator = ProfileCoordinator()
-            let profileViewController = coordinator.showDetail(coordinator: coordinator)
-            navigationController.setViewControllers([profileViewController], animated: true)
-            navigationController.navigationBar.barTintColor = .white
-            navigationController.navigationBar.standardAppearance = appearance
-            navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
+        case .login:
+            let coordinator = LoginCoordinator()
+            let loginViewController = coordinator.showDetail(coordinator: coordinator)
+            navigationController.setViewControllers([loginViewController], animated: true)
             navigationController.tabBarItem = UITabBarItem(
-                title: "Profile",
+                title: "Login",
                 image: UIImage(systemName: "person.circle"),
                 selectedImage: UIImage(systemName:"person.circle.fill")
             )

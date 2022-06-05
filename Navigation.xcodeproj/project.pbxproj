@@ -33,6 +33,7 @@
 		627CE0062848301000F9274F /* MyPostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627CE0052848301000F9274F /* MyPostCoordinator.swift */; };
 		627CE0082848301F00F9274F /* InfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627CE0072848301F00F9274F /* InfoCoordinator.swift */; };
 		627DC95127BEE9BC00A290F1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */; };
+		629DEE04284CD5A200553813 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629DEE03284CD5A200553813 /* LoginCoordinator.swift */; };
 		62A4151C28077C5000BFD930 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A4151B28077C5000BFD930 /* PhotosViewController.swift */; };
 		62C85D03280AE95F0067D034 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 62C85D02280AE95F0067D034 /* iOSIntPackage */; };
 		62F2214127B4811D00544807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2214027B4811D00544807 /* AppDelegate.swift */; };
@@ -97,6 +98,7 @@
 		627CE0052848301000F9274F /* MyPostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostCoordinator.swift; sourceTree = "<group>"; };
 		627CE0072848301F00F9274F /* InfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCoordinator.swift; sourceTree = "<group>"; };
 		627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		629DEE03284CD5A200553813 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		62A4151B28077C5000BFD930 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		62F2213D27B4811D00544807 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F2214027B4811D00544807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -185,8 +187,8 @@
 		627CDFE6284809D700F9274F /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				627CDFD828369FF800F9274F /* LoginViewControllerDelegate.swift */,
-				62FC4E3C27D552DE00414B82 /* LogInViewController.swift */,
+				629DEE08284CDD4600553813 /* View */,
+				629DEE07284CDD3400553813 /* Coordinator */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -298,6 +300,23 @@
 				627CDFE6284809D700F9274F /* Login */,
 			);
 			path = ProfileVC;
+			sourceTree = "<group>";
+		};
+		629DEE07284CDD3400553813 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				629DEE03284CD5A200553813 /* LoginCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		629DEE08284CDD4600553813 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				627CDFD828369FF800F9274F /* LoginViewControllerDelegate.swift */,
+				62FC4E3C27D552DE00414B82 /* LogInViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		62F2213427B4811D00544807 = {
@@ -563,6 +582,7 @@
 				62F2215927B4950D00544807 /* MyPostViewController.swift in Sources */,
 				62FC4E3F27D5E8EE00414B82 /* Support.swift in Sources */,
 				62FC4E3D27D552DE00414B82 /* LogInViewController.swift in Sources */,
+				629DEE04284CD5A200553813 /* LoginCoordinator.swift in Sources */,
 				627CDFDB2836A08C00F9274F /* Checker.swift in Sources */,
 				627CDFF828481C4200F9274F /* ProfileViewModel.swift in Sources */,
 				62F2214127B4811D00544807 /* AppDelegate.swift in Sources */,

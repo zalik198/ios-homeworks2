@@ -24,11 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let logInNavigationController = UINavigationController(rootViewController: logInViewController)
         logInNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), selectedImage: nil)
         
-        logInViewController.delegate = myInspector
         
         let mainCoordinator = RootCoordinator()
         window?.rootViewController = mainCoordinator.startApplication()
         window?.makeKeyAndVisible()
+        logInViewController.delegate = myInspector
+
         
         return true
         
