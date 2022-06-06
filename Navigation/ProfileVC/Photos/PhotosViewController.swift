@@ -12,6 +12,11 @@ class PhotosViewController: UIViewController {
     
     private let facade = ImagePublisherFacade()
     private var newPhotoArray = [UIImage]()
+    let imageProcessor = ImageProcessor()
+    //var timerCount = 0.0
+    //var timer: Timer? = nil
+    let start = DispatchTime.now()
+    
     
     lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -31,8 +36,6 @@ class PhotosViewController: UIViewController {
     
     let filterArray = [ColorFilter.tonal, ColorFilter.colorInvert, ColorFilter.posterize, ColorFilter.sepia(intensity: 3)]
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,11 +44,36 @@ class PhotosViewController: UIViewController {
         view.addSubviews(collectionView)
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: "photosCollectionViewCell")
         
-        facade.subscribe(self)
-        facade.addImagesWithTimer(time: 0.5, repeat: 25, userImages: photosArray)
+        //facade.subscribe(self)
+        //facade.addImagesWithTimer(time: 0.5, repeat: 25, userImages: photosArray)
+        //            self.newPhotoArray.removeAll()
+        //            images.forEach({self.newPhotoArray.append($0)})
         
         initialLayout()
+        
+        imageProcessor.processImagesOnThread(sourceImages: photosArray, filter: .noir, qos: .userInteractive) { cgImage in
+            self.newPhotoArray = cgImage.map({UIImage(cgImage: $0!)})
+            let end = DispatchTime.now()
+            let nanoTime = end.uptimeNanoseconds - self.start.uptimeNanoseconds
+            let timeInterval = Double(nanoTime) / 1_000_000_000
+            print("time - \(timeInterval)")
+            DispatchQueue.main.async{
+                self.collectionView.reloadData()
+            }
+        }
+        
     }
+    
+    
+    
+    //Время выполнения метода всех приоритетов с разными фильтрами
+    /*
+     .default - 3.9 секунд
+     .background - 4.1 секунд
+     .userInitiated - 5.1 секунда
+     .userInteractive - 4.8 секунд
+     .utility - 4.5 секунд
+     */
     
     
     //MARK: Initial constraints
@@ -66,21 +94,21 @@ class PhotosViewController: UIViewController {
         print("tabBar появился")
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         print("tabBar исчез")
-        facade.rechargeImageLibrary()
-        facade.removeSubscription(for: self)
+        //facade.rechargeImageLibrary()
+        //facade.removeSubscription(for: self)
     }
 }
 
-extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        newPhotoArray = images
-        collectionView.reloadData()
-    }
+extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout //ImageLibrarySubscriber
+{
+    //    func receive(images: [UIImage]) {
+    //        newPhotoArray = images
+    //        collectionView.reloadData()
+    //    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return newPhotoArray.count
@@ -96,3 +124,15 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         CGSize(width: (collectionView.frame.width - 40) / 3, height: (collectionView.frame.width - 40) / 3)
     }
 }
+
+
+//timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+
+//@objc func updateTimer() {
+
+//        timerCount += 0.01
+//        if newPhotoArray.count > 0 {
+//            print("Прошло \(self.timerCount) секунд")
+//            timer!.invalidate()
+//}
+//}

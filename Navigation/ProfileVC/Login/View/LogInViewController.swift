@@ -10,6 +10,8 @@ import UIKit
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
     var delegate: LoginViewControllerDelegate?
+    private let myInspector = Factory.shared.myFactory()
+    
     
     //MARK: create view objects
     lazy var scrollView: UIScrollView = {
@@ -131,6 +133,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         userNameTextField.delegate = self
         passwordTextField.delegate = self
+        self.delegate = myInspector
         
         
     }
@@ -170,24 +173,27 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Navigation segue
     @objc private func goToProfileVC() {
-//        var userData: UserService
-//        userData = CurrentUserService()
-//        
-//#if DEBUG
-//        userData = TestUserService()
-//#endif
-//        let profileVC = ProfileViewController(userData: userData, userName: userNameTextField.text!)
-//        
-//        
-//        if delegate?.checker(logTF: userNameTextField.text!, passTF: passwordTextField.text!) == true {
-//            navigationController?.pushViewController(profileVC, animated: true)
-//            
-//            //navigationController?.setViewControllers([profileVC], animated: true)
-//        } else {
-//            print("error")
-//            print("\(userNameTextField.text!), \(passwordTextField.text!)")
-//        }
-//        
+        //var userData: UserService
+        //userData = CurrentUserService()
+        
+        //#if DEBUG
+        //        userData = TestUserService()
+        //#endif
+        //let profileVC = ProfileViewController(userData: userData, userName: userNameTextField.text!)
+        
+        //
+        let coordinator = ProfileCoordinator()
+        let profileViewController = coordinator.showDetail(coordinator: coordinator)
+        
+        if delegate?.checker(logTF: userNameTextField.text!, passTF: passwordTextField.text!) == true {
+            navigationController?.pushViewController(profileViewController, animated: true)
+            
+            navigationController?.setViewControllers([profileViewController], animated: true)
+        } else {
+            print("error")
+            print("\(userNameTextField.text!), \(passwordTextField.text!)")
+        }
+        
         
         
     }
