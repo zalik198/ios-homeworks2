@@ -13,8 +13,10 @@ class PhotosViewController: UIViewController {
     private let facade = ImagePublisherFacade()
     private var newPhotoArray = [UIImage]()
     let imageProcessor = ImageProcessor()
-    var timerCount = 0.0
-    var timer: Timer? = nil
+    //var timerCount = 0.0
+    //var timer: Timer? = nil
+    let start = DispatchTime.now()
+    
     
     lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -49,29 +51,25 @@ class PhotosViewController: UIViewController {
         
         initialLayout()
         
-        imageProcessor.processImagesOnThread(sourceImages: photosArray, filter: .process, qos: .utility) { cgImage in
+        imageProcessor.processImagesOnThread(sourceImages: photosArray, filter: .noir, qos: .userInteractive) { cgImage in
             self.newPhotoArray = cgImage.map({UIImage(cgImage: $0!)})
+            let end = DispatchTime.now()
+            let nanoTime = end.uptimeNanoseconds - self.start.uptimeNanoseconds
+            let timeInterval = Double(nanoTime) / 1_000_000_000
+            print("time - \(timeInterval)")
             DispatchQueue.main.async{
                 self.collectionView.reloadData()
             }
         }
         
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-        
     }
     
-    @objc func updateTimer() {
-        timerCount += 0.01
-        if newPhotoArray.count > 0 {
-            print("Прошло \(self.timerCount) секунд")
-            timer!.invalidate()
-        }
-    }
+    
     
     //Время выполнения метода всех приоритетов с разными фильтрами
     /*
      .default - 3.9 секунд
-     .background - 15.3 секунд
+     .background - 4.1 секунд
      .userInitiated - 5.1 секунда
      .userInteractive - 4.8 секунд
      .utility - 4.5 секунд
@@ -88,7 +86,7 @@ class PhotosViewController: UIViewController {
         ])
     }
     
-
+    
     //MARK: Показ tabBar при открытии нового экрана и выключение tabBar при уходе с него
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -126,3 +124,15 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         CGSize(width: (collectionView.frame.width - 40) / 3, height: (collectionView.frame.width - 40) / 3)
     }
 }
+
+
+//timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+
+//@objc func updateTimer() {
+
+//        timerCount += 0.01
+//        if newPhotoArray.count > 0 {
+//            print("Прошло \(self.timerCount) секунд")
+//            timer!.invalidate()
+//}
+//}
