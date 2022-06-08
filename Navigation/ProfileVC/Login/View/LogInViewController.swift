@@ -104,6 +104,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return logInButton
     }()
     
+    private lazy var brutePassword: CustomButton = {
+        let brutePassword = CustomButton(title: "Подобрать пароль", titleColor: .white, backColor: .white)
+        if let pixelImage = UIImage(named: "blue_pixel") {
+            brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 1), for: .normal)
+            brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .selected)
+            brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .highlighted)
+            brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .disabled)
+        }
+        
+        brutePassword.toAutoLayout()
+        brutePassword.imageView?.contentMode = .scaleAspectFill
+        brutePassword.clipsToBounds = true
+        brutePassword.layer.cornerRadius = 10
+        brutePassword.addTarget(self, action: #selector(passwordCrack), for: .touchUpInside)
+        
+        return brutePassword
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -119,7 +137,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         scrollView.contentSize = CGSize(width: view.frame.width, height: max(view.frame.width, view.frame.height))
         
         //subviews add in contentView
-        contentView.addSubviews(logoImageView, stackView, logInButton)
+        contentView.addSubviews(logoImageView, stackView, logInButton, brutePassword)
         
         //add textField in stackView
         stackView.addArrangedSubview(userNameTextField)
@@ -167,7 +185,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                                      logInButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
                                      logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
                                      logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                                     logInButton.heightAnchor.constraint(equalToConstant: 50)
+                                     logInButton.heightAnchor.constraint(equalToConstant: 50),
+                                     
+                                     brutePassword.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
+                                     brutePassword.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                     brutePassword.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                     brutePassword.heightAnchor.constraint(equalToConstant: 50),
                                     ])
     }
     
@@ -193,9 +216,40 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             print("error")
             print("\(userNameTextField.text!), \(passwordTextField.text!)")
         }
+    }
+    
+    //BrutForce
+    @objc private func passwordCrack() {
+        let hackMethod = BrutForce()
+        var myPassword: String = ""
         
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        passwordTextField.leftView = textFieldIndicator(subView: activityIndicator)
+        passwordTextField.placeholder = "Подбираем пароль!"
+        activityIndicator.startAnimating()
         
-        
+        DispatchQueue.global().async {
+            myPassword = hackMethod.bruteForce(passwordToUnlock: hackMethod.passwordToUnlock)
+            DispatchQueue.main.sync {//Все действия с UI делаем на main
+                self.passwordTextField.text = myPassword
+                self.passwordTextField.isSecureTextEntry = false
+                self.passwordTextField.placeholder = "Password"
+                activityIndicator.stopAnimating()
+                self.passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.passwordTextField.frame.height))
+                print("Пароль подобран!")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                    self.passwordTextField.isSecureTextEntry = true
+                    print("Пароль скрыт!")
+                })
+            }
+        }
+    }
+    
+    func textFieldIndicator (subView: UIView) -> UIView {
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
+        leftView.addSubview(subView)
+        subView.center = leftView.center
+        return leftView
     }
     
     //MARK: view up (keyboard) and settings scrollView
