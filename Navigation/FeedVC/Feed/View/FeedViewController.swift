@@ -12,14 +12,14 @@ class FeedViewController: UIViewController {
     
     private var viewModel: FeedViewModel?
     private weak var coordinator: FeedCoordinator?
-        
+    
     var post = MyPost(title: "Newsline")
     
     init (model: FeedViewModel, coordinator: FeedCoordinator) {
-           self.viewModel = model
-           self.coordinator = coordinator
-           super.init(nibName: nil, bundle: nil)
-       }
+        self.viewModel = model
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -94,7 +94,7 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         self.view.addSubviews(stackView, newButton, newTextField, newLabel)
         initialLayout()
         
@@ -106,7 +106,7 @@ class FeedViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(redLabel), name: NSNotification.Name.red, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(greenLabel), name: NSNotification.Name.green, object: nil)
         
-        //Таймер отсчета времени? перед оповещением!
+        //MARK: - Таймер отсчета времени, перед оповещением!
         Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { _ in
             let alert = UIAlertController(title: "Просто напоминание!", message: "Приложение ждет Вас!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
@@ -158,7 +158,7 @@ class FeedViewController: UIViewController {
     
     @objc func showNews() {
         let coordinator = MyPostCoordinator()
-            coordinator.showDetail(navigation: navigationController, coordinator: coordinator)
-
+        coordinator.showDetail(navigation: navigationController, coordinator: coordinator)
+        
     }
 }
