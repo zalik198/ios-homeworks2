@@ -105,6 +105,13 @@ class FeedViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(redLabel), name: NSNotification.Name.red, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(greenLabel), name: NSNotification.Name.green, object: nil)
+        
+        //Таймер отсчета времени? перед оповещением!
+        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { _ in
+            let alert = UIAlertController(title: "Просто напоминание!", message: "Приложение ждет Вас!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     private func initialLayout() {
