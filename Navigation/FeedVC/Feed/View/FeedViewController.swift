@@ -107,11 +107,11 @@ class FeedViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(greenLabel), name: NSNotification.Name.green, object: nil)
         
         //MARK: - Таймер отсчета времени, перед оповещением!
-        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { _ in
-            let alert = UIAlertController(title: "Просто напоминание!", message: "Приложение ждет Вас!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
+//        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { _ in
+//            let alert = UIAlertController(title: "Просто напоминание!", message: "Приложение ждет Вас!", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        }
     }
     
     private func initialLayout() {
@@ -153,7 +153,21 @@ class FeedViewController: UIViewController {
     }
     
     private func newButtonAction() {
-        viewModel!.check(word: newTextField.text!)
+        do {
+            try viewModel!.check(word: newTextField.text!)
+        } catch MyError.empty {
+            alertError("Вы ввели пустое значение!")
+        } catch MyError.unauthorizated {
+            alertError("Неверный пароль!")
+        } catch {
+            print("Такой ошибки нет!")
+        }
+    }
+    
+    private func alertError(_ message: String) {
+        let alert = UIAlertController(title: "Внимание!", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func showNews() {

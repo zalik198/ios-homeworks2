@@ -11,13 +11,17 @@ import Foundation
 final class FeedViewModel {
     
     private var password = "admin"
-    func check(word: String) {
-        guard word != "" else { return }
+    func check(word: String) throws {
+        //guard word != "" else { return  }
         
         if word == password {
             NotificationCenter.default.post(name: NSNotification.Name.green, object: nil)
-        } else {
+        } else if word == ""{
             NotificationCenter.default.post(name: NSNotification.Name.red, object: nil)
+            throw MyError.empty
+        } else if word != "admin" {
+            NotificationCenter.default.post(name: NSNotification.Name.red, object: nil)
+            throw MyError.unauthorizated
         }
     }
 }
