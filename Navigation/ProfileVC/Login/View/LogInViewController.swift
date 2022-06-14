@@ -9,6 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
+    var userData: UserService?
     var delegate: LoginViewControllerDelegate?
     private let myInspector = Factory.shared.myFactory()
     
@@ -196,15 +197,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Navigation segue
     @objc private func goToProfileVC() {
-        //var userData: UserService
         //userData = CurrentUserService()
         
-        //#if DEBUG
-        //        userData = TestUserService()
-        //#endif
+        #if DEBUG
+        userData = TestUserService()
+               //userData = TestUserService()
+        #endif
         //let profileVC = ProfileViewController(userData: userData, userName: userNameTextField.text!)
         
-        //
+        
         let coordinator = ProfileCoordinator()
         let profileViewController = coordinator.showDetail(coordinator: coordinator)
         

@@ -108,9 +108,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "profile") as! ProfileHeaderView
-            if let user = userData.userSetup(userName) {
-                view.setupUserData(user: user)
+            do {
+                let user = try userData.userSetup(userName)
+                    view.setupUserData(user: user!)
+            } catch {
+                print("Ошибка авторизации")
             }
+           
             return view
         } else {
             return nil

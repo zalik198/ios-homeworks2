@@ -10,7 +10,7 @@ import Foundation
 
 final class FeedViewModel {
     
-    private var password = "admin"
+    var password = "admin"
     func check(word: String) throws {
         //guard word != "" else { return  }
         

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol UserService {
-    func userSetup(_ name: String) -> User?
+    func userSetup(_ name: String) throws -> User?
 }
 
 class User {
@@ -40,11 +40,11 @@ class CurrentUserService: UserService {
 class TestUserService: UserService {
     let testUser = User(name: "Шура", avatar: UIImage(named: "Шура"), status: "Балаганов")
     
-    func userSetup(_ name: String) -> User? {
+    func userSetup(_ name: String) throws -> User? {
         if name == testUser.name {
-            return nil
+            return testUser
         }
-        return testUser
+        throw MyError.unauthorizated
     }
     
 }

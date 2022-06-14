@@ -12,6 +12,7 @@ class FeedViewController: UIViewController {
     
     private var viewModel: FeedViewModel?
     private weak var coordinator: FeedCoordinator?
+    var myPassword = ""
     
     var post = MyPost(title: "Newsline")
     
@@ -100,18 +101,41 @@ class FeedViewController: UIViewController {
         
         newButton.tapAction = {  [weak self ] in
             guard let self = self else { return }
-            self.newButtonAction()
+            
+            //Задание 1
+            //self.newButtonAction()
+            
+            //Задание 2
+            DispatchQueue.global().async {
+                self.newButtonAction { result in
+                    switch result {
+                    case .success(_):
+                        DispatchQueue.main.async {
+                            self.alertError("Все верно!")
+                        }
+                    case .failure(.empty):
+                        DispatchQueue.main.async {
+                            self.alertError("Пустые данные!")
+                        }
+                    case .failure(.unauthorizated):
+                        DispatchQueue.main.async {
+                            self.alertError("Неверные данные!")
+                        }
+                    }
+                }
+                
+            }
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(redLabel), name: NSNotification.Name.red, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(greenLabel), name: NSNotification.Name.green, object: nil)
         
         //MARK: - Таймер отсчета времени, перед оповещением!
-//        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { _ in
-//            let alert = UIAlertController(title: "Просто напоминание!", message: "Приложение ждет Вас!", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//        }
+        //        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { _ in
+        //            let alert = UIAlertController(title: "Просто напоминание!", message: "Приложение ждет Вас!", preferredStyle: .alert)
+        //            alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
+        //            self.present(alert, animated: true, completion: nil)
+        //        }
     }
     
     private func initialLayout() {
@@ -152,17 +176,32 @@ class FeedViewController: UIViewController {
         newLabel.textColor = .green
     }
     
-    private func newButtonAction() {
-        do {
-            try viewModel!.check(word: newTextField.text!)
-        } catch MyError.empty {
-            alertError("Вы ввели пустое значение!")
-        } catch MyError.unauthorizated {
-            alertError("Неверный пароль!")
-        } catch {
-            print("Такой ошибки нет!")
+    //Задание 2
+    
+    private func newButtonAction(completion: @escaping (Result<String, MyError>) -> Void) {
+        DispatchQueue.main.async {
+            if self.viewModel?.password == self.newTextField.text {
+                completion(.success(self.myPassword))
+            }  else if self.newTextField.text == "" {
+                completion(.failure(.empty))
+            } else {
+                completion(.failure(.unauthorizated))
+            }
         }
     }
+    
+    //Задание 1
+    //    private func newButtonAction() {
+    //        do {
+    //            try viewModel!.check(word: newTextField.text!)
+    //        } catch MyError.empty {
+    //            alertError("Вы ввели пустое значение!")
+    //        } catch MyError.unauthorizated {
+    //            alertError("Неверный пароль!")
+    //        } catch {
+    //            print("Такой ошибки нет!")
+    //        }
+    //    }
     
     private func alertError(_ message: String) {
         let alert = UIAlertController(title: "Внимание!", message: message, preferredStyle: .alert)
