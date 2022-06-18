@@ -11,11 +11,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //Фабрика
         let myInspector = Factory.shared.myFactory()
+        
+        //NetworkService enum
+        let appConfiguration = AppConfiguration.allCases.randomElement()
+
         
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -30,9 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         logInViewController.delegate = myInspector
 
-        
-        return true
-        
+        //NetworkService method
+        NetworkService.startNetwork(url: appConfiguration?.rawValue ?? "Ошибка кейсов")
+
+        return true        
         
     }
 }
