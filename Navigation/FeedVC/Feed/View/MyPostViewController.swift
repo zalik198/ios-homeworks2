@@ -10,7 +10,8 @@ import UIKit
 class MyPostViewController: UIViewController {
     
     private var viewModel: MyPostViewModel?
-    private weak var coordinator: MyPostCoordinator?
+    private weak var postCoordinator: MyPostCoordinator?
+
     private var timerLeft = 25
     private var timer: Timer?
     
@@ -35,7 +36,7 @@ class MyPostViewController: UIViewController {
     
     init (viewModel: MyPostViewModel, coordinator: MyPostCoordinator) {
         self.viewModel = viewModel
-        self.coordinator = coordinator
+        self.postCoordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -60,25 +61,33 @@ class MyPostViewController: UIViewController {
         timerImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         timerImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
+//        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
         
     }
     
-    //MARK: - Метод отсчета времени
-    @objc func onTimerFires() {
-        timerLeft -= 1
-        timerLabel.text = "Через \(String(timerLeft)) секунд появистя что-то!"
-        
-        if timerLeft <= 0 {
-            timer?.invalidate()
-            timer = nil
-            self.timerImage.image = UIImage(named: "kin-dza-dza")
-            
-        }
-    }
-    
+//    //MARK: - Метод отсчета времени
+//    @objc func onTimerFires() {
+//        timerLeft -= 1
+//        timerLabel.text = "Через \(String(timerLeft)) секунд появистя что-то!"
+//
+//        if timerLeft <= 0 {
+//            timer?.invalidate()
+//            timer = nil
+//            self.timerImage.image = UIImage(named: "kin-dza-dza")
+//
+//        }
+//    }
+//
     @objc func addTapped() {
         let coordinator = InfoCoordinator()
-        coordinator.showDetail(navigation: navigationController, coordinator: coordinator)
+        
+        coordinator.showDetail(navigation: self.navigationController, coordinator: coordinator)
+        
+       
+       
+
+
+        
+     
     }
 }

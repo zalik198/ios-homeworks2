@@ -17,7 +17,7 @@
 		623818F52807780E008DFDDC /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 623818ED2807780E008DFDDC /* StorageService.framework */; };
 		623818F62807780E008DFDDC /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 623818ED2807780E008DFDDC /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		623818FD28077BB3008DFDDC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623818FB28077946008DFDDC /* Post.swift */; };
-		623B404428636291005AFAF2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B404328636291005AFAF2 /* NetworkManager.swift */; };
+		623B404428636291005AFAF2 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B404328636291005AFAF2 /* JSON.swift */; };
 		624186DB281021A200D4ACD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624186DA281021A200D4ACD3 /* User.swift */; };
 		627CDFD7281AA83600F9274F /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627CDFD6281AA83600F9274F /* Factory.swift */; };
 		627CDFD928369FF800F9274F /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627CDFD828369FF800F9274F /* LoginViewControllerDelegate.swift */; };
@@ -85,7 +85,7 @@
 		623818EF2807780E008DFDDC /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		623818F02807780E008DFDDC /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
 		623818FB28077946008DFDDC /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		623B404328636291005AFAF2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		623B404328636291005AFAF2 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		624186DA281021A200D4ACD3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		627CDFD6281AA83600F9274F /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		627CDFD828369FF800F9274F /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -369,7 +369,7 @@
 				627CDFE028379B5800F9274F /* CustomButton.swift */,
 				627CDFE42837D04100F9274F /* NotificationName.swift */,
 				62F18E3A285DEA5B00FA9685 /* NetworkService.swift */,
-				623B404328636291005AFAF2 /* NetworkManager.swift */,
+				623B404328636291005AFAF2 /* JSON.swift */,
 				627CDFD6281AA83600F9274F /* Factory.swift */,
 				627CDFE828480A2800F9274F /* CheckPassword */,
 			);
@@ -594,7 +594,7 @@
 				62FC4E3D27D552DE00414B82 /* LogInViewController.swift in Sources */,
 				629DEE04284CD5A200553813 /* LoginCoordinator.swift in Sources */,
 				627CDFDB2836A08C00F9274F /* Checker.swift in Sources */,
-				623B404428636291005AFAF2 /* NetworkManager.swift in Sources */,
+				623B404428636291005AFAF2 /* JSON.swift in Sources */,
 				627CDFF828481C4200F9274F /* ProfileViewModel.swift in Sources */,
 				62F2214127B4811D00544807 /* AppDelegate.swift in Sources */,
 				620AC02128511FA5008F6166 /* BrutForce.swift in Sources */,
