@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let myInspector = Factory.shared.myFactory()
         
         //NetworkService enum
-        let appConfiguration = AppConfiguration.allCases.randomElement()
-
+        //let appConfiguration = AppConfiguration.allCases.randomElement()
+        
         
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -36,7 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logInViewController.delegate = myInspector
 
         //NetworkService method
-        NetworkService.startNetwork(url: appConfiguration?.rawValue ?? "Ошибка кейсов")
+        //NetworkService.startNetwork(url: appConfiguration?.rawValue ?? "Ошибка кейсов")
+        
+       
 
         return true        
         

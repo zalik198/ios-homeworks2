@@ -6,20 +6,32 @@
 //
 
 import UIKit
+import SnapKit
 
 class InfoViewController: UIViewController {
     
     private var viewModel: InfoViewModel?
     private weak var coordinator: InfoCoordinator?
+    private var jsonSerialization: JSONSerializationManager?
     
     private lazy var secondButton: CustomButton = {
         let secondButton = CustomButton(title: "Сообщение",
                                         titleColor: .black,
                                         backColor: .orange)
-        secondButton.frame = CGRect(x: 0, y: 0, width: 150, height: 60)
-        secondButton.center = self.view.center
+       
         secondButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
         return secondButton
+    }()
+    
+    private lazy var serializationLabel: UILabel = {
+       let serializationLabel = UILabel()
+        serializationLabel.toAutoLayout()
+        serializationLabel.layer.cornerRadius = 2
+        serializationLabel.layer.borderWidth = 1
+        serializationLabel.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        serializationLabel.textAlignment = .center
+    
+        return serializationLabel
     }()
     
     init (viewModel: InfoViewModel, coordinator: InfoCoordinator) {
@@ -35,9 +47,67 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+  
         //self.view.backgroundColor = .white
-        self.view.addSubview(secondButton)
+        self.view.addSubviews(serializationLabel, secondButton)
+        
+      
+        
+        self.initialLayout()
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        urlSessionDataTask()
+    }
+    
+    //Добавил его сюда, чтобы сразу использовать title
+    func urlSessionDataTask() {
+        
+        if let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") {
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                do {
+                    
+                    if let data = data {
+                        let decodeData = try JSONSerialization.jsonObject(with: data, options: [])
+                        print(decodeData)
+                        
+                        if let dict = decodeData as? [String: Any],
+                           let title = dict["title"] as? String {
+                            DispatchQueue.main.async {
+                                self.serializationLabel.text = title
+                            }
+                        }
+                    }
+                }
+                catch let error {
+                    print(error.localizedDescription)
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    private func initialLayout() {
+        serializationLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(25)
+            make.height.equalTo(50)
+            make.width.equalToSuperview()
+
+        }
+        
+        secondButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.serializationLabel).offset(150)
+            make.width.equalTo(150)
+            make.height.equalTo(60)
+        }
+        
+    }
+    
+    
     
     @objc func showAlert() {
         

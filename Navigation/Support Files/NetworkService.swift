@@ -29,14 +29,9 @@ struct NetworkService {
                     print(" ⛔️ error: \(error.localizedDescription)")
                     //Ошибка при выключенном интернете! - ⛔️ error: The Internet connection appears to be offline. (error code: -1009)
                 }
-                
             }
-            
             task.resume()
             
         }
-        
-        
     }
-    
 }
