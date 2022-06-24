@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //NetworkService enum
         //let appConfiguration = AppConfiguration.allCases.randomElement()
         
-        var manager = MyManager()
+        //let manager = MyManager()
         
         
         // Override point for customization after application launch.
@@ -40,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //NetworkService method
         //NetworkService.startNetwork(url: appConfiguration?.rawValue ?? "Ошибка кейсов")
         
-        manager.fetchData()
+        //manager.fetchData()
+        //manager.myView()
         
         
         return true

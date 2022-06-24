@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 //ДЗ 2
-//Часть 2
+
 
 struct Planet: Codable {
     var orbitalPeriod: String
@@ -24,50 +24,74 @@ struct MyPlanet {
     
     init(myPlanet: Planet) {
         orbitalPeriod = myPlanet.orbitalPeriod
-        
     }
 }
-
-
-
 
 struct Tatooine: Decodable {
     var residents: [String]
 
-    
     enum CodingKeys: String, CodingKey {
         case residents
     }
 }
 
-struct MyManager {
-    var tatooine = [String]()
+//struct Name: Decodable {
+//    var name: String
+//}
+//
+//class MyManager {
+//    var residentsURL = [String]()
+//
+//    func fetchData() {
+//
+//        let jsonURLString = "https://swapi.dev/api/planets/1"
+//
+//        guard let url = URL(string: jsonURLString) else { return }
+//        URLSession.shared.dataTask(with: url) { data, responce, error in
+//            guard let data = data else { return }
+//
+//            do {
+//                let planetURL = try JSONDecoder().decode(Tatooine.self, from: data)
+//                DispatchQueue.main.async {
+//                    for i in planetURL.residents {
+//                        self.residentsURL.append(i)
+//                    }
+//                    print(self.residentsURL)
+//                }
+//
+//
+//
+//            } catch let error {
+//                print(error.localizedDescription)
+//            }
+//
+//        }.resume()
+//    }
+//
+//
+//    func myView() {
+//        if residentsURL == residentsURL {
+//            print("\(residentsURL)")
+//            residentsURL.forEach { url in
+//                if let url = URL(string: url) {
+//                    //let urlRequest = URLRequest(url: url)
+//                    URLSession.shared.dataTask(with: url) { data, responce, error in
+//                        if let data = data {
+//                            do {
+//                                let residData = try JSONDecoder().decode(Name.self, from: data)
+//                                print("\(residData.name)")
+//                            } catch let error {
+//                                print(error.localizedDescription)
+//                            }
+//                        }
+//                    }.resume()
+//                }
+//            }
+//    }
+//
+//}
     
-    func fetchData() {
-        
-        let jsonURLString = "https://swapi.dev/api/planets/1"
-        
-        guard let url = URL(string: jsonURLString) else { return }
-        URLSession.shared.dataTask(with: url) { data, responce, error in
-            guard let data = data else { return }
-            
-            do {
-                let planet = try JSONDecoder().decode(Tatooine.self, from: data)
-                print("\(planet)")                
-                
-                
-            } catch let error {
-                print(error.localizedDescription)
-            }
-            
-        }.resume()
-    }
-    
-    
-    
-    
-    
-}
+//}
 
 
 

@@ -123,6 +123,7 @@ class InfoViewController: UIViewController {
             return nil
         }
     }
+    
     private func initialLayout() {
         serializationLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
