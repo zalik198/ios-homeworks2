@@ -29,18 +29,19 @@ struct MyPlanet {
 
 struct Tatooine: Decodable {
     var residents: [String]
-
+    
     enum CodingKeys: String, CodingKey {
         case residents
     }
 }
 
-//struct Name: Decodable {
-//    var name: String
-//}
-//
+struct Name: Decodable {
+    var name: String
+}
+
 //class MyManager {
 //    var residentsURL = [String]()
+//    var residents = [String]()
 //
 //    func fetchData() {
 //
@@ -53,13 +54,29 @@ struct Tatooine: Decodable {
 //            do {
 //                let planetURL = try JSONDecoder().decode(Tatooine.self, from: data)
 //                DispatchQueue.main.async {
-//                    for i in planetURL.residents {
-//                        self.residentsURL.append(i)
-//                    }
-//                    print(self.residentsURL)
+//
 //                }
 //
-//
+//                for i in planetURL.residents {
+//                    self.residentsURL.append(i)
+//                }
+//                if self.residentsURL == self.residentsURL {
+//                    print("\(self.residentsURL)")
+//                    self.residentsURL.forEach { url in
+//                        if let url = URL(string: url) {
+//                            URLSession.shared.dataTask(with: url) { data, responce, error in
+//                                if let data = data {
+//                                    do {
+//                                        let residData = try JSONDecoder().decode(Name.self, from: data)
+//                                        print(residData.name)
+//                                    } catch let error {
+//                                        print(error.localizedDescription)
+//                                    }
+//                                }
+//                            }.resume()
+//                        }
+//                    }
+//                }
 //
 //            } catch let error {
 //                print(error.localizedDescription)
@@ -70,28 +87,11 @@ struct Tatooine: Decodable {
 //
 //
 //    func myView() {
-//        if residentsURL == residentsURL {
-//            print("\(residentsURL)")
-//            residentsURL.forEach { url in
-//                if let url = URL(string: url) {
-//                    //let urlRequest = URLRequest(url: url)
-//                    URLSession.shared.dataTask(with: url) { data, responce, error in
-//                        if let data = data {
-//                            do {
-//                                let residData = try JSONDecoder().decode(Name.self, from: data)
-//                                print("\(residData.name)")
-//                            } catch let error {
-//                                print(error.localizedDescription)
-//                            }
-//                        }
-//                    }.resume()
-//                }
-//            }
+//
+//
 //    }
 //
 //}
-    
-//}
-
+//
 
 
