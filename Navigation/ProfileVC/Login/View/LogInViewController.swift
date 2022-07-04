@@ -252,7 +252,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     //BrutForce
     @objc private func passwordCrack() {
-        
+    
         logOnApp()
     }
     
