@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
@@ -105,7 +107,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
     
     private lazy var brutePassword: CustomButton = {
-        let brutePassword = CustomButton(title: "Подобрать пароль", titleColor: .white, backColor: .white)
+        let brutePassword = CustomButton(title: "Log on", titleColor: .white, backColor: .white)
         if let pixelImage = UIImage(named: "blue_pixel") {
             brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 1), for: .normal)
             brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .selected)
@@ -156,6 +158,55 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    func logOnApp() {
+        
+        if(!userNameTextField.text!.isEmpty && !passwordTextField.text!.isEmpty) {
+            Auth.auth().createUser(withEmail: userNameTextField.text!, password: passwordTextField.text!) { result, error in
+                if error == nil {
+                    if let result = result {
+                        print(result.user.uid)
+                        let ref = Database.database().reference().child("user")
+                        ref.child(result.user.uid).updateChildValues(
+                            ["login" : self.userNameTextField.text!,
+                             "password" : self.passwordTextField.text!])
+                    }
+                }  else if self.passwordTextField.text!.count < 6 {
+                    self.showAlert(title: "Внимание!", message: "Пароль должен состоять минимум из 6 символов!")
+                } else if result == result {
+                    self.showAlert(title: "Внимание", message: "Данный пользователь уже зарегистрирован! Войдите в свою учетную запись")
+                }
+            }
+        } else {
+            showAlert(title: "Внимание!", message: "Введите данные!")
+        }
+        
+        
+    }
+    
+    func logInApp() {
+        let coordinator = ProfileCoordinator()
+        let profileViewController = coordinator.showDetail(coordinator: coordinator)
+        
+        Auth.auth().signIn(withEmail: userNameTextField.text!, password: passwordTextField.text!) { [self] result, error in
+            if error == nil {
+                self.navigationController?.pushViewController(profileViewController, animated: true)
+            } else if userNameTextField.text!.isEmpty {
+                self.showAlert(title: "Внимание!", message: "Введите данные!")
+            } else if result?.user.uid == result?.user.uid {
+                self.showAlert(title: "Внимание", message: "Неверный логин или пароль!")
+            } else {
+                self.showAlert(title: "Внимание!", message: "Снчала пройдите регистрацию!")
+            }
+        }
+    }
+    
+    //custom alert
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     //MARK: Initial constraints
     
     func initialLayout() {
@@ -196,53 +247,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Navigation segue
     @objc private func goToProfileVC() {
-        //var userData: UserService
-        //userData = CurrentUserService()
-        
-        //#if DEBUG
-        //        userData = TestUserService()
-        //#endif
-        //let profileVC = ProfileViewController(userData: userData, userName: userNameTextField.text!)
-        
-        //
-        let coordinator = ProfileCoordinator()
-        let profileViewController = coordinator.showDetail(coordinator: coordinator)
-        
-        if delegate?.checker(logTF: userNameTextField.text!, passTF: passwordTextField.text!) == true {
-            navigationController?.pushViewController(profileViewController, animated: true)
-            
-            navigationController?.setViewControllers([profileViewController], animated: true)
-        } else {
-            print("error")
-            print("\(userNameTextField.text!), \(passwordTextField.text!)")
-        }
+        logInApp()
     }
     
     //BrutForce
     @objc private func passwordCrack() {
-        let hackMethod = BrutForce()
-        var myPassword: String = ""
         
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
-        passwordTextField.leftView = textFieldIndicator(subView: activityIndicator)
-        passwordTextField.placeholder = "Подбираем пароль!"
-        activityIndicator.startAnimating()
-        
-        DispatchQueue.global().async {
-            myPassword = hackMethod.bruteForce(passwordToUnlock: hackMethod.passwordToUnlock)
-            DispatchQueue.main.sync {//Все действия с UI делаем на main
-                self.passwordTextField.text = myPassword
-                self.passwordTextField.isSecureTextEntry = false
-                self.passwordTextField.placeholder = "Password"
-                activityIndicator.stopAnimating()
-                self.passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.passwordTextField.frame.height))
-                print("Пароль подобран!")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                    self.passwordTextField.isSecureTextEntry = true
-                    print("Пароль скрыт!")
-                })
-            }
-        }
+        logOnApp()
     }
     
     func textFieldIndicator (subView: UIView) -> UIView {

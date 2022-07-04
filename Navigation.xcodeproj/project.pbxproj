@@ -35,6 +35,8 @@
 		627CE0062848301000F9274F /* MyPostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627CE0052848301000F9274F /* MyPostCoordinator.swift */; };
 		627CE0082848301F00F9274F /* InfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627CE0072848301F00F9274F /* InfoCoordinator.swift */; };
 		627DC95127BEE9BC00A290F1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */; };
+		628394532873518600D95064 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 628394522873518600D95064 /* GoogleService-Info.plist */; };
+		628394542873518600D95064 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 628394522873518600D95064 /* GoogleService-Info.plist */; };
 		629DEE04284CD5A200553813 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629DEE03284CD5A200553813 /* LoginCoordinator.swift */; };
 		62A4151C28077C5000BFD930 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A4151B28077C5000BFD930 /* PhotosViewController.swift */; };
 		62C85D03280AE95F0067D034 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 62C85D02280AE95F0067D034 /* iOSIntPackage */; };
@@ -103,6 +105,7 @@
 		627CE0052848301000F9274F /* MyPostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostCoordinator.swift; sourceTree = "<group>"; };
 		627CE0072848301F00F9274F /* InfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCoordinator.swift; sourceTree = "<group>"; };
 		627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		628394522873518600D95064 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		629DEE03284CD5A200553813 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		62A4151B28077C5000BFD930 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		62F18E3A285DEA5B00FA9685 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -172,6 +175,7 @@
 		626C3ABB27EF33550032C262 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				627CDFE828480A2800F9274F /* CheckPassword */,
 				627CDFFB2848271F00F9274F /* Model */,
 				627CDFFA284826FC00F9274F /* View */,
 				627CDFF9284826F400F9274F /* ViewModel */,
@@ -358,6 +362,7 @@
 				62F2214927B4812100544807 /* Assets.xcassets */,
 				62F2214B27B4812100544807 /* LaunchScreen.storyboard */,
 				62F2214E27B4812100544807 /* Info.plist */,
+				628394522873518600D95064 /* GoogleService-Info.plist */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -371,7 +376,6 @@
 				62F18E3A285DEA5B00FA9685 /* NetworkService.swift */,
 				623B404328636291005AFAF2 /* JSON.swift */,
 				627CDFD6281AA83600F9274F /* Factory.swift */,
-				627CDFE828480A2800F9274F /* CheckPassword */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -471,6 +475,7 @@
 			mainGroup = 62F2213427B4811D00544807;
 			packageReferences = (
 				62C85D01280AE95F0067D034 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+				6283945A2873563400D95064 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 62F2213E27B4811D00544807 /* Products */;
 			projectDirPath = "";
@@ -487,6 +492,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				628394542873518600D95064 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +502,7 @@
 			files = (
 				62F2214D27B4812100544807 /* LaunchScreen.storyboard in Resources */,
 				62F2214A27B4812100544807 /* Assets.xcassets in Resources */,
+				628394532873518600D95064 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,6 +913,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6283945A2873563400D95064 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 9.2.0;
+			};
+		};
 		62C85D01280AE95F0067D034 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
