@@ -9,6 +9,7 @@ target 'Navigation' do
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
   pod 'FirebaseDatabase'
+  pod 'RealmSwift'
 
 
 end
