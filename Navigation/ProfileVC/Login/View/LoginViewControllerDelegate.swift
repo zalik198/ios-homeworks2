@@ -8,12 +8,14 @@
 import Foundation
 
 protocol LoginViewControllerDelegate {
-    func checker(logTF: String, passTF: String) -> Bool
+    func checker(loginType: LoginType, logTF: String, passTF: String)
 }
 
 class LoginInspector: LoginViewControllerDelegate {
-    func checker(logTF: String, passTF: String) -> Bool {
-        return Checker.shared.checkLogPass(log: logTF, pass: passTF)
+    func checker(loginType: LoginType, logTF: String, passTF: String) {
+        Checker.shared.checkLogPass(loginType: loginType, log: logTF, pass: passTF)
+
     }
+
     
 }
