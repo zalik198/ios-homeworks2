@@ -10,6 +10,7 @@
 		1774E5304A9171E7A42295B0 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEF44914A1FED70294519EA /* Pods_Navigation.framework */; };
 		3926658594EF6E83027E5D05 /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98643B354011A45CD2E643EE /* Pods_StorageService.framework */; };
 		620AC02128511FA5008F6166 /* BrutForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620AC02028511FA5008F6166 /* BrutForce.swift */; };
+		621A40452887F4D200F01F4B /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621A40442887F4D100F01F4B /* RealmModel.swift */; };
 		6237D01727E110E90072B09F /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237D01627E110E90072B09F /* PhotosTableViewCell.swift */; };
 		6237D01927E156C60072B09F /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237D01827E156C60072B09F /* PhotosCollectionViewCell.swift */; };
 		623818F12807780E008DFDDC /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = 623818F02807780E008DFDDC /* StorageService.docc */; };
@@ -81,6 +82,7 @@
 /* Begin PBXFileReference section */
 		5BA295C3A58EC8CFA9E69F3B /* Pods-StorageService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.debug.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.debug.xcconfig"; sourceTree = "<group>"; };
 		620AC02028511FA5008F6166 /* BrutForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrutForce.swift; sourceTree = "<group>"; };
+		621A40442887F4D100F01F4B /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		6237D01627E110E90072B09F /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		6237D01827E156C60072B09F /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		623818ED2807780E008DFDDC /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		621A40432887F4A200F01F4B /* RealmModel */ = {
+			isa = PBXGroup;
+			children = (
+				621A40442887F4D100F01F4B /* RealmModel.swift */,
+			);
+			path = RealmModel;
+			sourceTree = "<group>";
+		};
 		623818EE2807780E008DFDDC /* StorageService */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +207,7 @@
 		627CDFE6284809D700F9274F /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				621A40432887F4A200F01F4B /* RealmModel */,
 				629DEE08284CDD4600553813 /* View */,
 				629DEE07284CDD3400553813 /* Coordinator */,
 			);
@@ -615,6 +626,7 @@
 				627CDFF42848113900F9274F /* ProfileCoordinator.swift in Sources */,
 				62F2215727B490B400544807 /* ProfileViewController.swift in Sources */,
 				627DC95127BEE9BC00A290F1 /* ProfileHeaderView.swift in Sources */,
+				621A40452887F4D200F01F4B /* RealmModel.swift in Sources */,
 				6237D01727E110E90072B09F /* PhotosTableViewCell.swift in Sources */,
 				62A4151C28077C5000BFD930 /* PhotosViewController.swift in Sources */,
 				62F2215527B490A500544807 /* FeedViewController.swift in Sources */,

@@ -8,15 +8,29 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import RealmSwift
+
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
-    var delegate: LoginViewControllerDelegate?
+    public var delegate: LoginViewControllerDelegate?
     private let myInspector = Factory.shared.myFactory()
+    var logins: Results<LoginModel>?
     
+    private var isLogined: Bool? {
+        willSet {
+            if newValue! {
+                logInButton.setTitle("Вход", for: .normal)
+                brutePassword.setTitle("Сначала пройдите регистрацию! Нажми сюда!", for: .normal)
+            } else {
+                logInButton.setTitle("Нажмите для регистрации", for: .normal)
+                brutePassword.setTitle("Регистрация готова? Нажмите", for: .normal)
+            }
+        }
+    }
     
     //MARK: create view objects
-    lazy var scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         scrollView.isScrollEnabled = true
@@ -24,20 +38,20 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return scrollView
     }()
     
-    lazy var contentView: UIView = {
+    private lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
         contentView.toAutoLayout()
         return contentView
     }()
     
-    lazy var logoImageView: UIImageView = {
+    private lazy var logoImageView: UIImageView = {
         let logoImageView = UIImageView(image: UIImage(named: "logo"))
         logoImageView.toAutoLayout()
         return logoImageView
     }()
     
-    lazy var userNameTextField: UITextField = {
+    private lazy var userNameTextField: UITextField = {
         let userNameTextField = UITextField()
         userNameTextField.toAutoLayout()
         userNameTextField.textColor = .black
@@ -54,7 +68,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return userNameTextField
     }()
     
-    lazy var passwordTextField: UITextField = {
+    private lazy var passwordTextField: UITextField = {
         let passwordTextField = UITextField()
         passwordTextField.toAutoLayout()
         passwordTextField.textColor = .black
@@ -72,7 +86,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return passwordTextField
     }()
     
-    lazy var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.toAutoLayout()
         stackView.layer.borderColor = UIColor.lightGray.cgColor
@@ -87,7 +101,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
     
     private lazy var logInButton: CustomButton = {
-        let logInButton = CustomButton(title: "Log In",
+        let logInButton = CustomButton(title: "",
                                        titleColor: .white,
                                        backColor: .white)
         //setting alpha logInButton
@@ -101,45 +115,58 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         logInButton.imageView?.contentMode = .scaleAspectFill
         logInButton.clipsToBounds = true
         logInButton.layer.cornerRadius = 10
-        logInButton.addTarget(self, action: #selector(goToProfileVC), for: .touchUpInside)
+        //logInButton.addTarget(self, action: #selector(goToProfileVC), for: .touchUpInside)
         
         return logInButton
     }()
     
     private lazy var brutePassword: CustomButton = {
-        let brutePassword = CustomButton(title: "Log on", titleColor: .white, backColor: .white)
-        if let pixelImage = UIImage(named: "blue_pixel") {
-            brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 1), for: .normal)
-            brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .selected)
-            brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .highlighted)
-            brutePassword.setBackgroundImage(pixelImage.imageWithAlpha(alpha: 0.8), for: .disabled)
-        }
+        let brutePassword = CustomButton(title: "", titleColor: .lightGray, backColor: .white)
         
         brutePassword.toAutoLayout()
         brutePassword.imageView?.contentMode = .scaleAspectFill
         brutePassword.clipsToBounds = true
         brutePassword.layer.cornerRadius = 10
-        brutePassword.addTarget(self, action: #selector(passwordCrack), for: .touchUpInside)
+        brutePassword.addTarget(self, action: #selector(switchLogin), for: .touchUpInside)
         
         return brutePassword
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //subviews add in contentView
+        contentView.addSubviews(logoImageView, stackView, logInButton, brutePassword)
+        
+        isLogined = true
         
         //кнопка возврата от profileVC
         navigationController?.navigationBar.isHidden = true
+        
+        userNameTextField.delegate = self
+        passwordTextField.delegate = self
+        self.delegate = myInspector
+        
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if user != nil {
+                let coordinator = ProfileCoordinator()
+                let profileViewController = coordinator.showDetail(coordinator: coordinator)
+                self.navigationController?.pushViewController(profileViewController, animated: true)
+                self.navigationController?.setViewControllers([profileViewController], animated: true)
+            }
+        }
         
         //settings view
         view.backgroundColor = .white
         view.addSubview(scrollView)
         
+        logInButton.tapAction = { [weak self] in
+            guard let self = self else { return }
+            self.logInApp()
+        }
+        
         //contentView add scrollView
         scrollView.addSubviews(contentView)
         scrollView.contentSize = CGSize(width: view.frame.width, height: max(view.frame.width, view.frame.height))
-        
-        //subviews add in contentView
-        contentView.addSubviews(logoImageView, stackView, logInButton, brutePassword)
         
         //add textField in stackView
         stackView.addArrangedSubview(userNameTextField)
@@ -151,57 +178,30 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         initialLayout()
         
-        userNameTextField.delegate = self
-        passwordTextField.delegate = self
-        self.delegate = myInspector
-        
-        
     }
     
-    func logOnApp() {
+    //MARK: view up (keyboard) and settings scrollView
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        if(!userNameTextField.text!.isEmpty && !passwordTextField.text!.isEmpty) {
-            Auth.auth().createUser(withEmail: userNameTextField.text!, password: passwordTextField.text!) { result, error in
-                if error == nil {
-                    if let result = result {
-                        print(result.user.uid)
-                        let ref = Database.database().reference().child("user")
-                        ref.child(result.user.uid).updateChildValues(
-                            ["login" : self.userNameTextField.text!,
-                             "password" : self.passwordTextField.text!])
-                    }
-                }  else if self.passwordTextField.text!.count < 6 {
-                    self.showAlert(title: "Внимание!", message: "Пароль должен состоять минимум из 6 символов!")
-                } else if result == result {
-                    self.showAlert(title: "Внимание", message: "Данный пользователь уже зарегистрирован! Войдите в свою учетную запись")
-                }
-            }
-        } else {
-            showAlert(title: "Внимание!", message: "Введите данные!")
+        if let newData = self.logins?[0] {
+            authentification(newData.login, newData.password)
         }
-        
-        
+        registerKeyboardNotifications()
     }
     
-    func logInApp() {
-        let coordinator = ProfileCoordinator()
-        let profileViewController = coordinator.showDetail(coordinator: coordinator)
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
         
-        Auth.auth().signIn(withEmail: userNameTextField.text!, password: passwordTextField.text!) { [self] result, error in
-            if error == nil {
-                self.navigationController?.pushViewController(profileViewController, animated: true)
-            } else if userNameTextField.text!.isEmpty {
-                self.showAlert(title: "Внимание!", message: "Введите данные!")
-            } else if result?.user.uid == result?.user.uid {
-                self.showAlert(title: "Внимание", message: "Неверный логин или пароль!")
-            } else {
-                self.showAlert(title: "Внимание!", message: "Снчала пройдите регистрацию!")
-            }
-        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     //custom alert
-    func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
@@ -209,7 +209,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Initial constraints
     
-    func initialLayout() {
+    private func initialLayout() {
         NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                                      scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
                                      scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -241,7 +241,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                                      brutePassword.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
                                      brutePassword.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
                                      brutePassword.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                                     brutePassword.heightAnchor.constraint(equalToConstant: 50),
+                                     brutePassword.heightAnchor.constraint(equalToConstant: 50)
                                     ])
     }
     
@@ -250,10 +250,35 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         logInApp()
     }
     
-    //BrutForce
-    @objc private func passwordCrack() {
+    @objc private func switchLogin() {
+        isLogined!.toggle()
+    }
     
-        logOnApp()
+    //Realm save data
+    func logInApp() {
+        
+        guard let dataLogin = userNameTextField.text,
+              let dataPassword = passwordTextField.text else { return }
+        let data = LoginModel(value: [dataLogin, dataPassword])
+        do {
+            let realm = try Realm()
+            try realm.write { realm.add(data) }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        //login
+        authentification(dataLogin, dataPassword)
+    }
+    
+    //Login app
+    func authentification(_ login: String, _ password: String) {
+        guard let newDelegate = self.delegate else { return }
+        DispatchQueue.main.async {
+            newDelegate.checker(loginType: self.isLogined! ? .signIn : .SignUp,
+                                logTF: login,
+                                passTF: password)
+        }
     }
     
     func textFieldIndicator (subView: UIView) -> UIView {
@@ -263,12 +288,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return leftView
     }
     
-    //MARK: view up (keyboard) and settings scrollView
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        registerKeyboardNotifications()
-    }
     
     func registerKeyboardNotifications() {
         NotificationCenter.default.addObserver(self,
@@ -281,14 +300,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                                                object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-    }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
