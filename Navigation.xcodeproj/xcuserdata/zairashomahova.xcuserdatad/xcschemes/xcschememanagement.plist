@@ -7,17 +7,17 @@
 		<key>Copy of Navigation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>29</integer>
+			<integer>0</integer>
 		</dict>
 		<key>Navigation.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>30</integer>
+			<integer>1</integer>
 		</dict>
 		<key>StorageService.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>31</integer>
+			<integer>5</integer>
 		</dict>
 	</dict>
 </dict>

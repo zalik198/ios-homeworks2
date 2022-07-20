@@ -6,16 +6,16 @@
 //
 
 import UIKit
-import FirebaseAuth
-import FirebaseDatabase
-import RealmSwift
+//import FirebaseAuth
+//import FirebaseDatabase
+//import RealmSwift
 
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
     public var delegate: LoginViewControllerDelegate?
     private let myInspector = Factory.shared.myFactory()
-    var logins: Results<LoginModel>?
+    //var logins: Results<LoginModel>?
     
     private var isLogined: Bool? {
         willSet {
@@ -146,14 +146,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         self.delegate = myInspector
         
-        Auth.auth().addStateDidChangeListener { auth, user in
-            if user != nil {
-                let coordinator = ProfileCoordinator()
-                let profileViewController = coordinator.showDetail(coordinator: coordinator)
-                self.navigationController?.pushViewController(profileViewController, animated: true)
-                self.navigationController?.setViewControllers([profileViewController], animated: true)
-            }
-        }
+        //        Auth.auth().addStateDidChangeListener { auth, user in
+        //            if user != nil {
+        //
+        //            }
+        //        }
         
         //settings view
         view.backgroundColor = .white
@@ -161,7 +158,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         logInButton.tapAction = { [weak self] in
             guard let self = self else { return }
-            self.logInApp()
+            //self.logInApp()
         }
         
         //contentView add scrollView
@@ -184,10 +181,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let newData = self.logins?[0] {
-            authentification(newData.login, newData.password)
-        }
+        let coordinator = ProfileCoordinator()
+        let profileViewController = coordinator.showDetail(coordinator: coordinator)
+        self.navigationController?.pushViewController(profileViewController, animated: true)
+        self.navigationController?.setViewControllers([profileViewController], animated: true)
+        //        if let newData = self.logins?[0] {
+        //            authentification(newData.login, newData.password)
+        //        }
         registerKeyboardNotifications()
     }
     
@@ -247,29 +247,29 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Navigation segue
     @objc private func goToProfileVC() {
-        logInApp()
+        //logInApp()
     }
     
     @objc private func switchLogin() {
         isLogined!.toggle()
     }
     
-    //Realm save data
-    func logInApp() {
-        
-        guard let dataLogin = userNameTextField.text,
-              let dataPassword = passwordTextField.text else { return }
-        let data = LoginModel(value: [dataLogin, dataPassword])
-        do {
-            let realm = try Realm()
-            try realm.write { realm.add(data) }
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        
-        //login
-        authentification(dataLogin, dataPassword)
-    }
+    //    //Realm save data
+    //    func logInApp() {
+    //
+    //        guard let dataLogin = userNameTextField.text,
+    //              let dataPassword = passwordTextField.text else { return }
+    //        let data = LoginModel(value: [dataLogin, dataPassword])
+    //        do {
+    //            let realm = try Realm()
+    //            try realm.write { realm.add(data) }
+    //        } catch let error {
+    //            print(error.localizedDescription)
+    //        }
+    //
+    //        //login
+    //        authentification(dataLogin, dataPassword)
+    //    }
     
     //Login app
     func authentification(_ login: String, _ password: String) {

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import FirebaseAuth
+//import FirebaseAuth
 
 enum LoginType {
     case signIn
@@ -23,29 +23,29 @@ class Checker {
     //private let login = "admin"
     //private let pswd = "admin"
     
-    public func checkLogPass(loginType: LoginType, log: String, pass: String) {
-        switch loginType {
-        case .signIn:
-            Auth.auth().signIn(withEmail: log, password: pass) { [weak self] authResult, error in
-                guard let self = self else { return }
-                if let error = error {
-                    if let completion = self.completion {
-                        completion (error.localizedDescription)
-                    }
-                }
-                
-            }
-        case .SignUp:
-            Auth.auth().createUser(withEmail: log, password: pass) { [weak self] authResult, error in
-                guard let self = self else { return }
-                if let error = error {
-                    if let completion = self.completion {
-                        completion (error.localizedDescription)
-                    }
-                }
-            }
-        }
-        
-    
-    }
+//    public func checkLogPass(loginType: LoginType, log: String, pass: String) {
+//        switch loginType {
+//        case .signIn:
+//            Auth.auth().signIn(withEmail: log, password: pass) { [weak self] authResult, error in
+//                guard let self = self else { return }
+//                if let error = error {
+//                    if let completion = self.completion {
+//                        completion (error.localizedDescription)
+//                    }
+//                }
+//                
+//            }
+//        case .SignUp:
+//            Auth.auth().createUser(withEmail: log, password: pass) { [weak self] authResult, error in
+//                guard let self = self else { return }
+//                if let error = error {
+//                    if let completion = self.completion {
+//                        completion (error.localizedDescription)
+//                    }
+//                }
+//            }
+//        }
+//        
+//    
+//    }
 }

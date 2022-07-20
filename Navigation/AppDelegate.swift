@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import FirebaseAuth
-import FirebaseCore
+//import FirebaseAuth
+//import FirebaseCore
 
 
 
@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Фабрика
         let myInspector = Factory.shared.myFactory()
-        FirebaseApp.configure()
+        //FirebaseApp.configure()
 
         //NetworkService enum
         //let appConfiguration = AppConfiguration.allCases.randomElement()

@@ -13,7 +13,7 @@ protocol LoginViewControllerDelegate {
 
 class LoginInspector: LoginViewControllerDelegate {
     func checker(loginType: LoginType, logTF: String, passTF: String) {
-        Checker.shared.checkLogPass(loginType: loginType, log: logTF, pass: passTF)
+       // Checker.shared.checkLogPass(loginType: loginType, log: logTF, pass: passTF)
 
     }
 
