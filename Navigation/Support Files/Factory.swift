@@ -27,6 +27,7 @@ final class MyFactory {
     enum State {
         case feed
         case login
+        case favorite
     }
     
     let navigationController: UINavigationController
@@ -62,9 +63,20 @@ final class MyFactory {
             let loginViewController = coordinator.showDetail(coordinator: coordinator)
             navigationController.setViewControllers([loginViewController], animated: true)
             navigationController.tabBarItem = UITabBarItem(
-                title: "Login",
+                title: "Profile",
                 image: UIImage(systemName: "person.circle"),
-                selectedImage: UIImage(systemName:"person.circle.fill")
+                selectedImage: UIImage(systemName: "person.circle.fill")
+            )
+        case .favorite:
+            let coordinator = FavoriteCoordinator()
+            let favoriteViewController = coordinator.showDetail(coordinator: coordinator)
+            navigationController.setViewControllers([favoriteViewController], animated: true)
+            navigationController.navigationBar.barTintColor = .white
+
+            navigationController.tabBarItem = UITabBarItem(
+                title: "Favorite",
+                image: UIImage(systemName: "heart.circle"),
+                selectedImage: UIImage(systemName: "heart.circle.fill")
             )
         }
     }

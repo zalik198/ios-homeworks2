@@ -50,6 +50,8 @@
 		62F2215727B490B400544807 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2215627B490B400544807 /* ProfileViewController.swift */; };
 		62F2215927B4950D00544807 /* MyPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2215827B4950D00544807 /* MyPostViewController.swift */; };
 		62F2215B27B49D9200544807 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2215A27B49D9200544807 /* InfoViewController.swift */; };
+		62FB65442889E28600C8F05F /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FB65432889E28600C8F05F /* FavoriteViewController.swift */; };
+		62FB65462889E2E900C8F05F /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FB65452889E2E900C8F05F /* FavoriteCoordinator.swift */; };
 		62FC4E3D27D552DE00414B82 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC4E3C27D552DE00414B82 /* LogInViewController.swift */; };
 		62FC4E3F27D5E8EE00414B82 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC4E3E27D5E8EE00414B82 /* Support.swift */; };
 		62FC4E4227DBC04700414B82 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC4E4127DBC04700414B82 /* PostTableViewCell.swift */; };
@@ -121,6 +123,8 @@
 		62F2215627B490B400544807 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		62F2215827B4950D00544807 /* MyPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostViewController.swift; sourceTree = "<group>"; };
 		62F2215A27B49D9200544807 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		62FB65432889E28600C8F05F /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		62FB65452889E2E900C8F05F /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
 		62FC4E3C27D552DE00414B82 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		62FC4E3E27D5E8EE00414B82 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		62FC4E4127DBC04700414B82 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
@@ -369,6 +373,7 @@
 				62FC4E4027D6935500414B82 /* Support Files */,
 				627CDFEC28480AF100F9274F /* Root */,
 				627DC94F27BEE6D200A290F1 /* ProfileVC */,
+				62FB65422889E20300C8F05F /* FavoriteVC */,
 				627CDFE928480A6400F9274F /* FeedVC */,
 				62F2214927B4812100544807 /* Assets.xcassets */,
 				62F2214B27B4812100544807 /* LaunchScreen.storyboard */,
@@ -376,6 +381,15 @@
 				628394522873518600D95064 /* GoogleService-Info.plist */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		62FB65422889E20300C8F05F /* FavoriteVC */ = {
+			isa = PBXGroup;
+			children = (
+				62FB65432889E28600C8F05F /* FavoriteViewController.swift */,
+				62FB65452889E2E900C8F05F /* FavoriteCoordinator.swift */,
+			);
+			path = FavoriteVC;
 			sourceTree = "<group>";
 		};
 		62FC4E4027D6935500414B82 /* Support Files */ = {
@@ -605,6 +619,7 @@
 				627CDFF028480ED200F9274F /* TabBarViewController.swift in Sources */,
 				627CE00428482FD100F9274F /* InfoViewModel.swift in Sources */,
 				62FC4E4227DBC04700414B82 /* PostTableViewCell.swift in Sources */,
+				62FB65462889E2E900C8F05F /* FavoriteCoordinator.swift in Sources */,
 				6237D01927E156C60072B09F /* PhotosCollectionViewCell.swift in Sources */,
 				62F2215927B4950D00544807 /* MyPostViewController.swift in Sources */,
 				62F18E3B285DEA5B00FA9685 /* NetworkService.swift in Sources */,
@@ -621,6 +636,7 @@
 				627CDFD928369FF800F9274F /* LoginViewControllerDelegate.swift in Sources */,
 				62F2215B27B49D9200544807 /* InfoViewController.swift in Sources */,
 				627CE0062848301000F9274F /* MyPostCoordinator.swift in Sources */,
+				62FB65442889E28600C8F05F /* FavoriteViewController.swift in Sources */,
 				624186DB281021A200D4ACD3 /* User.swift in Sources */,
 				627CDFEE28480B2000F9274F /* RootCoordinator.swift in Sources */,
 				627CDFF42848113900F9274F /* ProfileCoordinator.swift in Sources */,
