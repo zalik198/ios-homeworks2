@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G72" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="PostData" representedClassName="PostData" syncable="YES" codeGenerationType="class">
+        <attribute name="authorCell" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="descriptionCell" optional="YES" attributeType="String"/>
+        <attribute name="imageCell" optional="YES" attributeType="String"/>
+        <attribute name="likesCell" optional="YES" attributeType="String"/>
+        <attribute name="viewsCell" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="PostData" positionX="-807.230224609375" positionY="-1322.881530761719" width="128" height="104"/>
+    </elements>
+</model>
