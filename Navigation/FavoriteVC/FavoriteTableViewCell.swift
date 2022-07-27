@@ -7,11 +7,12 @@
 
 import Foundation
 import UIKit
+import StorageService
 
 class FavoriteTableViewCell : UITableViewCell {
     
     //MARK: create labels
-    private var authorCell: UILabel = {
+    private var authorCells: UILabel = {
         var authorCell = UILabel()
         authorCell.toAutoLayout()
         authorCell.font = .systemFont(ofSize: 20, weight: .bold)
@@ -20,7 +21,7 @@ class FavoriteTableViewCell : UITableViewCell {
         return authorCell
     }()
     
-    private var descriptionCell: UILabel = {
+    private var descriptionCells: UILabel = {
         var descriptionCell = UILabel()
         descriptionCell.toAutoLayout()
         descriptionCell.font = .systemFont(ofSize: 14)
@@ -29,7 +30,7 @@ class FavoriteTableViewCell : UITableViewCell {
         return descriptionCell
     }()
     
-    private var imageCell: UIImageView = {
+    private var imageCells: UIImageView = {
         var imageCell = UIImageView()
         imageCell.toAutoLayout()
         imageCell.contentMode = .scaleAspectFit
@@ -37,7 +38,7 @@ class FavoriteTableViewCell : UITableViewCell {
         return imageCell
     }()
     
-    private var likesCell: UILabel = {
+    private var likesCells: UILabel = {
         var likesCell = UILabel()
         likesCell.toAutoLayout()
         likesCell.font = .systemFont(ofSize: 16)
@@ -45,7 +46,7 @@ class FavoriteTableViewCell : UITableViewCell {
         return likesCell
     }()
     
-    private var viewsCell: UILabel = {
+    private var viewsCells: UILabel = {
         var viewsCell = UILabel()
         viewsCell.toAutoLayout()
         viewsCell.font = .systemFont(ofSize: 16)
@@ -56,7 +57,7 @@ class FavoriteTableViewCell : UITableViewCell {
     //MARK: Initial cells
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubviews(authorCell, descriptionCell, imageCell, likesCell, viewsCell)
+        contentView.addSubviews(authorCells, descriptionCells, imageCells, likesCells, viewsCells)
         initialLayout()
     }
     
@@ -66,38 +67,38 @@ class FavoriteTableViewCell : UITableViewCell {
     
     //MARK: Приравние структурных ячеек к созданным ячейкам
     
-//    public func myCells(post: Post) {
-//        authorCell.text = post.author
-//        imageCell.image = UIImage(named: post.image)
-//        descriptionCell.text = post.description
-//        likesCell.text = "Likes: \(post.likes)"
-//        viewsCell.text = "Views: \(post.views)"
-//    }
+    public func myCells(_ post: PostData) {
+        self.authorCells.text = post.authorCell ?? ""
+        self.imageCells.image = UIImage(data: post.imageCell!) ?? UIImage()
+        self.descriptionCells.text = post.descriptionCell ?? ""
+        self.likesCells.text = "Likes: \(Int(post.likesCell))"
+        self.viewsCells.text = "Views: \(Int(post.viewsCell))"
+    }
     
     //MARK: Initial constraints
     func initialLayout() {
         toAutoLayout()
-        NSLayoutConstraint.activate([authorCell.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-                                     authorCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                                     authorCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                                     authorCell.heightAnchor.constraint(equalToConstant: 28),
+        NSLayoutConstraint.activate([authorCells.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+                                     authorCells.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                     authorCells.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                     authorCells.heightAnchor.constraint(equalToConstant: 28),
                                      
-                                     imageCell.topAnchor.constraint(equalTo: authorCell.bottomAnchor),
-                                     imageCell.heightAnchor.constraint(equalTo: contentView.widthAnchor),
-                                     imageCell.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+                                     imageCells.topAnchor.constraint(equalTo: authorCells.bottomAnchor),
+                                     imageCells.heightAnchor.constraint(equalTo: contentView.widthAnchor),
+                                     imageCells.widthAnchor.constraint(equalTo: contentView.widthAnchor),
                                      
-                                     descriptionCell.topAnchor.constraint(equalTo: imageCell.bottomAnchor),
-                                     descriptionCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                                     descriptionCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                                     descriptionCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
+                                     descriptionCells.topAnchor.constraint(equalTo: imageCells.bottomAnchor),
+                                     descriptionCells.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                     descriptionCells.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                     descriptionCells.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
                                      
-                                     likesCell.topAnchor.constraint(equalTo: descriptionCell.bottomAnchor, constant: 16),
-                                     likesCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                                     likesCell.heightAnchor.constraint(equalToConstant: 20),
+                                     likesCells.topAnchor.constraint(equalTo: descriptionCells.bottomAnchor, constant: 16),
+                                     likesCells.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                                     likesCells.heightAnchor.constraint(equalToConstant: 20),
                                      
-                                     viewsCell.topAnchor.constraint(equalTo: descriptionCell.bottomAnchor, constant: 16),
-                                     viewsCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                                     viewsCell.heightAnchor.constraint(equalToConstant: 20)
+                                     viewsCells.topAnchor.constraint(equalTo: descriptionCells.bottomAnchor, constant: 16),
+                                     viewsCells.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                                     viewsCells.heightAnchor.constraint(equalToConstant: 20)
                                     ])
     }
     

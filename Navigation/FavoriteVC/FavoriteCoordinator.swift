@@ -10,7 +10,8 @@ import UIKit
 
 final class FavoriteCoordinator {
     func showDetail(coordinator: FavoriteCoordinator) -> UIViewController {
-        let viewController = FavoriteViewController()
+        let viewModel = CoreDataManager()
+        let viewController = FavoriteViewController(model: viewModel, coordinator: coordinator)
         viewController.title = "Favorite"
         return viewController
     }

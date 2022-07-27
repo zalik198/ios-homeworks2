@@ -11,6 +11,9 @@ import CoreData
 
 class FavoriteViewController: UIViewController {
     
+    private var viewModel: CoreDataManager?
+    private weak var coordinator: FavoriteCoordinator?
+    private var post: PostData?
     private let myInspector = Factory.shared.myFactory()
     
     //MARK: Initial tableView
@@ -21,11 +24,22 @@ class FavoriteViewController: UIViewController {
         tableView.isScrollEnabled = true
         tableView.separatorInset = .zero
         tableView.sectionHeaderHeight = UITableView.automaticDimension
-        tableView.estimatedSectionHeaderHeight = 220
-        tableView.rowHeight = UITableView.automaticDimension
+        //tableView.estimatedSectionHeaderHeight = 220
+        //tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
 
+    
+    init(model: CoreDataManager, coordinator: FavoriteCoordinator ) {
+        self.viewModel = model
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +48,14 @@ class FavoriteViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         initialLayout()
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "favoriteTableViewCell")
+        tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: "favoriteTableViewCell")
 
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        CoreDataManager.shared.outFromCoreData()
+        tableView.reloadData()
     }
     
     //MARK: Initial constraints
@@ -54,15 +73,22 @@ class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return CoreDataManager.shared.favoritePost.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteTableViewCell", for: indexPath) as? FavoriteTableViewCell else { return UITableViewCell() }
+        let post = CoreDataManager.shared.favoritePost[indexPath.row]
+        cell.myCells(post)
+        return cell
     }
     
     

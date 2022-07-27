@@ -17,6 +17,8 @@ class ProfileViewController: UIViewController {
     private let userData: UserService
     private let userName: String
     
+    private var cellIndex = 0
+    
     init(userData: UserService, userName: String, viewModel: ProfileViewModel, coordinator: ProfileCoordinator) {
         self.userData = userData
         self.userName = userName
@@ -80,6 +82,24 @@ class ProfileViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
+    @objc private func duobleTapInPost() {
+        guard let post = viewModel?.postArray[self.cellIndex] else { return }
+        
+        var isContains = false
+        
+        for i in CoreDataManager.shared.favoritePost {
+            if i.id == post.id {
+                isContains = true
+            }
+        }
+        
+        if !isContains {
+            CoreDataManager.shared.saveToCoreData(post: post)
+        } else {
+            print("error contains")
+        }
+    }
+    
 }
 
 //MARK: Initial TableView Deegate and DataSource
@@ -88,17 +108,29 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         }
-        return ProfileViewModel().postArray.count
+        return viewModel?.numberOfRows() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1 {
-            let cell =  tableView.dequeueReusableCell(withIdentifier: "postTableViewCell", for: indexPath) as! PostTableViewCell
-            cell.myCells(post: posts[indexPath.row])
+        if indexPath.section == 0 {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "photosTableViewCell", for: indexPath) as! PhotosTableViewCell
             return cell
+            
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "photosTableViewCell", for: indexPath) as! PhotosTableViewCell
-        return cell
+        
+        let cell =  tableView.dequeueReusableCell(withIdentifier: "postTableViewCell", for: indexPath) as? PostTableViewCell
+        let tapRecog = UITapGestureRecognizer(target: self, action: #selector(duobleTapInPost))
+        tapRecog.numberOfTapsRequired = 2
+        
+        
+        guard let tableViewMyCell = cell, let myViewModel = viewModel else { return UITableViewCell() }
+        let cellViewModel = myViewModel.cellViewModel(forIndexPath: indexPath)
+        tableViewMyCell.viewModel = cellViewModel
+        tableViewMyCell.addGestureRecognizer(tapRecog)
+        //cell.myCells(post: posts[indexPath.row])
+        return tableViewMyCell
+       
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -127,6 +159,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             navigationController?.pushViewController(PhotosViewController(), animated: true)
+        } else {
+            self.cellIndex = indexPath.row
         }
     }
     
