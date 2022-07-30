@@ -84,9 +84,8 @@ class ProfileViewController: UIViewController {
     
     @objc private func duobleTapInPost() {
         guard let post = viewModel?.postArray[self.cellIndex] else { return }
-        
         var isContains = false
-        
+
         for i in CoreDataManager.shared.favoritePost {
             if i.id == post.id {
                 isContains = true
@@ -98,8 +97,7 @@ class ProfileViewController: UIViewController {
         } else {
             print("error contains")
         }
-    }
-    
+    }    
 }
 
 //MARK: Initial TableView Deegate and DataSource

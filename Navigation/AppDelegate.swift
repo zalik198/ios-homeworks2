@@ -49,13 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //manager.fetchData()
         //manager.myView()
-        
-        
         return true
         
     }
     
-    func applicationWillTerminate(_ application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {//автосохранение в coreData при выходе из приложения
         self.saveContext()
     }
     
@@ -70,6 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
     
+    //сохранение в базу
     func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {

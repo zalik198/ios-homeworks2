@@ -176,6 +176,39 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		6207101E2894EFA0007277C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				62FB65432889E28600C8F05F /* FavoriteViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6207101F2894EFBC007277C0 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				62FB65452889E2E900C8F05F /* FavoriteCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		620710202894EFD0007277C0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				62A697B3288EF15200809164 /* FavoriteTableViewCell.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		620710212894EFDA007277C0 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				62A697B5288EF39900809164 /* CoreDataManager.swift */,
+				62A697B0288B373A00809164 /* PostData.xcdatamodeld */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		621A40432887F4A200F01F4B /* RealmModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,11 +428,10 @@
 		62FB65422889E20300C8F05F /* FavoriteVC */ = {
 			isa = PBXGroup;
 			children = (
-				62FB65432889E28600C8F05F /* FavoriteViewController.swift */,
-				62A697B3288EF15200809164 /* FavoriteTableViewCell.swift */,
-				62A697B5288EF39900809164 /* CoreDataManager.swift */,
-				62FB65452889E2E900C8F05F /* FavoriteCoordinator.swift */,
-				62A697B0288B373A00809164 /* PostData.xcdatamodeld */,
+				6207101E2894EFA0007277C0 /* View */,
+				620710202894EFD0007277C0 /* ViewModel */,
+				620710212894EFDA007277C0 /* Manager */,
+				6207101F2894EFBC007277C0 /* Coordinator */,
 			);
 			path = FavoriteVC;
 			sourceTree = "<group>";
