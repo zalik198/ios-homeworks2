@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Post {
+public struct oldPost {
     public var author: String
     public var description: String
     public var image: String

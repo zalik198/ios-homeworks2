@@ -157,7 +157,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(scrollView)
         
         logInButton.tapAction = { [weak self] in
-            guard let self = self else { return }
+            guard self != nil else { return } //guard let self = self else { return }
+
             //self.logInApp()
         }
         
