@@ -53,6 +53,17 @@ class PostTableViewCell: UITableViewCell {
         return viewsCell
     }()
     
+    weak var viewModel: PostTbaleViewCellModel? {
+        willSet(viewModel) {
+            guard let viewModel = viewModel else { return }
+            authorCell.text = viewModel.author
+            descriptionCell.text = viewModel.description
+            imageCell.image = UIImage(named: viewModel.image)
+            likesCell.text = "Likes: \(viewModel.likes)"
+            viewsCell.text = "Views: \(viewModel.views)"
+        }
+    }
+    
     //MARK: Initial cells
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
