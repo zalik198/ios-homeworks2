@@ -17,6 +17,8 @@ class FavoriteViewController: UIViewController {
     private let myInspector = Factory.shared.myFactory()
     private var textFieldBottomConstraint: NSLayoutConstraint?
     public var favoritePost = [PostData]()
+    var manageObjectContext: NSManagedObjectContext!
+
 
     
     lazy var textFieldPanel: UIView = {
@@ -107,6 +109,9 @@ class FavoriteViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(cancelFilteredSearchAction))
+        
+        manageObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -168,18 +173,97 @@ extension FavoriteViewController: UITableViewDelegate {
     
     
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let post = CoreDataManager.shared.favoritePost[indexPath.row]
-        let delete = UIContextualAction(style: .destructive, title: "delete") { (action, view, completionHandler) in CoreDataManager.shared.removeFromCoreData()
-           
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+////        let post = CoreDataManager.shared.favoritePost[indexPath.row]
+////        let delete = UIContextualAction(style: .destructive, title: "delete") { (action, view, completionHandler) in CoreDataManager.shared.removeFromCoreData()
+////        }
+////
+//        //tableView.reloadData()
+//        let eventArrayItem = favoritePost[indexPath.row]
+//
+//        let delete = UIContextualAction(style: .destructive, title: "delete") { [self] (action, view, completionHandler) in
+//            self.manageObjectContext.delete(eventArrayItem)
+//
+//            do {
+//                try manageObjectContext.save()
+//            } catch let error as NSError {
+//                print("Error While Deleting Note: \(error.userInfo)")
+//            }
+//
+//
+//        }
+//        let swipeActionsConfig = UISwipeActionsConfiguration(actions: [delete])
+//               swipeActionsConfig.performsFirstActionWithFullSwipe = true
+//
+//               return swipeActionsConfig
+//
+//
+//            //self.loadSaveData()
+//    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
+        if editingStyle == UITableViewCell.EditingStyle.delete {
             
-        }
+            //let commit = favoritePost[indexPath.row]
+          
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                
+            
+            let managedContext = appDelegate!.persistentContainer.viewContext
+            let person = CoreDataManager.shared.favoritePost[indexPath.row]
+                if editingStyle == .delete {
+                    managedContext.delete(person as NSManagedObject)
+                    CoreDataManager.shared.favoritePost.remove(at: indexPath.row)
+
+//                    for i in CoreDataManager.shared.favoritePost {
+//                        if i.id == post?.id {
+//                            CoreDataManager.shared.favoritePost.remove(at: indexPath.row)
+//
+//                        }
+//                    }
+                    do {
+                        try managedContext.save()
+                    } catch
+                    let error as NSError {
+                        print("Could not save. \(error),\(error.userInfo)")
+                    }
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+            
+            
+//            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+//                let context = appDelegate.persistentContainer.viewContext
+//
+//                for i in CoreDataManager.shared.favoritePost {
+//                    if i.id != nil {
+//                        context.delete(i)
+//
+//                    }
+//                }
+//                //favoritePost.remove(at: indexPath.row)
+//                //tableView.deleteRows(at: [indexPath], with: .fade)
+//
+//
+//                do {
+//                    try context.save()
+//                    print(" saved")
+//                } catch {
+//                    print("error saving")
+//                }
+//
+//            }
+//                    container.viewContext.delete(commit)
+//                    commits.remove(at: indexPath.row)
+//                    tableView.deleteRows(at: [indexPath], with: .fade)
+//
+//                    saveContext()
+
+
+
         
-        tableView.reloadData()
-        let swipeActionsConfig = UISwipeActionsConfiguration(actions: [delete])
-               swipeActionsConfig.performsFirstActionWithFullSwipe = true
-               
-               return swipeActionsConfig
+
     }
 }
 
@@ -195,6 +279,7 @@ extension FavoriteViewController: UITableViewDataSource {
         cell.myCells(post)
         return cell
     }
+    
     
     
     
