@@ -18,8 +18,8 @@ class FavoriteViewController: UIViewController {
     private var textFieldBottomConstraint: NSLayoutConstraint?
     public var favoritePost = [PostData]()
     var manageObjectContext: NSManagedObjectContext!
-
-
+    
+    
     
     lazy var textFieldPanel: UIView = {
         let view = UIView(frame: CGRect(x: 0.0, y: self.view.bounds.height, width: self.view.bounds.width, height: 75))
@@ -54,9 +54,9 @@ class FavoriteViewController: UIViewController {
     }()
     
     lazy var buttonInTextField: UIButton = {
-       let buttonInTextField = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25.0))
-       textFieldPanel.addSubview(buttonInTextField)
-
+        let buttonInTextField = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25.0))
+        textFieldPanel.addSubview(buttonInTextField)
+        
         buttonInTextField.setTitle("Применить", for: .normal)
         buttonInTextField.backgroundColor = .systemBlue
         buttonInTextField.layer.cornerRadius = 10
@@ -64,7 +64,7 @@ class FavoriteViewController: UIViewController {
         buttonInTextField.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addConstraint(.init(item: buttonInTextField, attribute: .left, relatedBy: .equal, toItem: textFieldPanel, attribute: .left, multiplier: 1.0, constant: 40.0))
-       self.view.addConstraint(.init(item: buttonInTextField, attribute: .right, relatedBy: .equal, toItem: textFieldPanel, attribute: .right, multiplier: 1.0, constant: -40.0))
+        self.view.addConstraint(.init(item: buttonInTextField, attribute: .right, relatedBy: .equal, toItem: textFieldPanel, attribute: .right, multiplier: 1.0, constant: -40.0))
         self.view.addConstraint(.init(item: buttonInTextField, attribute: .bottom, relatedBy: .equal, toItem: textFieldPanel, attribute: .bottom, multiplier: 1.0, constant: -3.0))
         
         
@@ -103,7 +103,7 @@ class FavoriteViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         initialLayout()
-
+        
         tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: "favoriteTableViewCell")
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
@@ -111,7 +111,7 @@ class FavoriteViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(cancelFilteredSearchAction))
         
         manageObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -136,27 +136,27 @@ class FavoriteViewController: UIViewController {
         //textFieldPanel.addSubview(buttonInTextField)
         
         let alertController = UIAlertController(title: "Search author post", message: "", preferredStyle: .alert)
-
+        
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Enter author"
         }
-
+        
         let searchAction = UIAlertAction(title: "Search", style: .default, handler: { alert -> Void in
             let textField = alertController.textFields![0] as UITextField
             //let secondTextField = alertController.textFields![1] as UITextField
         })
-
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil )
-
-//        alertController.addTextField { (textField : UITextField!) -> Void in
-//            textField.placeholder = "Enter First Name"
-//        }
-
+        
+        //        alertController.addTextField { (textField : UITextField!) -> Void in
+        //            textField.placeholder = "Enter First Name"
+        //        }
+        
         alertController.addAction(searchAction)
         alertController.addAction(cancelAction)
-
+        
         self.present(alertController, animated: true, completion: nil)
-
+        
     }
     
     @objc func cancelFilteredSearchAction() {
@@ -171,100 +171,57 @@ extension FavoriteViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
-    
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-////        let post = CoreDataManager.shared.favoritePost[indexPath.row]
-////        let delete = UIContextualAction(style: .destructive, title: "delete") { (action, view, completionHandler) in CoreDataManager.shared.removeFromCoreData()
-////        }
-////
-//        //tableView.reloadData()
-//        let eventArrayItem = favoritePost[indexPath.row]
-//
-//        let delete = UIContextualAction(style: .destructive, title: "delete") { [self] (action, view, completionHandler) in
-//            self.manageObjectContext.delete(eventArrayItem)
-//
-//            do {
-//                try manageObjectContext.save()
-//            } catch let error as NSError {
-//                print("Error While Deleting Note: \(error.userInfo)")
-//            }
-//
-//
-//        }
-//        let swipeActionsConfig = UISwipeActionsConfiguration(actions: [delete])
-//               swipeActionsConfig.performsFirstActionWithFullSwipe = true
-//
-//               return swipeActionsConfig
-//
-//
-//            //self.loadSaveData()
-//    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-            
-            //let commit = favoritePost[indexPath.row]
-          
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                
-            
-            let managedContext = appDelegate!.persistentContainer.viewContext
-            let person = CoreDataManager.shared.favoritePost[indexPath.row]
-                if editingStyle == .delete {
-                    managedContext.delete(person as NSManagedObject)
-                    CoreDataManager.shared.favoritePost.remove(at: indexPath.row)
-
-//                    for i in CoreDataManager.shared.favoritePost {
-//                        if i.id == post?.id {
-//                            CoreDataManager.shared.favoritePost.remove(at: indexPath.row)
-//
-//                        }
-//                    }
-                    do {
-                        try managedContext.save()
-                    } catch
-                    let error as NSError {
-                        print("Could not save. \(error),\(error.userInfo)")
-                    }
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }
-            }
-            
-            
-//            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-//                let context = appDelegate.persistentContainer.viewContext
-//
-//                for i in CoreDataManager.shared.favoritePost {
-//                    if i.id != nil {
-//                        context.delete(i)
-//
-//                    }
-//                }
-//                //favoritePost.remove(at: indexPath.row)
-//                //tableView.deleteRows(at: [indexPath], with: .fade)
-//
-//
-//                do {
-//                    try context.save()
-//                    print(" saved")
-//                } catch {
-//                    print("error saving")
-//                }
-//
-//            }
-//                    container.viewContext.delete(commit)
-//                    commits.remove(at: indexPath.row)
-//                    tableView.deleteRows(at: [indexPath], with: .fade)
-//
-//                    saveContext()
-
-
-
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let managedContext = appDelegate!.persistentContainer.viewContext
+        let person = CoreDataManager.shared.favoritePost[indexPath.row]
+        
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] (action, view, completionHandler) in
+            managedContext.delete(person as NSManagedObject)
+            CoreDataManager.shared.favoritePost.remove(at: indexPath.row)
+            
+            do {
+                try managedContext.save()
+            } catch
+                let error as NSError {
+                print("Could not save. \(error),\(error.userInfo)")
+            }
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+        let swipeActionsConfig = UISwipeActionsConfiguration(actions: [delete])
+        swipeActionsConfig.performsFirstActionWithFullSwipe = true
+        
+        return swipeActionsConfig
     }
+    
+    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    //
+    //        if editingStyle == UITableViewCell.EditingStyle.delete {
+    //
+    //            //let commit = favoritePost[indexPath.row]
+    //
+    //            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    //
+    //
+    //            let managedContext = appDelegate!.persistentContainer.viewContext
+    //            let person = CoreDataManager.shared.favoritePost[indexPath.row]
+    //                if editingStyle == .delete {
+    //                    managedContext.delete(person as NSManagedObject)
+    //                    CoreDataManager.shared.favoritePost.remove(at: indexPath.row)
+    //
+    //
+    //                    do {
+    //                        try managedContext.save()
+    //                    } catch
+    //                    let error as NSError {
+    //                        print("Could not save. \(error),\(error.userInfo)")
+    //                    }
+    //                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+    //                }
+    //            }
+    
 }
 
 extension FavoriteViewController: UITableViewDataSource {
