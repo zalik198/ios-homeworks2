@@ -13,8 +13,26 @@ import StorageService
 final class CoreDataManager {
     
     static let shared = CoreDataManager()
-    
     public var favoritePost = [PostData]()
+    
+//    var fetchResult: NSFetchedResultsController<PostData> {
+//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//
+//        let fetchRequest: NSFetchRequest<PostData> = PostData.fetchRequest()
+//        
+//        let sortDescriptor = NSSortDescriptor(key: "authorCell", ascending: true)
+//        fetchRequest.sortDescriptors = [sortDescriptor]
+//        
+//        let fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate!.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: "Master")
+//        
+//        do {
+//            try fetchResultController.performFetch()
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//        
+//        return fetchResultController
+//    }
     
     
     //сохранение поста

@@ -18,6 +18,7 @@ class FavoriteViewController: UIViewController {
     private var textFieldBottomConstraint: NSLayoutConstraint?
     public var favoritePost = [PostData]()
     var manageObjectContext: NSManagedObjectContext!
+    private var fetchResultController: NSFetchedResultsController<NSFetchRequestResult>?
     
     
     
@@ -102,6 +103,7 @@ class FavoriteViewController: UIViewController {
         view.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
+        //fetchResult.delegate = self
         initialLayout()
         
         tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: "favoriteTableViewCell")
@@ -130,10 +132,8 @@ class FavoriteViewController: UIViewController {
                                     ])
     }
     
+    //доработать поиск по автору
     @objc func searchAction() {
-        //textField.becomeFirstResponder()
-        //textFieldBottomConstraint?.constant = -360.0
-        //textFieldPanel.addSubview(buttonInTextField)
         
         let alertController = UIAlertController(title: "Search author post", message: "", preferredStyle: .alert)
         
@@ -142,8 +142,17 @@ class FavoriteViewController: UIViewController {
         }
         
         let searchAction = UIAlertAction(title: "Search", style: .default, handler: { alert -> Void in
-            let textField = alertController.textFields![0] as UITextField
-            //let secondTextField = alertController.textFields![1] as UITextField
+            if let textFileds = alertController.textFields {
+                let newTextFiled = textFileds as [UITextField]
+                let enterText = newTextFiled[0].text
+                self.fetchFilter(enterText ?? "")
+                self.tableView.reloadData()
+            }
+//            let textField = alertController.textFields?[0]
+//            //let secondTextField = alertController.textFields![1] as UITextField
+//            if let text = textField?.text, text != "" {
+//                self.fetchFilter(text)
+//            }
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil )
@@ -151,11 +160,39 @@ class FavoriteViewController: UIViewController {
         //        alertController.addTextField { (textField : UITextField!) -> Void in
         //            textField.placeholder = "Enter First Name"
         //        }
-        
+        //alertController.addTextField { textFiled in }
         alertController.addAction(searchAction)
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    func fetchFilter(_ author: String) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let entityDescription = NSEntityDescription.entity(forEntityName: "PostData", in: appDelegate!.persistentContainer.viewContext)
+        
+        let request = NSFetchRequest<NSFetchRequestResult>()
+        request.entity = entityDescription
+        
+        let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        let predicate = NSPredicate(format: "authorCell == %@", author)
+        request.predicate = predicate
+        
+        fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: appDelegate!.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultController?.delegate = self
+        
+            do {
+                try fetchResultController?.performFetch()
+                
+            } catch let error as NSError {
+                print(error.userInfo)
+            }
+        tableView.reloadData()
+        
         
     }
     
@@ -239,5 +276,71 @@ extension FavoriteViewController: UITableViewDataSource {
     
     
     
+    
+}
+
+
+extension FavoriteViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange sectionInfo: NSFetchedResultsSectionInfo,
+                    atSectionIndex sectionIndex: Int,
+                    for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+        case .delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+        case .update:
+            tableView.reloadSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
+        default:
+            return
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            if let indexPath = indexPath {
+                tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath as IndexPath], with: .fade)
+            }
+        case .update:
+
+            if let indexPath = indexPath {
+                //let favoritePost = fetchResultController?.object(at: indexPath as IndexPath)
+                let post = CoreDataManager.shared.favoritePost[indexPath.row]
+                guard let cell = tableView.cellForRow(at: indexPath as IndexPath) as? FavoriteTableViewCell else { break }
+                cell.myCells(post)
+            
+            }
+        case .move:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            }
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath as IndexPath], with: .automatic)
+            }
+            
+            
+        @unknown default:
+            fatalError()
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
     
 }
