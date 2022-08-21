@@ -20,7 +20,6 @@
 		623818FD28077BB3008DFDDC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623818FB28077946008DFDDC /* Post.swift */; };
 		623B404428636291005AFAF2 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B404328636291005AFAF2 /* JSON.swift */; };
 		624186DB281021A200D4ACD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624186DA281021A200D4ACD3 /* User.swift */; };
-		624C1B0728B22BE0006AB908 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 624C1B0628B22BE0006AB908 /* iOSIntPackage */; };
 		627CDFD7281AA83600F9274F /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627CDFD6281AA83600F9274F /* Factory.swift */; };
 		627CDFD928369FF800F9274F /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627CDFD828369FF800F9274F /* LoginViewControllerDelegate.swift */; };
 		627CDFDB2836A08C00F9274F /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627CDFDA2836A08C00F9274F /* Checker.swift */; };
@@ -45,6 +44,7 @@
 		62A697B2288B373A00809164 /* PostData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62A697B0288B373A00809164 /* PostData.xcdatamodeld */; };
 		62A697B4288EF15200809164 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A697B3288EF15200809164 /* FavoriteTableViewCell.swift */; };
 		62A697B6288EF39900809164 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A697B5288EF39900809164 /* CoreDataManager.swift */; };
+		62C85D03280AE95F0067D034 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 62C85D02280AE95F0067D034 /* iOSIntPackage */; };
 		62F18E3B285DEA5B00FA9685 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F18E3A285DEA5B00FA9685 /* NetworkService.swift */; };
 		62F2214127B4811D00544807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2214027B4811D00544807 /* AppDelegate.swift */; };
 		62F2214327B4811D00544807 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2214227B4811D00544807 /* SceneDelegate.swift */; };
@@ -156,7 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				624C1B0728B22BE0006AB908 /* iOSIntPackage in Frameworks */,
+				62C85D03280AE95F0067D034 /* iOSIntPackage in Frameworks */,
 				623818F52807780E008DFDDC /* StorageService.framework in Frameworks */,
 				1774E5304A9171E7A42295B0 /* Pods_Navigation.framework in Frameworks */,
 			);
@@ -509,7 +509,7 @@
 			);
 			name = Navigation;
 			packageProductDependencies = (
-				624C1B0628B22BE0006AB908 /* iOSIntPackage */,
+				62C85D02280AE95F0067D034 /* iOSIntPackage */,
 			);
 			productName = Navigation;
 			productReference = 62F2213D27B4811D00544807 /* Navigation.app */;
@@ -543,9 +543,8 @@
 			);
 			mainGroup = 62F2213427B4811D00544807;
 			packageReferences = (
+				62C85D01280AE95F0067D034 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
 				6283945A2873563400D95064 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				624C1B0428B228C1006AB908 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
-				624C1B0528B22BE0006AB908 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
 			);
 			productRefGroup = 62F2213E27B4811D00544807 /* Products */;
 			projectDirPath = "";
@@ -992,22 +991,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		624C1B0428B228C1006AB908 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		624C1B0528B22BE0006AB908 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		6283945A2873563400D95064 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1016,12 +999,20 @@
 				minimumVersion = 9.2.0;
 			};
 		};
+		62C85D01280AE95F0067D034 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		624C1B0628B22BE0006AB908 /* iOSIntPackage */ = {
+		62C85D02280AE95F0067D034 /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 624C1B0528B22BE0006AB908 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
+			package = 62C85D01280AE95F0067D034 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
 			productName = iOSIntPackage;
 		};
 /* End XCSwiftPackageProductDependency section */
