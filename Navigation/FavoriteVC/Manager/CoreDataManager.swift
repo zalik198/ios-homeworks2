@@ -13,35 +13,56 @@ import StorageService
 final class CoreDataManager {
     
     static let shared = CoreDataManager()
-    
     public var favoritePost = [PostData]()
+    
+//    var fetchResult: NSFetchedResultsController<PostData> {
+//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//
+//        let fetchRequest: NSFetchRequest<PostData> = PostData.fetchRequest()
+//        
+//        let sortDescriptor = NSSortDescriptor(key: "authorCell", ascending: true)
+//        fetchRequest.sortDescriptors = [sortDescriptor]
+//        
+//        let fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate!.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: "Master")
+//        
+//        do {
+//            try fetchResultController.performFetch()
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//        
+//        return fetchResultController
+//    }
     
     
     //сохранение поста
     public func saveToCoreData(post: Post) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             let context = appDelegate.persistentContainer.viewContext
-            
             guard let entityDescription = NSEntityDescription.entity(forEntityName: "PostData", in: context) else { return }
             
-            let newValue = NSManagedObject(entity: entityDescription, insertInto: context)
-            
-            let image = UIImage(named: post.image)
-            let imageData = image?.pngData()
-            
-            newValue.setValue(imageData, forKey: "imageCell")
-            newValue.setValue(post.author, forKey: "authorCell")
-            newValue.setValue(post.description, forKey: "descriptionCell")
-            newValue.setValue(post.likes, forKey: "likesCell")
-            newValue.setValue(post.views, forKey: "viewsCell")
-            newValue.setValue(post.id, forKey: "id")
-            
-            do {
-                try context.save()
-                print("\(post.author) saved")
-            } catch {
-                print("error saving")
+            //сохранение данных в фоновом потоке
+            appDelegate.persistentContainer.performBackgroundTask { context in
+                
+                let newValue = NSManagedObject(entity: entityDescription, insertInto: context)
+
+                let image = UIImage(named: post.image)
+                let imageData = image?.pngData()
+                
+                newValue.setValue(imageData, forKey: "imageCell")
+                newValue.setValue(post.author, forKey: "authorCell")
+                newValue.setValue(post.description, forKey: "descriptionCell")
+                newValue.setValue(post.likes, forKey: "likesCell")
+                newValue.setValue(post.views, forKey: "viewsCell")
+                newValue.setValue(post.id, forKey: "id")
+                do {
+                    try context.save()
+                    print("\(post.author) saved")
+                } catch {
+                    print("error saving")
+                }
             }
+         
         }
     }
     
