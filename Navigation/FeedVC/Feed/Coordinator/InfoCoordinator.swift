@@ -8,7 +8,11 @@
 import Foundation
 import UIKit
 
-final class InfoCoordinator {
+//var navControl: UINavigationController?
+
+class InfoCoordinator {
+    
+
     func showDetail(navigation: UINavigationController?, coordinator: InfoCoordinator) {
         let viewModel = InfoViewModel()
         let viewController = InfoViewController(viewModel: viewModel, coordinator: coordinator)
