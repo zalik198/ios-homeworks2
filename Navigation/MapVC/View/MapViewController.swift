@@ -11,27 +11,41 @@ import CoreLocation
 
 class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    var mapView: MKMapView!
     var locationManager = CLLocationManager()
+    let largeConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .light, scale: .small)
+
+    
+    private lazy var button: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "xmark.circle", withConfiguration: largeConfig), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleTapButton), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var mapView: MKMapView = {
+        let mapView: MKMapView!
+        self.mapView.translatesAutoresizingMaskIntoConstraints = false
+        self.mapView.mapType = .standard
+        self.mapView.isZoomEnabled = true
+        self.mapView.isScrollEnabled = true
+        self.mapView.showsCompass = true
+        self.mapView.showsUserLocation = true
+        return self.mapView
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView = MKMapView()
+        self.mapView = MKMapView()
+        self.mapView.delegate = self
         self.view.addSubview(self.mapView)
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        
-        [self.mapView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-         self.mapView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-         self.mapView.topAnchor.constraint(equalTo: self.view.topAnchor),
-         self.mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-         
-        ] .forEach { $0.isActive = true }
-        // Do any additional setup after loading the view.
+        self.view.addSubview(self.button)
+        self.mapView.showsUserLocation = true
+
         
         self.locationManager.requestAlwaysAuthorization()
-        
-        // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
@@ -40,41 +54,37 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
             locationManager.startUpdatingLocation()
         }
         
-    
         getDirection()
+        initialLayout()
         
-        
-        mapView.delegate = self
-        mapView.mapType = .standard
-        mapView.isZoomEnabled = true
-        mapView.isScrollEnabled = true
-        mapView.showsCompass = true
-        mapView.showsUserLocation = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         gestureRecognizer.delegate = self
         mapView.addGestureRecognizer(gestureRecognizer)
         
-        
-        //getDirection(mapView.userLocation.coordinate, annotationSPB.coordinate)
-        
         if let coor = mapView.userLocation.location?.coordinate{
             mapView.setCenter(coor, animated: true)
         }
+        
+    }
+    
+    private func initialLayout() {
+        NSLayoutConstraint.activate([
+            self.button.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            self.button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        guard let mapView = self.mapView else { return }
+        guard self.mapView == self.mapView else { return }
         mapView.frame = view.bounds
     }
     
+    //Добавление точек
     @objc func handleTap(_ gestureReconizer: UILongPressGestureRecognizer)
     {
-        
         let location = gestureReconizer.location(in: mapView)
         let coordinate = mapView.convert(location,toCoordinateFrom: mapView)
-        
         // Add annotation:
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
@@ -83,27 +93,32 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         self.mapView.isScrollEnabled = true
     }
     
+    //Удаление точек и маршрута, кроме точки пользователя!
+    @objc func handleTapButton(_ sender: UIButton) {
+        self.mapView.annotations.forEach {
+            if !($0 is MKUserLocation) {
+                self.mapView.removeAnnotation($0)
+                self.mapView.removeOverlays(mapView.overlays)
+            }
+        }
+        print("Your annotations deleting")
+    }
+    
+    
+    //Построение маршрута
     func getDirection() {
-
         let annotationSPB = MKPointAnnotation()
         annotationSPB.coordinate = CLLocationCoordinate2D(latitude: 59.9339, longitude: 30.3061)
-        
-        let annotationUser = MKPointAnnotation()
-        annotationUser.coordinate = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 59.7234, longitude: 30.3271)
 
+        let annotationUser = MKPointAnnotation()//местоположение пользователя работает некорректно с симулятора, поэтому создал дефолтную точку чтобы не было ошибки! с реального устроиства все работает корректно!
+        annotationUser.coordinate = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 59.7234, longitude: 30.3271)
+        
         mapView.showAnnotations([annotationSPB, annotationUser], animated: true)
-        
-    
-        
         let sourceItem  = MKMapItem(placemark: MKPlacemark(coordinate: annotationSPB.coordinate))
-        
         let destItem = MKMapItem(placemark: MKPlacemark(coordinate: annotationUser.coordinate))
-        
         let request = MKDirections.Request()
-        
         request.source = sourceItem
         request.destination = destItem
-        
         request.transportType = .walking
         let directions = MKDirections(request: request)
         
@@ -116,18 +131,8 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
             }
         }
-            
-            
-        }
-    
-  
-        
     }
-    
-
-
-
-
+}
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -138,21 +143,16 @@ extension MapViewController: CLLocationManagerDelegate {
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         
-        
-        let span = MKCoordinateSpan(latitudeDelta: 0.25, longitudeDelta: 0.25)
-        let region = MKCoordinateRegion(center: locValue, span: span)
-        mapView.setRegion(region, animated: true)
+        let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+        let _ = MKCoordinateRegion(center: locValue, span: span)
+        //mapView.setRegion(region, animated: true)
         
         let annotation = MKPointAnnotation()
-        //annotation.coordinate = locValue
+        annotation.coordinate = locValue
         annotation.title = "Мое местоположение"
         annotation.subtitle = "iPhone"
         mapView.addAnnotation(annotation)
-        
-        //centerMap(locValue)
     }
-    
-    
 }
 
 extension MapViewController: MKMapViewDelegate {
@@ -163,7 +163,15 @@ extension MapViewController: MKMapViewDelegate {
         return renderer
     }
 }
-    
+
+
+
+
+
+
+
+
+
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 //        guard annotation is MKPointAnnotation else { print("no mkpointannotaions"); return nil }
 //
@@ -181,7 +189,7 @@ extension MapViewController: MKMapViewDelegate {
 //        }
 //        return pinView
 //    }
-    
+
 //    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 //        guard let coordinate = locationManager.location?.coordinate else { return }
 //        let destination = view.annotation
@@ -202,16 +210,16 @@ extension MapViewController: MKMapViewDelegate {
 //            }
 //        }
 //    }
-    
+
 //    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
 //        let renderer = MKPolylineRenderer(overlay: overlay)
 //                // Set the color for the line
 //                renderer.strokeColor = .red
 //                return renderer
 //    }
-    
-    
-    
+
+
+
 //}
 
 //extension MKMapView {
