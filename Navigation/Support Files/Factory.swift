@@ -28,6 +28,7 @@ final class MyFactory {
         case feed
         case login
         case favorite
+        case map
     }
     
     let navigationController: UINavigationController
@@ -78,6 +79,11 @@ final class MyFactory {
                 image: UIImage(systemName: "heart.circle"),
                 selectedImage: UIImage(systemName: "heart.circle.fill")
             )
+        case .map:
+            let coordinator = MapCoordinator()
+            let mapViewController = coordinator.showDetail(coordinator: coordinator)
+            navigationController.setViewControllers([mapViewController], animated: true)
+            navigationController.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map.circle"), selectedImage: UIImage(systemName: "map.circle.fill"))
         }
     }
     

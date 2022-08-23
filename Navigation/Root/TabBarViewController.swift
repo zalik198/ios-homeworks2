@@ -16,6 +16,7 @@ class MainTabBarViewController: UITabBarController {
     private let loginViewController = MyFactory(navigationController: UINavigationController(), state: .login)
     
     private let favoriteViewController = MyFactory(navigationController: UINavigationController(), state: .favorite)
+    private let mapViewController = MyFactory(navigationController: UINavigationController(), state: .map)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,8 @@ class MainTabBarViewController: UITabBarController {
         viewControllers = [
             feedViewController.navigationController,
             loginViewController.navigationController,
-            favoriteViewController.navigationController
+            favoriteViewController.navigationController,
+            mapViewController.navigationController
 
 
         ]
