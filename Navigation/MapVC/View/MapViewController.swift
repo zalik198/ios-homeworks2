@@ -47,6 +47,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -54,18 +55,23 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
             locationManager.startUpdatingLocation()
         }
         
-        getDirection()
+        //getDirection()
         initialLayout()
         
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        gestureRecognizer.delegate = self
-        mapView.addGestureRecognizer(gestureRecognizer)
+        let myLongPress: UILongPressGestureRecognizer = UILongPressGestureRecognizer()
+        myLongPress.addTarget(self, action: #selector(self.handleTap(_:)))
+        mapView.addGestureRecognizer(myLongPress)
+        
+
+  
         
         if let coor = mapView.userLocation.location?.coordinate{
             mapView.setCenter(coor, animated: true)
         }
         
     }
+    
+
     
     private func initialLayout() {
         NSLayoutConstraint.activate([
@@ -76,8 +82,17 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        let bigTeatr = MKPointAnnotation()
+        bigTeatr.coordinate = CLLocationCoordinate2D(latitude: 55.7602196, longitude: 37.6186409)
+        mapView.showAnnotations([bigTeatr], animated: true)
+        bigTeatr.title = "Teatr"
         guard self.mapView == self.mapView else { return }
         mapView.frame = view.bounds
+    }
+    
+    func route(firstCoord: CLLocationCoordinate2D, secondCoord: CLLocationCoordinate2D) {
+        //let firstAnnotation =
     }
     
     //Добавление точек
@@ -86,11 +101,17 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         let location = gestureReconizer.location(in: mapView)
         let coordinate = mapView.convert(location,toCoordinateFrom: mapView)
         // Add annotation:
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        self.mapView.addAnnotation(annotation)
-        self.mapView.isZoomEnabled = true
-        self.mapView.isScrollEnabled = true
+        DispatchQueue.main.async {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            self.mapView.addAnnotation(annotation)
+            self.mapView.isZoomEnabled = true
+            self.mapView.isScrollEnabled = true
+            annotation.title = "Новая точка"
+        }
+     
+        
+        
     }
     
     //Удаление точек и маршрута, кроме точки пользователя!
@@ -137,22 +158,27 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        
+
         mapView.mapType = MKMapType.standard
         mapView.showsCompass = true
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
+
+      
         
-        let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
-        let _ = MKCoordinateRegion(center: locValue, span: span)
-        //mapView.setRegion(region, animated: true)
-        
+        let span = MKCoordinateSpan(latitudeDelta: 0.25, longitudeDelta: 0.25)
+        let region = MKCoordinateRegion(center: locValue, span: span)
+        mapView.setRegion(region, animated: true)
+
         let annotation = MKPointAnnotation()
         annotation.coordinate = locValue
         annotation.title = "Мое местоположение"
         annotation.subtitle = "iPhone"
+
         mapView.addAnnotation(annotation)
     }
+    
+    
 }
 
 extension MapViewController: MKMapViewDelegate {
@@ -162,6 +188,43 @@ extension MapViewController: MKMapViewDelegate {
         renderer.strokeColor = .systemBlue
         return renderer
     }
+
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? MKPointAnnotation else { return nil }
+        
+        var viewMaker: MKMarkerAnnotationView
+        let idView = "marker"
+        if let view = mapView.dequeueReusableAnnotationView(withIdentifier: idView) as? MKMarkerAnnotationView {
+            view.annotation = annotation
+            viewMaker = view
+        } else {
+            viewMaker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
+            viewMaker.canShowCallout = true
+            viewMaker.calloutOffset = CGPoint(x: 0, y: 6)
+            viewMaker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        return viewMaker
+        
+        
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("aaa")
+
+        if var view = view as? MKMarkerAnnotationView {
+             //view.markerTintColor = UIColor.systemBlue
+            view.canShowCallout = true
+            view.calloutOffset = CGPoint(x: 0, y: 6)
+            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            print("bbb")
+
+         }
+        
+        
+    }
+ 
+    
 }
 
 
