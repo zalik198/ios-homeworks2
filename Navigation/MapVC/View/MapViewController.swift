@@ -8,11 +8,13 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Contacts
 
 class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var locationManager = CLLocationManager()
     let largeConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .light, scale: .small)
+
 
     
     private lazy var button: UIButton = {
@@ -34,7 +36,6 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         return self.mapView
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +44,6 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addSubview(self.mapView)
         self.view.addSubview(self.button)
         self.mapView.showsUserLocation = true
-
         
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -62,16 +62,15 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         myLongPress.addTarget(self, action: #selector(self.handleTap(_:)))
         mapView.addGestureRecognizer(myLongPress)
         
-
-  
+        let bigTeatr = MKPointAnnotation()
+        bigTeatr.coordinate = CLLocationCoordinate2D(latitude: 55.7602196, longitude: 37.6186409)
+        //mapView.showAnnotations([bigTeatr], animated: true)
+        bigTeatr.title = "Teatr"
         
         if let coor = mapView.userLocation.location?.coordinate{
             mapView.setCenter(coor, animated: true)
         }
-        
     }
-    
-
     
     private func initialLayout() {
         NSLayoutConstraint.activate([
@@ -82,36 +81,38 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        let bigTeatr = MKPointAnnotation()
-        bigTeatr.coordinate = CLLocationCoordinate2D(latitude: 55.7602196, longitude: 37.6186409)
-        mapView.showAnnotations([bigTeatr], animated: true)
-        bigTeatr.title = "Teatr"
         guard self.mapView == self.mapView else { return }
         mapView.frame = view.bounds
     }
     
-    func route(firstCoord: CLLocationCoordinate2D, secondCoord: CLLocationCoordinate2D) {
-        //let firstAnnotation =
-    }
-    
     //Добавление точек
-    @objc func handleTap(_ gestureReconizer: UILongPressGestureRecognizer)
-    {
+    @objc func handleTap(_ gestureReconizer: UILongPressGestureRecognizer) {
         let location = gestureReconizer.location(in: mapView)
         let coordinate = mapView.convert(location,toCoordinateFrom: mapView)
-        // Add annotation:
-        DispatchQueue.main.async {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            self.mapView.addAnnotation(annotation)
-            self.mapView.isZoomEnabled = true
-            self.mapView.isScrollEnabled = true
-            annotation.title = "Новая точка"
+        let annotation = MKPointAnnotation()
+        
+        let locations = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        locations.fetchCityAndCountry{ city, country, error in //Страна и город
+            guard let city = city, let country = country, error == nil else { return }
+            
+            //адреса и точные данные
+            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            location.placemark { placemark, error in
+                guard let placemark = placemark else {
+                    print("Error:", error ?? "nil")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    annotation.coordinate = coordinate
+                    self.mapView.addAnnotation(annotation)
+                    self.mapView.isZoomEnabled = true
+                    self.mapView.isScrollEnabled = true
+                    annotation.title = "\(placemark.streetName ?? "address not found") \(placemark.streetNumber ?? "")"
+                    annotation.subtitle = "\(country) - \(city)"
+                }
+            }
         }
-     
-        
-        
     }
     
     //Удаление точек и маршрута, кроме точки пользователя!
@@ -127,58 +128,54 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     //Построение маршрута
-    func getDirection() {
-        let annotationSPB = MKPointAnnotation()
-        annotationSPB.coordinate = CLLocationCoordinate2D(latitude: 59.9339, longitude: 30.3061)
-
-        let annotationUser = MKPointAnnotation()//местоположение пользователя работает некорректно с симулятора, поэтому создал дефолтную точку чтобы не было ошибки! с реального устроиства все работает корректно!
-        annotationUser.coordinate = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 59.7234, longitude: 30.3271)
-        
-        mapView.showAnnotations([annotationSPB, annotationUser], animated: true)
-        let sourceItem  = MKMapItem(placemark: MKPlacemark(coordinate: annotationSPB.coordinate))
-        let destItem = MKMapItem(placemark: MKPlacemark(coordinate: annotationUser.coordinate))
-        let request = MKDirections.Request()
-        request.source = sourceItem
-        request.destination = destItem
-        request.transportType = .walking
-        let directions = MKDirections(request: request)
-        
-        directions.calculate { responce, error in
-            guard let responce = responce else { return }
-            if responce.routes.count > 0 {
-                let route = responce.routes.first!
-                self.mapView.addOverlay(route.polyline, level: .aboveRoads)
-                let rect = route.polyline.boundingMapRect
-                self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-            }
-        }
-    }
+    //    func getDirection() {
+    //        let annotationSPB = MKPointAnnotation()
+    //        annotationSPB.coordinate = CLLocationCoordinate2D(latitude: 59.9339, longitude: 30.3061)
+    //
+    //        let annotationUser = MKPointAnnotation()//местоположение пользователя работает некорректно с симулятора, поэтому создал дефолтную точку чтобы не было ошибки! с реального устроиства все работает корректно!
+    //        annotationUser.coordinate = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 59.7234, longitude: 30.3271)
+    //
+    //        mapView.showAnnotations([annotationSPB, annotationUser], animated: true)
+    //        let sourceItem  = MKMapItem(placemark: MKPlacemark(coordinate: annotationSPB.coordinate))
+    //        let destItem = MKMapItem(placemark: MKPlacemark(coordinate: annotationUser.coordinate))
+    //        let request = MKDirections.Request()
+    //        request.source = sourceItem
+    //        request.destination = destItem
+    //        request.transportType = .walking
+    //        let directions = MKDirections(request: request)
+    //
+    //        directions.calculate { responce, error in
+    //            guard let responce = responce else { return }
+    //            if responce.routes.count > 0 {
+    //                let route = responce.routes.first!
+    //                self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+    //                let rect = route.polyline.boundingMapRect
+    //                self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+    //            }
+    //        }
+    //    }
 }
 
+//Местоположение пользователя
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-
+        
         mapView.mapType = MKMapType.standard
         mapView.showsCompass = true
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
-
-      
         
-        let span = MKCoordinateSpan(latitudeDelta: 0.25, longitudeDelta: 0.25)
+        let span = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025)
         let region = MKCoordinateRegion(center: locValue, span: span)
         mapView.setRegion(region, animated: true)
-
+        
         let annotation = MKPointAnnotation()
-        annotation.coordinate = locValue
+        //annotation.coordinate = locValue
         annotation.title = "Мое местоположение"
         annotation.subtitle = "iPhone"
-
         mapView.addAnnotation(annotation)
     }
-    
-    
 }
 
 extension MapViewController: MKMapViewDelegate {
@@ -188,7 +185,7 @@ extension MapViewController: MKMapViewDelegate {
         renderer.strokeColor = .systemBlue
         return renderer
     }
-
+    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? MKPointAnnotation else { return nil }
@@ -205,31 +202,59 @@ extension MapViewController: MKMapViewDelegate {
             viewMaker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         return viewMaker
-        
-        
     }
     
+    //изменение цвета булавки при выборе
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("aaa")
-
-        if var view = view as? MKMarkerAnnotationView {
-             //view.markerTintColor = UIColor.systemBlue
-            view.canShowCallout = true
-            view.calloutOffset = CGPoint(x: 0, y: 6)
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            print("bbb")
-
-         }
-        
-        
+        if let view = view as? MKMarkerAnnotationView {
+            view.markerTintColor = mapView.tintColor
+        }
     }
- 
     
+    //возвращение цета булавки
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if let view = view as? MKMarkerAnnotationView {
+            view.markerTintColor = UIColor.systemRed
+        }
+    }
 }
 
+extension CLLocation {
+    func fetchCityAndCountry(completion: @escaping (_ city: String?, _ country:  String?, _ error: Error?) -> ()) {
+        CLGeocoder().reverseGeocodeLocation(self) { completion($0?.first?.locality, $0?.first?.country, $1) }
+    }
+    
+    func placemark(completion: @escaping (_ placemark: CLPlacemark?, _ error: Error?) -> ()) {
+        CLGeocoder().reverseGeocodeLocation(self) { completion($0?.first, $1) }
+    }
+}
 
-
-
+extension CLPlacemark {
+    var streetName: String? { thoroughfare }
+    var streetNumber: String? { subThoroughfare }
+    var city: String? { locality }
+    var neighborhood: String? { subLocality }
+    var state: String? { administrativeArea }
+    var county: String? { subAdministrativeArea }
+    var zipCode: String? { postalCode }
+    
+    @available(iOS 11.0, *)
+    
+    var postalAddressFormatted: String? {
+        guard let postalAddress = postalCode else { return nil }
+        return postalAddress
+    }
+    
+    var streetNameFormatted: String? {
+        guard let streetName = streetName else { return nil }
+        return streetName
+    }
+    
+    var streetNumberForamttes: String? {
+        guard let streetNumber = streetNumber else { return nil}
+        return streetNumber
+    }
+}
 
 
 
