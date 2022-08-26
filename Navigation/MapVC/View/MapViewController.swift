@@ -15,8 +15,6 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     var locationManager = CLLocationManager()
     let largeConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .light, scale: .small)
 
-
-    
     private lazy var button: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark.circle", withConfiguration: largeConfig), for: .normal)
@@ -58,14 +56,17 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         //getDirection()
         initialLayout()
         
+        //Булавка появляется после длительного нажатия на карту
         let myLongPress: UILongPressGestureRecognizer = UILongPressGestureRecognizer()
         myLongPress.addTarget(self, action: #selector(self.handleTap(_:)))
         mapView.addGestureRecognizer(myLongPress)
         
+        /*
         let bigTeatr = MKPointAnnotation()
         bigTeatr.coordinate = CLLocationCoordinate2D(latitude: 55.7602196, longitude: 37.6186409)
-        //mapView.showAnnotations([bigTeatr], animated: true)
+        mapView.showAnnotations([bigTeatr], animated: true)
         bigTeatr.title = "Teatr"
+        */
         
         if let coor = mapView.userLocation.location?.coordinate{
             mapView.setCenter(coor, animated: true)
@@ -125,35 +126,6 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         print("Your annotations deleting")
     }
-    
-    
-    //Построение маршрута
-    //    func getDirection() {
-    //        let annotationSPB = MKPointAnnotation()
-    //        annotationSPB.coordinate = CLLocationCoordinate2D(latitude: 59.9339, longitude: 30.3061)
-    //
-    //        let annotationUser = MKPointAnnotation()//местоположение пользователя работает некорректно с симулятора, поэтому создал дефолтную точку чтобы не было ошибки! с реального устроиства все работает корректно!
-    //        annotationUser.coordinate = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 59.7234, longitude: 30.3271)
-    //
-    //        mapView.showAnnotations([annotationSPB, annotationUser], animated: true)
-    //        let sourceItem  = MKMapItem(placemark: MKPlacemark(coordinate: annotationSPB.coordinate))
-    //        let destItem = MKMapItem(placemark: MKPlacemark(coordinate: annotationUser.coordinate))
-    //        let request = MKDirections.Request()
-    //        request.source = sourceItem
-    //        request.destination = destItem
-    //        request.transportType = .walking
-    //        let directions = MKDirections(request: request)
-    //
-    //        directions.calculate { responce, error in
-    //            guard let responce = responce else { return }
-    //            if responce.routes.count > 0 {
-    //                let route = responce.routes.first!
-    //                self.mapView.addOverlay(route.polyline, level: .aboveRoads)
-    //                let rect = route.polyline.boundingMapRect
-    //                self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-    //            }
-    //        }
-    //    }
 }
 
 //Местоположение пользователя
@@ -179,13 +151,6 @@ extension MapViewController: CLLocationManagerDelegate {
 }
 
 extension MapViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.lineWidth = 3
-        renderer.strokeColor = .systemBlue
-        return renderer
-    }
-    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? MKPointAnnotation else { return nil }
@@ -202,6 +167,50 @@ extension MapViewController: MKMapViewDelegate {
             viewMaker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         return viewMaker
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let coordinate = locationManager.location?.coordinate else { return }
+        
+        
+        let pinPoint = view.annotation
+        let startPoint = MKPlacemark(coordinate: coordinate)
+        let endPoint = MKPlacemark(coordinate: pinPoint!.coordinate)
+        
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: startPoint)
+        request.destination = MKMapItem(placemark: endPoint)
+        request.transportType = .walking
+
+        
+        let direction = MKDirections(request: request)
+        direction.calculate { responce, error in
+            guard let responce = responce else { return }
+            self.mapView.removeOverlays(mapView.overlays)//если есть действующий маршрут отменится перед началом следующего
+            for route in responce.routes {
+                self.mapView.addOverlay(route.polyline)
+                if let view = view as? MKMarkerAnnotationView {
+                    view.markerTintColor = UIColor.systemGreen
+                }
+                
+            }
+            if responce.routes.count > 0 {
+                let route = responce.routes[0]
+                print("Время по маршруту \(route.expectedTravelTime) секунд")//просто для информации записал, в идела первести в формате времени и сделать label
+            }
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        
+        //Показывается увеличенный маршрут после построения
+        let mapRect = MKPolygon(points: renderer.polyline.points(), count: renderer.polyline.pointCount)
+        mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: 50.0,left: 50.0,bottom: 50.0,right: 50.0), animated: true)
+        renderer.lineWidth = 3
+        renderer.strokeColor = .systemOrange
+
+        return renderer
     }
     
     //изменение цвета булавки при выборе
@@ -259,6 +268,39 @@ extension CLPlacemark {
 
 
 
+
+//____________________________
+//Оставил на будущее! Вдруг понадобится!
+
+
+
+//Построение маршрута
+//    func getDirection() {
+//        let annotationSPB = MKPointAnnotation()
+//        annotationSPB.coordinate = CLLocationCoordinate2D(latitude: 59.9339, longitude: 30.3061)
+//
+//        let annotationUser = MKPointAnnotation()//местоположение пользователя работает некорректно с симулятора, поэтому создал дефолтную точку чтобы не было ошибки! с реального устроиства все работает корректно!
+//        annotationUser.coordinate = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 59.7234, longitude: 30.3271)
+//
+//        mapView.showAnnotations([annotationSPB, annotationUser], animated: true)
+//        let sourceItem  = MKMapItem(placemark: MKPlacemark(coordinate: annotationSPB.coordinate))
+//        let destItem = MKMapItem(placemark: MKPlacemark(coordinate: annotationUser.coordinate))
+//        let request = MKDirections.Request()
+//        request.source = sourceItem
+//        request.destination = destItem
+//        request.transportType = .walking
+//        let directions = MKDirections(request: request)
+//
+//        directions.calculate { responce, error in
+//            guard let responce = responce else { return }
+//            if responce.routes.count > 0 {
+//                let route = responce.routes.first!
+//                self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+//                let rect = route.polyline.boundingMapRect
+//                self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+//            }
+//        }
+//    }
 
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 //        guard annotation is MKPointAnnotation else { print("no mkpointannotaions"); return nil }
