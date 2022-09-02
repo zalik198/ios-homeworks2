@@ -15,7 +15,7 @@ class InfoViewController: UIViewController {
     
     
     private lazy var secondButton: CustomButton = {
-        let secondButton = CustomButton(title: NSLocalizedString("infoButton", comment: ""),
+        let secondButton = CustomButton(title: "infoButton".localized,
                                         titleColor: .black,
                                         backColor: .orange)
         
@@ -152,15 +152,15 @@ class InfoViewController: UIViewController {
     
     @objc func showAlert() {
         
-        let alert = UIAlertController(title: NSLocalizedString("infoAlertTitle", comment: ""), message: NSLocalizedString("infoAlertMessage", comment: ""), preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "infoAlertTitle".localized, message: "infoAlertMessage".localized, preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: NSLocalizedString("infoAlertActionTitleLeft", comment: ""), style: UIAlertAction.Style.default, handler: { _ in
-            print(NSLocalizedString("infoAlertActionLeftPrint", comment: ""))
+        alert.addAction(UIAlertAction(title: "infoAlertActionTitleLeft".localized, style: UIAlertAction.Style.default, handler: { _ in
+            print("infoAlertActionLeftPrint".localized)
         }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("infoAlertActionTitleRight", comment: ""),
+        alert.addAction(UIAlertAction(title: "infoAlertActionTitleRight".localized,
                                       style: UIAlertAction.Style.destructive,
                                       handler: {(_: UIAlertAction!) in
-            print(NSLocalizedString("infoAlerActionRightPrint", comment: ""))
+            print("infoAlerActionRightPrint".localized)
         }))
         self.present(alert, animated: true, completion: nil)
     }

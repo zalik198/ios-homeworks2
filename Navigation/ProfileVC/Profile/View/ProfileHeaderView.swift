@@ -59,7 +59,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }()
     
     private lazy var showStatus: CustomButton = {
-        let showStatus = CustomButton(title: NSLocalizedString("profileButtonStatus", comment: ""),
+        let showStatus = CustomButton(title: "profileButtonStatus".localized,
                                       titleColor: .white,
                                       backColor: .white)
         showStatus.layer.shadowOffset = CGSize(width: 4, height: 4)

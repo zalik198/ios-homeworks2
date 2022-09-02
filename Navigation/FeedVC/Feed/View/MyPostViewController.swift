@@ -49,7 +49,7 @@ class MyPostViewController: UIViewController {
         
         self.view.backgroundColor = .lightGray
         navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("infoVC", comment: ""), style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "infoVC".localized, style: .plain, target: self, action: #selector(addTapped))
         
         self.view.addSubviews(timerLabel, timerImage)
         

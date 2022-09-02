@@ -17,7 +17,7 @@ final class ProfileCoordinator {
             viewModel: viewModel,
             coordinator: coordinator)
         viewController.view.backgroundColor = .black
-        viewController.title = NSLocalizedString("profile.title", comment: "")
+        viewController.title = "profile.title".localized
         return viewController
     }
 }

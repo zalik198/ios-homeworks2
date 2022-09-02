@@ -54,7 +54,7 @@ final class MyFactory {
             navigationController.navigationBar.standardAppearance = appearance
             navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
             navigationController.tabBarItem = UITabBarItem(
-                title: NSLocalizedString("feed.title", comment: ""),
+                title: "feed.title".localized,
                 image: UIImage(systemName: "list.bullet.circle"),
                 selectedImage: UIImage(systemName: "list.bullet.circle.fill")
             )
@@ -64,7 +64,7 @@ final class MyFactory {
             let loginViewController = coordinator.showDetail(coordinator: coordinator)
             navigationController.setViewControllers([loginViewController], animated: true)
             navigationController.tabBarItem = UITabBarItem(
-                title: NSLocalizedString("profile.title", comment: ""),
+                title: "profile.title".localized,
                 image: UIImage(systemName: "person.circle"),
                 selectedImage: UIImage(systemName: "person.circle.fill")
             )
@@ -75,7 +75,7 @@ final class MyFactory {
             navigationController.navigationBar.barTintColor = .white
             
             navigationController.tabBarItem = UITabBarItem(
-                title: NSLocalizedString("favorite.title", comment: ""),
+                title: "favorite.title".localized,
                 image: UIImage(systemName: "heart.circle"),
                 selectedImage: UIImage(systemName: "heart.circle.fill")
             )
@@ -84,7 +84,7 @@ final class MyFactory {
             let mapViewController = coordinator.showDetail(coordinator: coordinator)
             navigationController.setViewControllers([mapViewController], animated: true)
             navigationController.tabBarItem = UITabBarItem(
-                title: NSLocalizedString("map.title", comment: ""),
+                title: "map.title".localized,
                 image: UIImage(systemName: "map.circle"),
                 selectedImage: UIImage(systemName: "map.circle.fill")
             )

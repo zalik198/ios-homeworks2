@@ -59,8 +59,8 @@ class PostTableViewCell: UITableViewCell {
             authorCell.text = viewModel.author
             descriptionCell.text = viewModel.description
             imageCell.image = UIImage(named: viewModel.image)
-            likesCell.text = NSLocalizedString("profileLikes", comment: "")
-            viewsCell.text = NSLocalizedString("profileViews", comment: "")
+            likesCell.text = "profileLikes".localized
+            viewsCell.text = "profileViews".localized
         }
     }
     
@@ -81,8 +81,8 @@ class PostTableViewCell: UITableViewCell {
         authorCell.text = post.author
         imageCell.image = UIImage(named: post.image)
         descriptionCell.text = post.description
-        likesCell.text = NSLocalizedString("profileLikes", comment: "")
-        viewsCell.text = NSLocalizedString("profileViews", comment: "")
+        likesCell.text = "profileLikes".localized
+        viewsCell.text = "profileViews".localized
     }
     
     //MARK: Initial constraints

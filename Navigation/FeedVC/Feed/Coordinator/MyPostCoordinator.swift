@@ -13,7 +13,7 @@ final class MyPostCoordinator {
         let viewModel = MyPostViewModel()
         let viewController = MyPostViewController(viewModel: viewModel, coordinator: coordinator)
         viewController.view.backgroundColor = .systemGray5
-        viewController.title = NSLocalizedString("post.title", comment: "")
+        viewController.title = "post.title".localized
         navigation?.pushViewController(viewController, animated: true)
     }
 }
