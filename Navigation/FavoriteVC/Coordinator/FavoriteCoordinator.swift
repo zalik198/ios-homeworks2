@@ -12,7 +12,7 @@ final class FavoriteCoordinator {
     func showDetail(coordinator: FavoriteCoordinator) -> UIViewController {
         let viewModel = CoreDataManager()
         let viewController = FavoriteViewController(model: viewModel, coordinator: coordinator)
-        viewController.title = "Favorite"
+        viewController.title = "favorite.title".localized
         return viewController
     }
 }

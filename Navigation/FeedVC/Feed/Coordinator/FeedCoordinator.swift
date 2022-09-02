@@ -13,7 +13,7 @@ final class FeedCoordinator {
         let viewModel = FeedViewModel()
         let viewController = FeedViewController(model: viewModel, coordinator: coordinator)
         viewController.view.backgroundColor = .lightGray
-        viewController.title = "Newsline"
+        viewController.title = "feed.title".localized
         return viewController
     }
 }

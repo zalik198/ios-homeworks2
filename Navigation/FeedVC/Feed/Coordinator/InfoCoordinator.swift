@@ -16,7 +16,7 @@ class InfoCoordinator {
     func showDetail(navigation: UINavigationController?, coordinator: InfoCoordinator) {
         let viewModel = InfoViewModel()
         let viewController = InfoViewController(viewModel: viewModel, coordinator: coordinator)
-        viewController.title = "information"
+        viewController.title = "info.title".localized
         viewController.view.backgroundColor = .lightGray
         navigation?.pushViewController(viewController, animated: true)
     }

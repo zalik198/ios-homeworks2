@@ -1,0 +1,50 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Shom on 01.09.2022.
+  
+*/
+"feed.title" = "Лента новостей";
+"feedFirstButton" = "Первая кнопка";
+"feedSecondButton" = "Вторая кнопка";
+"feedCheckPass" = "Проверка пароля";
+"feedEnterPass" = "Введите пароль";
+"feedRedLabel" = "Неверно";
+"feedGreenLabel" = "Верно";
+
+//Post View Controller
+"post.title" = "Мои посты";
+"infoVC" = "Инфо";
+
+//Info View Controller
+"info.title" = "Информация";
+"infoButton" = "Сообщение";
+"infoAlertTitle" = "Внмиание!";
+"infoAlertMessage" = "Вам больше 18 лет?";
+"infoAlertActionTitleLeft" = "Да";
+"infoAlertActionLeftPrint" = "Да, мне больше 18!";
+"infoAlertActionTitleRight" = "Нет";
+"infoAlerActionRightPrint" = "Нет, мне еще нет 18 лет!";
+
+//Profile View Controller
+"profile.title" = "Профиль";
+"profileButtonStatus" = "Показать статус";
+"profileUserName" = "Шура";
+"profileUserSurname" = "Балаганов";
+"profileCollectionViewTitle" = "Фильмы";
+"profileLikes" = "Лайки";
+"profileViews" = "Просмотры";
+"profileDescription" = "Фильм";
+
+//Photo View Controller
+"photo.title" = "Фото галлерея";
+
+//Favorite View Controller
+"favorite.title" = "Избранное";
+
+//Map View Controller
+"map.title" = "Карты";
+
+
+

@@ -40,7 +40,7 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .lightGray
-        title = "Photo galery"
+        title = "photo.title".localized
         view.addSubviews(collectionView)
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: "photosCollectionViewCell")
         

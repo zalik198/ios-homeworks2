@@ -13,7 +13,7 @@ class FeedViewController: UIViewController {
     private var viewModel: FeedViewModel?
     private weak var coordinator: FeedCoordinator?
     
-    var post = MyPost(title: "Newsline")
+    //var post = MyPost(title: NSLocalizedString("feed.title", comment: ""))
     
     init (model: FeedViewModel, coordinator: FeedCoordinator) {
         self.viewModel = model
@@ -26,7 +26,7 @@ class FeedViewController: UIViewController {
     }
     
     private lazy var firstButton: CustomButton = {
-        let firstButton = CustomButton(title: "Первая кнопка",
+        let firstButton = CustomButton(title: "feedFirstButton".localized,
                                        titleColor: .white,
                                        backColor: .darkGray)
         firstButton.layer.cornerRadius = 15
@@ -37,7 +37,7 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var secondButton: CustomButton = {
-        let secondButton = CustomButton(title: "Вторая кнопка",
+        let secondButton = CustomButton(title: "feedSecondButton".localized,
                                         titleColor: .black,
                                         backColor: .white)
         secondButton.layer.borderWidth = 3
@@ -62,7 +62,7 @@ class FeedViewController: UIViewController {
     
     //MARK: Model check password
     private lazy var newButton: CustomButton = {
-        let newButton = CustomButton(title: "Проверка пароля",
+        let newButton = CustomButton(title: "feedCheckPass".localized,
                                      titleColor: .black,
                                      backColor: .white)
         newButton.layer.borderWidth = 3
@@ -71,7 +71,7 @@ class FeedViewController: UIViewController {
     
     private lazy var newTextField: UITextField = {
         let newTextField = UITextField()
-        newTextField.placeholder = "Введите пароль"
+        newTextField.placeholder = "feedEnterPass".localized
         newTextField.textColor = .black
         newTextField.isSecureTextEntry = true
         newTextField.backgroundColor = .white
@@ -143,12 +143,12 @@ class FeedViewController: UIViewController {
     }
     
     @objc func redLabel() {
-        newLabel.text = "НЕВЕРНО"
+        newLabel.text = "feedRedLabel".localized
         newLabel.textColor = .red
     }
     
     @objc func greenLabel() {
-        newLabel.text = "ВЕРНО"
+        newLabel.text = "feedGreenLabel".localized
         newLabel.textColor = .green
     }
     

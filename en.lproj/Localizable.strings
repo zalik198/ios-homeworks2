@@ -1,0 +1,48 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Shom on 01.09.2022.
+  
+*/
+//Feed View Controller
+"feed.title" = "Newsline";
+"feedFirstButton" = "First button";
+"feedSecondButton" = "Second button";
+"feedCheckPass" = "Check password";
+"feedEnterPass" = "Enter password";
+"feedRedLabel" = "Wrong";
+"feedGreenLabel" = "Right";
+
+//Post View Controller
+"post.title" = "My post";
+"infoVC" = "Info";
+
+//Info View Controller
+"info.title" = "Inforamtion";
+"infoButton" = "Message";
+"infoAlertTitle" = "Attention!";
+"infoAlertMessage" = "Are you over 18 years old?";
+"infoAlertActionTitleLeft" = "Yes";
+"infoAlertActionLeftPrint" = "Yes, I'm over 18!";
+"infoAlertActionTitleRight" = "No";
+"infoAlerActionRightPrint" = "No, I am not yet 18 years old!";
+
+//Profile View Controller
+"profile.title" = "Profile";
+"profileButtonStatus" = "Show status";
+"profileUserName" = "Shura";
+"profileUserSurname" = "Balaganov";
+"profileCollectionViewTitle" = "Films";
+"profileLikes" = "Likes";
+"profileViews" = "Views";
+"profileDescription" = "Film";
+
+//Photo View Controller
+"photo.title" = "Photo gallery";
+
+//Favorite View Controller
+"favorite.title" = "Favorite";
+
+//Map View Controller
+"map.title" = "Map";
