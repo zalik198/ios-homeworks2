@@ -54,7 +54,7 @@ final class MyFactory {
             navigationController.navigationBar.standardAppearance = appearance
             navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
             navigationController.tabBarItem = UITabBarItem(
-                title: "Newsline",
+                title: NSLocalizedString("feed.title", comment: ""),
                 image: UIImage(systemName: "list.bullet.circle"),
                 selectedImage: UIImage(systemName: "list.bullet.circle.fill")
             )
@@ -64,7 +64,7 @@ final class MyFactory {
             let loginViewController = coordinator.showDetail(coordinator: coordinator)
             navigationController.setViewControllers([loginViewController], animated: true)
             navigationController.tabBarItem = UITabBarItem(
-                title: "Profile",
+                title: NSLocalizedString("profile.title", comment: ""),
                 image: UIImage(systemName: "person.circle"),
                 selectedImage: UIImage(systemName: "person.circle.fill")
             )
@@ -73,9 +73,9 @@ final class MyFactory {
             let favoriteViewController = coordinator.showDetail(coordinator: coordinator)
             navigationController.setViewControllers([favoriteViewController], animated: true)
             navigationController.navigationBar.barTintColor = .white
-
+            
             navigationController.tabBarItem = UITabBarItem(
-                title: "Favorite",
+                title: NSLocalizedString("favorite.title", comment: ""),
                 image: UIImage(systemName: "heart.circle"),
                 selectedImage: UIImage(systemName: "heart.circle.fill")
             )
@@ -83,7 +83,11 @@ final class MyFactory {
             let coordinator = MapCoordinator()
             let mapViewController = coordinator.showDetail(coordinator: coordinator)
             navigationController.setViewControllers([mapViewController], animated: true)
-            navigationController.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map.circle"), selectedImage: UIImage(systemName: "map.circle.fill"))
+            navigationController.tabBarItem = UITabBarItem(
+                title: NSLocalizedString("map.title", comment: ""),
+                image: UIImage(systemName: "map.circle"),
+                selectedImage: UIImage(systemName: "map.circle.fill")
+            )
         }
     }
     

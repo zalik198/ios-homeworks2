@@ -23,10 +23,10 @@ public struct Post {
 
 final class ProfileViewModel {
     
-    public var postArray = [Post(author: "Золотой теленок", description: "Фильм", image: "ostap", likes: 1211, views: 2354, id: "12g3"),
-                            Post(author: "12 Стульев", description: "Фильм", image: "12chairs", likes: 125, views: 314, id: "6y31d"),
-                            Post(author: "Кин-дза-дза", description: "Фильм", image: "kin-dza-dza", likes: 1556, views: 3154, id: "9cdss9"),
-                            Post(author: "Приключения электроника", description: "Фильм", image: "electronik", likes: 3456, views: 10554, id: "xsa6")
+    public var postArray = [Post(author: "Золотой теленок", description: NSLocalizedString("profileDescription", comment: ""), image: "ostap", likes: 1211, views: 2354, id: "12g3"),
+                            Post(author: "12 Стульев", description: NSLocalizedString("profileDescription", comment: ""), image: "12chairs", likes: 125, views: 314, id: "6y31d"),
+                            Post(author: "Кин-дза-дза", description: NSLocalizedString("profileDescription", comment: ""), image: "kin-dza-dza", likes: 1556, views: 3154, id: "9cdss9"),
+                            Post(author: "Приключения электроника", description: NSLocalizedString("profileDescription", comment: ""), image: "electronik", likes: 3456, views: 10554, id: "xsa6")
     ]
     
     func numberOfRows() -> Int {

@@ -15,7 +15,7 @@ class InfoViewController: UIViewController {
     
     
     private lazy var secondButton: CustomButton = {
-        let secondButton = CustomButton(title: "Сообщение",
+        let secondButton = CustomButton(title: NSLocalizedString("infoButton", comment: ""),
                                         titleColor: .black,
                                         backColor: .orange)
         
@@ -152,15 +152,15 @@ class InfoViewController: UIViewController {
     
     @objc func showAlert() {
         
-        let alert = UIAlertController(title: "Внимание!", message: "Вам исполнилось 18 лет?", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: NSLocalizedString("infoAlertTitle", comment: ""), message: NSLocalizedString("infoAlertMessage", comment: ""), preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Да", style: UIAlertAction.Style.default, handler: { _ in
-            print("Да, мне уже исполнилось 18 лет!")
+        alert.addAction(UIAlertAction(title: NSLocalizedString("infoAlertActionTitleLeft", comment: ""), style: UIAlertAction.Style.default, handler: { _ in
+            print(NSLocalizedString("infoAlertActionLeftPrint", comment: ""))
         }))
-        alert.addAction(UIAlertAction(title: "Нет",
+        alert.addAction(UIAlertAction(title: NSLocalizedString("infoAlertActionTitleRight", comment: ""),
                                       style: UIAlertAction.Style.destructive,
                                       handler: {(_: UIAlertAction!) in
-            print("Нет, мне еще нет 18 лет!")
+            print(NSLocalizedString("infoAlerActionRightPrint", comment: ""))
         }))
         self.present(alert, animated: true, completion: nil)
     }

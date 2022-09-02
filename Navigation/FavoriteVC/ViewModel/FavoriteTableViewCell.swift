@@ -70,9 +70,9 @@ class FavoriteTableViewCell : UITableViewCell {
     public func myCells(_ post: PostData) {
         self.authorCells.text = post.authorCell ?? ""
         self.imageCells.image = UIImage(data: post.imageCell!) ?? UIImage()
-        self.descriptionCells.text = post.descriptionCell ?? ""
-        self.likesCells.text = "Likes: \(Int(post.likesCell))"
-        self.viewsCells.text = "Views: \(Int(post.viewsCell))"
+        self.descriptionCells.text = NSLocalizedString("profileDescription", comment: "") 
+        self.likesCells.text = NSLocalizedString("profileLikes", comment: "")
+        self.viewsCells.text = NSLocalizedString("profileViews", comment: "")
     }
     
     //MARK: Initial constraints

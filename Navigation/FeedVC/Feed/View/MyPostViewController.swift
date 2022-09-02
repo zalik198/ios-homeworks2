@@ -12,14 +12,14 @@ class MyPostViewController: UIViewController {
     private var viewModel: MyPostViewModel?
     private weak var postCoordinator: MyPostCoordinator?
 
-    private var timerLeft = 25
+    var timerLeft = 25
     private var timer: Timer?
     
     private lazy var timerLabel: UILabel = {
         let timerLabel = UILabel()
         timerLabel.frame = CGRect(x: 0, y: 0, width: 150, height: 40)
         timerLabel.toAutoLayout()
-        timerLabel.text = "Через \(String(timerLeft)) секунд появистя что-то!"
+        //timerLabel.text = "Через \(String(timerLeft)) секунд появистя что-то!"
         timerLabel.textAlignment = .center
         timerLabel.textColor = .black
         
@@ -49,7 +49,7 @@ class MyPostViewController: UIViewController {
         
         self.view.backgroundColor = .lightGray
         navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("infoVC", comment: ""), style: .plain, target: self, action: #selector(addTapped))
         
         self.view.addSubviews(timerLabel, timerImage)
         

@@ -38,7 +38,7 @@ class CurrentUserService: UserService {
 }
 
 class TestUserService: UserService {
-    let testUser = User(name: "Шура", avatar: UIImage(named: "Шура"), status: "Балаганов")
+    let testUser = User(name: NSLocalizedString("profileUserName", comment: ""), avatar: UIImage(named: "Шура"), status: NSLocalizedString("profileUserSurname", comment: ""))
     
     func userSetup(_ name: String) -> User? {
         if name == testUser.name {

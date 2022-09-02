@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 final class ProfileCoordinator {
     func showDetail(coordinator: ProfileCoordinator) -> UIViewController {
@@ -16,7 +17,7 @@ final class ProfileCoordinator {
             viewModel: viewModel,
             coordinator: coordinator)
         viewController.view.backgroundColor = .black
-        viewController.title = "Profile"
+        viewController.title = NSLocalizedString("profile.title", comment: "")
         return viewController
     }
 }
