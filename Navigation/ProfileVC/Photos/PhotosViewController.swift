@@ -17,7 +17,6 @@ class PhotosViewController: UIViewController {
     //var timer: Timer? = nil
     let start = DispatchTime.now()
     
-    
     lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
@@ -49,7 +48,15 @@ class PhotosViewController: UIViewController {
         //            self.newPhotoArray.removeAll()
         //            images.forEach({self.newPhotoArray.append($0)})
         
+        //collectionView.backgroundColor = UIColor.myViewBackground
+        //self.view.overrideUserInterfaceStyle = .light
+        //self.view.backgroundColor = .quaternaryLabel
+        //self.setupBackgroundColor(self.traitCollection.userInterfaceStyle)
+        
         initialLayout()
+        
+        self.view.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
+        self.collectionView.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
         
         imageProcessor.processImagesOnThread(sourceImages: photosArray, filter: .noir, qos: .userInteractive) { cgImage in
             self.newPhotoArray = cgImage.map({UIImage(cgImage: $0!)})
@@ -63,6 +70,27 @@ class PhotosViewController: UIViewController {
         }
         
     }
+    //    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    //        guard let previousTraitCollection = previousTraitCollection else {
+    //            return
+    //        }
+    //
+    //        self.setupBackgroundColor(previousTraitCollection.userInterfaceStyle)
+    //
+    //    }
+    //
+    //    private func setupBackgroundColor(_ style: UIUserInterfaceStyle) {
+    //            if style == .dark {
+    //                self.view.backgroundColor = .green
+    //                //self.collectionView.backgroundColor = .green
+    //            } else {
+    //                self.view.backgroundColor = .yellow
+    //                //self.collectionView.backgroundColor = .yellow
+    //                self.view.tintColor = .black
+    //
+    //            }
+    //
+    //    }
     
     
     

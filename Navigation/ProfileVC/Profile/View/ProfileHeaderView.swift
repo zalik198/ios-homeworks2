@@ -53,7 +53,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         let userName = UILabel()
         userName.text = "Остап Ибрагимович"
         userName.textAlignment = .left
-        userName.textColor = .black
+        userName.textColor = UIColor.createColor(light: .black, dark: .white)
         userName.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return userName
     }()

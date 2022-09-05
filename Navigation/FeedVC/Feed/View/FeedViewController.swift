@@ -71,10 +71,10 @@ class FeedViewController: UIViewController {
     
     private lazy var newTextField: UITextField = {
         let newTextField = UITextField()
-        newTextField.placeholder = "feedEnterPass".localized
         newTextField.textColor = .black
         newTextField.isSecureTextEntry = true
         newTextField.backgroundColor = .white
+        newTextField.attributedPlaceholder = NSAttributedString(string: "feedEnterPass".localized, attributes: [NSAttributedString.Key.foregroundColor : UIColor.createColor(light: .systemGray5, dark: .lightGray)])
         newTextField.clipsToBounds = true
         newTextField.layer.cornerRadius = 10
         newTextField.font = UIFont.systemFont(ofSize: 17)
@@ -103,15 +103,18 @@ class FeedViewController: UIViewController {
             self.newButtonAction()
         }
         
+        self.view.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(redLabel), name: NSNotification.Name.red, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(greenLabel), name: NSNotification.Name.green, object: nil)
         
         //MARK: - Таймер отсчета времени, перед оповещением!
-//        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { _ in
-//            let alert = UIAlertController(title: "Просто напоминание!", message: "Приложение ждет Вас!", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//        }
+        //        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { _ in
+        //            let alert = UIAlertController(title: "Просто напоминание!", message: "Приложение ждет Вас!", preferredStyle: .alert)
+        //            alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
+        //            self.present(alert, animated: true, completion: nil)
+        //        }
     }
     
     private func initialLayout() {
