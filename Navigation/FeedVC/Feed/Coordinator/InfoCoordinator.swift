@@ -12,12 +12,11 @@ import UIKit
 
 class InfoCoordinator {
     
-
     func showDetail(navigation: UINavigationController?, coordinator: InfoCoordinator) {
         let viewModel = InfoViewModel()
         let viewController = InfoViewController(viewModel: viewModel, coordinator: coordinator)
         viewController.title = "info.title".localized
-        viewController.view.backgroundColor = .lightGray
+        viewController.view.backgroundColor = .systemGray5
         navigation?.pushViewController(viewController, animated: true)
     }
 }

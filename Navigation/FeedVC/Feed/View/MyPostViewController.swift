@@ -11,7 +11,7 @@ class MyPostViewController: UIViewController {
     
     private var viewModel: MyPostViewModel?
     private weak var postCoordinator: MyPostCoordinator?
-
+    
     var timerLeft = 25
     private var timer: Timer?
     
@@ -47,7 +47,7 @@ class MyPostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .lightGray
+        self.view.backgroundColor = UIColor.createColor(light: .white, dark: .black)
         navigationController?.navigationBar.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "infoVC".localized, style: .plain, target: self, action: #selector(addTapped))
         
@@ -61,33 +61,33 @@ class MyPostViewController: UIViewController {
         timerImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         timerImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-//        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
+        //        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
         
     }
     
-//    //MARK: - Метод отсчета времени
-//    @objc func onTimerFires() {
-//        timerLeft -= 1
-//        timerLabel.text = "Через \(String(timerLeft)) секунд появистя что-то!"
-//
-//        if timerLeft <= 0 {
-//            timer?.invalidate()
-//            timer = nil
-//            self.timerImage.image = UIImage(named: "kin-dza-dza")
-//
-//        }
-//    }
-//
+    //    //MARK: - Метод отсчета времени
+    //    @objc func onTimerFires() {
+    //        timerLeft -= 1
+    //        timerLabel.text = "Через \(String(timerLeft)) секунд появистя что-то!"
+    //
+    //        if timerLeft <= 0 {
+    //            timer?.invalidate()
+    //            timer = nil
+    //            self.timerImage.image = UIImage(named: "kin-dza-dza")
+    //
+    //        }
+    //    }
+    //
     @objc func addTapped() {
         let coordinator = InfoCoordinator()
         
         coordinator.showDetail(navigation: self.navigationController, coordinator: coordinator)
         
-       
-       
-
-
         
-     
+        
+        
+        
+        
+        
     }
 }

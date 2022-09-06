@@ -16,7 +16,7 @@ class FavoriteTableViewCell : UITableViewCell {
         var authorCell = UILabel()
         authorCell.toAutoLayout()
         authorCell.font = .systemFont(ofSize: 20, weight: .bold)
-        authorCell.textColor = .black
+        authorCell.textColor = UIColor.createColor(light: .black, dark: .white)
         authorCell.numberOfLines = 2
         return authorCell
     }()
@@ -25,7 +25,7 @@ class FavoriteTableViewCell : UITableViewCell {
         var descriptionCell = UILabel()
         descriptionCell.toAutoLayout()
         descriptionCell.font = .systemFont(ofSize: 14)
-        descriptionCell.textColor = .systemGray
+        descriptionCell.textColor = UIColor.createColor(light: .black, dark: .white)
         descriptionCell.numberOfLines = 0
         return descriptionCell
     }()
@@ -34,7 +34,7 @@ class FavoriteTableViewCell : UITableViewCell {
         var imageCell = UIImageView()
         imageCell.toAutoLayout()
         imageCell.contentMode = .scaleAspectFit
-        imageCell.backgroundColor = .black
+        //imageCell.backgroundColor = .black
         return imageCell
     }()
     
@@ -42,7 +42,7 @@ class FavoriteTableViewCell : UITableViewCell {
         var likesCell = UILabel()
         likesCell.toAutoLayout()
         likesCell.font = .systemFont(ofSize: 16)
-        likesCell.textColor = .black
+        likesCell.textColor = UIColor.createColor(light: .black, dark: .white)
         return likesCell
     }()
     
@@ -50,7 +50,7 @@ class FavoriteTableViewCell : UITableViewCell {
         var viewsCell = UILabel()
         viewsCell.toAutoLayout()
         viewsCell.font = .systemFont(ofSize: 16)
-        viewsCell.textColor = .black
+        viewsCell.textColor = UIColor.createColor(light: .black, dark: .white)
         return viewsCell
     }()
     

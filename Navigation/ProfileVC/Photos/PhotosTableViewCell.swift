@@ -17,7 +17,7 @@ class PhotosTableViewCell: UITableViewCell {
     let title: UILabel = {
         let title = UILabel()
         title.text = "profileCollectionViewTitle".localized
-        title.textColor = .black
+        title.textColor = UIColor.createColor(light: .black, dark: .white)
         title.font = .systemFont(ofSize: 24, weight: .bold)
         title.toAutoLayout()
         return title
@@ -26,7 +26,7 @@ class PhotosTableViewCell: UITableViewCell {
     let nextButtonImage: UIImageView = {
         let nextButtonImage = UIImageView()
         nextButtonImage.toAutoLayout()
-        nextButtonImage.image = UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        nextButtonImage.image = UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))?.withTintColor(UIColor.createColor(light: .black, dark: .white), renderingMode: .alwaysOriginal)
         return nextButtonImage
     }()
     
@@ -42,7 +42,7 @@ class PhotosTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubviews(title, nextButtonImage, stackView)
+        contentView.addSubviews(stackView, title, nextButtonImage)
         
         //MARK: add photos in stackView
         //        let filterArray = [ColorFilter.tonal, ColorFilter.colorInvert, ColorFilter.posterize, ColorFilter.sepia(intensity: 3)]
@@ -70,7 +70,7 @@ class PhotosTableViewCell: UITableViewCell {
                                      stackView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
                                      stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
                                      stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-                                     stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 12),
+                                     stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 12)
                                     ])
         //MARK: setup height photos in stackView
         stackView.arrangedSubviews.forEach(
