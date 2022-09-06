@@ -16,7 +16,7 @@ final class ProfileCoordinator {
             userName: "admin",
             viewModel: viewModel,
             coordinator: coordinator)
-        viewController.view.backgroundColor = .black
+        //viewController.view.backgroundColor = .white
         viewController.title = "profile.title".localized
         return viewController
     }

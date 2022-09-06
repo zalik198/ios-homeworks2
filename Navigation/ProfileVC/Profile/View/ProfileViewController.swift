@@ -48,12 +48,16 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
+        
         view.backgroundColor = .white
         
+        self.view.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
+        self.tableView.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
+
 #if DEBUG
-        tableView.backgroundColor = .lightGray
+        //tableView.backgroundColor = .lightGray
 #elseif release
-        tableView.backgroundColor = .white
+        //tableView.backgroundColor = .white
 #endif
         
         view.addSubviews(tableView)
@@ -113,6 +117,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "photosTableViewCell", for: indexPath) as! PhotosTableViewCell
+            cell.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
             return cell
             
         }
@@ -160,6 +165,15 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             self.cellIndex = indexPath.row
         }
+            
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = cell.backgroundColor
+        cell.selectedBackgroundView = backgroundView
     }
     
 }
+

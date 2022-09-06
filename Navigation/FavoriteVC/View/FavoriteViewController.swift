@@ -20,8 +20,6 @@ class FavoriteViewController: UIViewController {
     var manageObjectContext: NSManagedObjectContext!
     private var fetchResultController: NSFetchedResultsController<NSFetchRequestResult>?
     
-    
-    
     lazy var textFieldPanel: UIView = {
         let view = UIView(frame: CGRect(x: 0.0, y: self.view.bounds.height, width: self.view.bounds.width, height: 75))
         self.view.addSubview(view)
@@ -105,6 +103,8 @@ class FavoriteViewController: UIViewController {
         tableView.delegate = self
         //fetchResult.delegate = self
         initialLayout()
+        self.view.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
+        self.tableView.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
         
         tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: "favoriteTableViewCell")
         
@@ -148,11 +148,11 @@ class FavoriteViewController: UIViewController {
                 self.fetchFilter(enterText ?? "")
                 self.tableView.reloadData()
             }
-//            let textField = alertController.textFields?[0]
-//            //let secondTextField = alertController.textFields![1] as UITextField
-//            if let text = textField?.text, text != "" {
-//                self.fetchFilter(text)
-//            }
+            //            let textField = alertController.textFields?[0]
+            //            //let secondTextField = alertController.textFields![1] as UITextField
+            //            if let text = textField?.text, text != "" {
+            //                self.fetchFilter(text)
+            //            }
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil )
@@ -185,12 +185,12 @@ class FavoriteViewController: UIViewController {
         fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: appDelegate!.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchResultController?.delegate = self
         
-            do {
-                try fetchResultController?.performFetch()
-                
-            } catch let error as NSError {
-                print(error.userInfo)
-            }
+        do {
+            try fetchResultController?.performFetch()
+            
+        } catch let error as NSError {
+            print(error.userInfo)
+        }
         tableView.reloadData()
         
         
@@ -271,6 +271,7 @@ extension FavoriteViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteTableViewCell", for: indexPath) as? FavoriteTableViewCell else { return UITableViewCell() }
         let post = CoreDataManager.shared.favoritePost[indexPath.row]
         cell.myCells(post)
+        cell.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
         return cell
     }
     
@@ -317,13 +318,13 @@ extension FavoriteViewController: NSFetchedResultsControllerDelegate {
                 tableView.deleteRows(at: [indexPath as IndexPath], with: .fade)
             }
         case .update:
-
+            
             if let indexPath = indexPath {
                 //let favoritePost = fetchResultController?.object(at: indexPath as IndexPath)
                 let post = CoreDataManager.shared.favoritePost[indexPath.row]
                 guard let cell = tableView.cellForRow(at: indexPath as IndexPath) as? FavoriteTableViewCell else { break }
                 cell.myCells(post)
-            
+                
             }
         case .move:
             if let indexPath = indexPath {

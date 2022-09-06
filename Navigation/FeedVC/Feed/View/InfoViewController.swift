@@ -59,6 +59,7 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         
         //self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor.createColor(light: .white, dark: .black)
         self.view.addSubviews(serializationLabel, secondButton, jsonDecodingLabel)
         self.initialLayout()
     }
@@ -147,7 +148,6 @@ class InfoViewController: UIViewController {
             make.height.equalTo(60)
         }
         
-     
     }
     
     @objc func showAlert() {
