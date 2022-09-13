@@ -16,11 +16,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     public var delegate: LoginViewControllerDelegate?
     private let myInspector = Factory.shared.myFactory()
     //var logins: Results<LoginModel>?
+    var localAuth = LocalAuthorizationService()
     
     private var isLogined: Bool? {
         willSet {
             if newValue! {
-                logInButton.setTitle("Вход", for: .normal)
+                logInButton.setTitle("Вход по Face ID", for: .normal)
                 brutePassword.setTitle("Сначала пройдите регистрацию! Нажми сюда!", for: .normal)
             } else {
                 logInButton.setTitle("Нажмите для регистрации", for: .normal)
@@ -32,7 +33,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     //MARK: create view objects
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .white
+        //scrollView.backgroundColor = .white
         scrollView.isScrollEnabled = true
         scrollView.toAutoLayout()
         return scrollView
@@ -40,7 +41,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var contentView: UIView = {
         let contentView = UIView()
-        contentView.backgroundColor = .white
+        //contentView.backgroundColor = .white
         contentView.toAutoLayout()
         return contentView
     }()
@@ -115,7 +116,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         logInButton.imageView?.contentMode = .scaleAspectFill
         logInButton.clipsToBounds = true
         logInButton.layer.cornerRadius = 10
-        //logInButton.addTarget(self, action: #selector(goToProfileVC), for: .touchUpInside)
+        logInButton.addTarget(self, action: #selector(goToProfileVC), for: .touchUpInside)
         
         return logInButton
     }()
@@ -128,6 +129,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         brutePassword.clipsToBounds = true
         brutePassword.layer.cornerRadius = 10
         brutePassword.addTarget(self, action: #selector(switchLogin), for: .touchUpInside)
+        brutePassword.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
+
         
         return brutePassword
     }()
@@ -153,9 +156,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         //        }
         
         //settings view
-        view.backgroundColor = .white
+        self.view.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
+
         view.addSubview(scrollView)
         
+        scrollView.backgroundColor = UIColor.createColor(light: .white, dark: .systemGray5)
+
         logInButton.tapAction = { [weak self] in
             guard self != nil else { return } //guard let self = self else { return }
 
@@ -166,6 +172,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         scrollView.addSubviews(contentView)
         scrollView.contentSize = CGSize(width: view.frame.width, height: max(view.frame.width, view.frame.height))
         
+        
+
         //add textField in stackView
         stackView.addArrangedSubview(userNameTextField)
         stackView.addArrangedSubview(passwordTextField)
@@ -182,10 +190,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let coordinator = ProfileCoordinator()
-        let profileViewController = coordinator.showDetail(coordinator: coordinator)
-        self.navigationController?.pushViewController(profileViewController, animated: true)
-        self.navigationController?.setViewControllers([profileViewController], animated: true)
+        //Заглушка для пропуска автоизации
+//        let coordinator = ProfileCoordinator()
+//        let profileViewController = coordinator.showDetail(coordinator: coordinator)
+//        self.navigationController?.pushViewController(profileViewController, animated: true)
+//        self.navigationController?.setViewControllers([profileViewController], animated: true)
+        
         //        if let newData = self.logins?[0] {
         //            authentification(newData.login, newData.password)
         //        }
@@ -249,6 +259,21 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     //MARK: Navigation segue
     @objc private func goToProfileVC() {
         //logInApp()
+        
+        localAuth.authorizeIfPossible { success in
+            if success {
+                DispatchQueue.main.async {
+                    let coordinator = ProfileCoordinator()
+                    let profileViewController = coordinator.showDetail(coordinator: coordinator)
+                    self.navigationController?.pushViewController(profileViewController, animated: true)
+                    self.navigationController?.setViewControllers([profileViewController], animated: true)
+                }
+                
+            }
+        }
+        
+        
+               
     }
     
     @objc private func switchLogin() {
