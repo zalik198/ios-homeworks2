@@ -42,6 +42,7 @@
 		628394532873518600D95064 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 628394522873518600D95064 /* GoogleService-Info.plist */; };
 		628394542873518600D95064 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 628394522873518600D95064 /* GoogleService-Info.plist */; };
 		629DEE04284CD5A200553813 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629DEE03284CD5A200553813 /* LoginCoordinator.swift */; };
+		62A35B1428D1E8DC005B5DD2 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A35B1328D1E8DC005B5DD2 /* LocalAuthorizationService.swift */; };
 		62A4151C28077C5000BFD930 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A4151B28077C5000BFD930 /* PhotosViewController.swift */; };
 		62A561D32891448D008C81B8 /* PostTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A561D22891448D008C81B8 /* PostTableViewCellModel.swift */; };
 		62A697B2288B373A00809164 /* PostData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62A697B0288B373A00809164 /* PostData.xcdatamodeld */; };
@@ -123,6 +124,7 @@
 		627DC95027BEE9BC00A290F1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		628394522873518600D95064 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		629DEE03284CD5A200553813 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		62A35B1328D1E8DC005B5DD2 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		62A4151B28077C5000BFD930 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		62A561D22891448D008C81B8 /* PostTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCellModel.swift; sourceTree = "<group>"; };
 		62A697B1288B373A00809164 /* PostData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PostData.xcdatamodel; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 				62F18E3A285DEA5B00FA9685 /* NetworkService.swift */,
 				623B404328636291005AFAF2 /* JSON.swift */,
 				627CDFD6281AA83600F9274F /* Factory.swift */,
+				62A35B1328D1E8DC005B5DD2 /* LocalAuthorizationService.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				626C48C128B415F200D5FBD2 /* MapViewController.swift in Sources */,
 				62F18E3B285DEA5B00FA9685 /* NetworkService.swift in Sources */,
 				62A697B2288B373A00809164 /* PostData.xcdatamodeld in Sources */,
+				62A35B1428D1E8DC005B5DD2 /* LocalAuthorizationService.swift in Sources */,
 				626C48BF28B4159200D5FBD2 /* MapCoordinator.swift in Sources */,
 				62FC4E3F27D5E8EE00414B82 /* Support.swift in Sources */,
 				62FC4E3D27D552DE00414B82 /* LogInViewController.swift in Sources */,
@@ -969,6 +973,7 @@
 				DEVELOPMENT_TEAM = W5WVZM4M3W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Биометрические данные нужны для удобной авторизации!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location is used";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location is used";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Location is used";
@@ -1002,6 +1007,7 @@
 				DEVELOPMENT_TEAM = W5WVZM4M3W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Биометрические данные нужны для удобной авторизации!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location is used";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location is used";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Location is used";
