@@ -25,8 +25,8 @@ class LocalNotificationService {
         
         //Триггер уведомления на каждый день
         var dateComponents = DateComponents()
-        dateComponents.hour = 19
-        dateComponents.minute = 30
+        dateComponents.hour = 0
+        dateComponents.minute = 27
         dateComponents.second = 0
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
@@ -36,7 +36,7 @@ class LocalNotificationService {
         userNotificationCenter.add(request)
                                            
         //Запрос на показ уведомлений
-        userNotificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        userNotificationCenter.requestAuthorization(options: [.provisional, .sound, .badge]) { granted, error in
             if granted {
                 print("Уведомления включены")
             } else {
