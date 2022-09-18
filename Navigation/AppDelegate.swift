@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        //Уведомления локальные
+        let userNotification = LocalNotificationService()        
+        
         //Фабрика
         let myInspector = Factory.shared.myFactory()
         //FirebaseApp.configure()
@@ -49,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //manager.fetchData()
         //manager.myView()
+        userNotification.registeForLatestUpdatesIfPossible()
+
         return true
         
     }
