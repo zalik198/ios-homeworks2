@@ -25,8 +25,8 @@ class LocalNotificationService {
         
         //Триггер уведомления на каждый день
         var dateComponents = DateComponents()
-        dateComponents.hour = 0
-        dateComponents.minute = 27
+        dateComponents.hour = 19
+        dateComponents.minute = 30
         dateComponents.second = 0
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
