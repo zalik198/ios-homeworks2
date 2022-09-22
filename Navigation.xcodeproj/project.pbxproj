@@ -48,6 +48,7 @@
 		62A697B2288B373A00809164 /* PostData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62A697B0288B373A00809164 /* PostData.xcdatamodeld */; };
 		62A697B4288EF15200809164 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A697B3288EF15200809164 /* FavoriteTableViewCell.swift */; };
 		62A697B6288EF39900809164 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A697B5288EF39900809164 /* CoreDataManager.swift */; };
+		62B5169528D7B63F00E61192 /* LocalNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B5169428D7B63F00E61192 /* LocalNotificationsService.swift */; };
 		62C85D03280AE95F0067D034 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 62C85D02280AE95F0067D034 /* iOSIntPackage */; };
 		62F18E3B285DEA5B00FA9685 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F18E3A285DEA5B00FA9685 /* NetworkService.swift */; };
 		62F2214127B4811D00544807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F2214027B4811D00544807 /* AppDelegate.swift */; };
@@ -130,6 +131,7 @@
 		62A697B1288B373A00809164 /* PostData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PostData.xcdatamodel; sourceTree = "<group>"; };
 		62A697B3288EF15200809164 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		62A697B5288EF39900809164 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		62B5169428D7B63F00E61192 /* LocalNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsService.swift; sourceTree = "<group>"; };
 		62F18E3A285DEA5B00FA9685 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		62F2213D27B4811D00544807 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F2214027B4811D00544807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 				623B404328636291005AFAF2 /* JSON.swift */,
 				627CDFD6281AA83600F9274F /* Factory.swift */,
 				62A35B1328D1E8DC005B5DD2 /* LocalAuthorizationService.swift */,
+				62B5169428D7B63F00E61192 /* LocalNotificationsService.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62B5169528D7B63F00E61192 /* LocalNotificationsService.swift in Sources */,
 				627CE00228482AD100F9274F /* MyPostViewModel.swift in Sources */,
 				627CDFF62848169F00F9274F /* FeedViewModel.swift in Sources */,
 				627CDFD7281AA83600F9274F /* Factory.swift in Sources */,
